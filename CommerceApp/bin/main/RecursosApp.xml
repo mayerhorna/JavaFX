@@ -74,7 +74,11 @@ Inclusión del saltos de línea en los textos
       
       <frmMDIPrincipal>
 
+<<<<<<< HEAD
         <Text>Legalización de libros</Text>
+=======
+        <Text>CommerceApp version 1.0.0</Text>
+>>>>>>> 39a78d3fd9e27e605460dc02fef58fcced8b31cb
         
         <TextControles>
           <NuevoToolStrip>Nuevo</NuevoToolStrip>
@@ -90,6 +94,7 @@ Inclusión del saltos de línea en los textos
 
         <MenuPrincipal>
           <FormularioMenu>
+<<<<<<< HEAD
             <Text>Formulario</Text>
             <SubItemNuevo>Nuevo</SubItemNuevo>
             <SubItemAbrir>Abrir</SubItemAbrir>
@@ -109,6 +114,18 @@ Inclusión del saltos de línea en los textos
             <ToolBarToolStripMenuItem>Barra de herramientas</ToolBarToolStripMenuItem>
             <StatusBarToolStripMenuItem>Barra de estado</StatusBarToolStripMenuItem>
           </VerMenu>
+=======
+            <Text>Maestros</Text>
+            <SubItemUsuarios>Usuarios</SubItemUsuarios>
+            <SubItemProductos>Productos</SubItemProductos>
+            <SubItemClientes>Clientes</SubItemClientes>
+          </FormularioMenu>
+
+          <TransaccionesMenu>
+            <Text>Transacciones</Text>
+            <PedidosToolStripMenuItem>Pedidos de venta prueba</PedidosToolStripMenuItem>
+          </TransaccionesMenu>
+>>>>>>> 39a78d3fd9e27e605460dc02fef58fcced8b31cb
 
           <EdicionMenu>
             <Text>Edición</Text>
@@ -130,6 +147,14 @@ Inclusión del saltos de línea en los textos
             <AyudaToolStripMenuItem>Ayuda</AyudaToolStripMenuItem>
             <AcercaDeToolStripMenuItem>Acerca de</AcercaDeToolStripMenuItem>
           </AyudaMenu>
+<<<<<<< HEAD
+=======
+
+          <SalirMenu>
+            <Text>Salir</Text>
+            <SalirToolStripMenuItem>Salir</SalirToolStripMenuItem>
+          </SalirMenu>
+>>>>>>> 39a78d3fd9e27e605460dc02fef58fcced8b31cb
         
         </MenuPrincipal>
            

@@ -74,7 +74,7 @@ Inclusión del saltos de línea en los textos
       
       <frmMDIPrincipal>
 
-        <Text>Legalización de libros</Text>
+        <Text>CommerceApp version 1.0.0</Text>
         
         <TextControles>
           <NuevoToolStrip>Nuevo</NuevoToolStrip>
@@ -90,25 +90,16 @@ Inclusión del saltos de línea en los textos
 
         <MenuPrincipal>
           <FormularioMenu>
-            <Text>Formulario</Text>
-            <SubItemNuevo>Nuevo</SubItemNuevo>
-            <SubItemAbrir>Abrir</SubItemAbrir>
-            <SubItemCerrar>Cerrar</SubItemCerrar>
-            <SubItemGuardar>Guardar</SubItemGuardar>
-            <SubItemImprimir>Generar instancia</SubItemImprimir>
-            <SubItemComprobarReglas>Comprobar reglas</SubItemComprobarReglas>
-            <SubItemSalir>Salir</SubItemSalir>
-            <SubItemImportar>Importar</SubItemImportar>
-            <SubItemGenerarZip>Generar ZIP</SubItemGenerarZip>
-            <SubItemEnviar>Generar ZIP y enviar</SubItemEnviar>
-            <SubItemRecepcion>Recepción</SubItemRecepcion>
+            <Text>Maestros</Text>
+            <SubItemUsuarios>Usuarios</SubItemUsuarios>
+            <SubItemProductos>Productos</SubItemProductos>
+            <SubItemClientes>Clientes</SubItemClientes>
           </FormularioMenu>
 
-          <VerMenu>
-            <Text>Ver</Text>
-            <ToolBarToolStripMenuItem>Barra de herramientas</ToolBarToolStripMenuItem>
-            <StatusBarToolStripMenuItem>Barra de estado</StatusBarToolStripMenuItem>
-          </VerMenu>
+          <TransaccionesMenu>
+            <Text>Transacciones</Text>
+            <PedidosToolStripMenuItem>Pedidos de venta prueba</PedidosToolStripMenuItem>
+          </TransaccionesMenu>
 
           <EdicionMenu>
             <Text>Edición</Text>
@@ -130,6 +121,11 @@ Inclusión del saltos de línea en los textos
             <AyudaToolStripMenuItem>Ayuda</AyudaToolStripMenuItem>
             <AcercaDeToolStripMenuItem>Acerca de</AcercaDeToolStripMenuItem>
           </AyudaMenu>
+
+          <SalirMenu>
+            <Text>Salir</Text>
+            <SalirToolStripMenuItem>Salir</SalirToolStripMenuItem>
+          </SalirMenu>
         
         </MenuPrincipal>
            

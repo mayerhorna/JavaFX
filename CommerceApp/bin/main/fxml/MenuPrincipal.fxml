@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<<<<<<< HEAD
 <?import javafx.scene.control.Button?>
+=======
+>>>>>>> 39a78d3fd9e27e605460dc02fef58fcced8b31cb
 <?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ProgressBar?>
+<<<<<<< HEAD
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.ToolBar?>
@@ -15,6 +19,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+=======
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+>>>>>>> 39a78d3fd9e27e605460dc02fef58fcced8b31cb
 
 <AnchorPane fx:id="frmMDIPrincipal" onKeyPressed="#keyPressed" prefHeight="1200.0" prefWidth="1920.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.commerceapp.controller.MenuPrincipalController">
    <children>
@@ -27,7 +37,11 @@
                     <menus>
                       <Menu fx:id="FormularioMenu" mnemonicParsing="false" text="Form">
                         <items>
+<<<<<<< HEAD
                           <MenuItem fx:id="SubItemNuevo" mnemonicParsing="false" onAction="#nuevaLegalizacion" text="Nue">
+=======
+                          <MenuItem fx:id="SubItemUsuarios" mnemonicParsing="false" text="Nue">
+>>>>>>> 39a78d3fd9e27e605460dc02fef58fcced8b31cb
                                  <graphic>
                                     <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true">
                                        <image>
@@ -36,7 +50,11 @@
                                     </ImageView>
                                  </graphic>
                               </MenuItem>
+<<<<<<< HEAD
                               <MenuItem fx:id="SubItemAbrir" mnemonicParsing="false" onAction="#abrirLegalizacion" text="Ab">
+=======
+                              <MenuItem fx:id="SubItemProductos" mnemonicParsing="false" text="Ab">
+>>>>>>> 39a78d3fd9e27e605460dc02fef58fcced8b31cb
                                  <graphic>
                                     <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true">
                                        <image>
@@ -44,7 +62,11 @@
                                        </image>
                                     </ImageView>
                                  </graphic></MenuItem>
+<<<<<<< HEAD
                               <MenuItem fx:id="SubItemImportar" mnemonicParsing="false" onAction="#importarLegalizacion" text="Imp">
+=======
+                              <MenuItem fx:id="SubItemClientes" mnemonicParsing="false" text="Imp">
+>>>>>>> 39a78d3fd9e27e605460dc02fef58fcced8b31cb
                                  <graphic>
                                     <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true">
                                        <image>
@@ -52,6 +74,7 @@
                                        </image>
                                     </ImageView>
                                  </graphic></MenuItem>
+<<<<<<< HEAD
                               <SeparatorMenuItem mnemonicParsing="false" />
                               <MenuItem fx:id="SubItemCerrar" disable="true" mnemonicParsing="false" onAction="#cerrar" text="Cerrar">
                                  <graphic>
@@ -124,16 +147,34 @@
                             <MenuItem fx:id="EncriptarOtrosFicherosToolStripMenuItem" mnemonicParsing="false" onAction="#encriptacionFichero" text="Encri fic" />
                           </items>
                         </Menu>
+=======
+                        </items>
+                      </Menu>
+                      <Menu fx:id="TransaccionesMenu" mnemonicParsing="false" text="Ve">
+                           <items>
+                              <CheckMenuItem fx:id="PedidosToolStripMenuItem" mnemonicParsing="false" selected="true" text="Barr herr" />
+                           </items>
+                      </Menu>
+>>>>>>> 39a78d3fd9e27e605460dc02fef58fcced8b31cb
                         <Menu fx:id="AyudaMenu" mnemonicParsing="false" text="Ayu">
                           <items>
                             <MenuItem fx:id="AyudaToolStripMenuItem" mnemonicParsing="false" onAction="#Ayuda" text="Ayuda          Ctrl+F1" />
                               <MenuItem fx:id="AcercaDeToolStripMenuItem" mnemonicParsing="false" onAction="#AcercaDe" text="Acerca de" />
                           </items>
                         </Menu>
+<<<<<<< HEAD
+=======
+                        <Menu fx:id="SalirMenu" mnemonicParsing="false" text="Salir">
+                          <items>
+                            <MenuItem fx:id="SalirToolStripMenuItem" mnemonicParsing="false" onAction="#salir" text="Salir" />
+                          </items>
+                        </Menu>
+>>>>>>> 39a78d3fd9e27e605460dc02fef58fcced8b31cb
                     </menus>
                   </MenuBar>
                </children>
             </AnchorPane>
+<<<<<<< HEAD
             <AnchorPane fx:id="AnchorPane2" prefHeight="8.0" prefWidth="1467.0" VBox.vgrow="NEVER">
                <children>
                   <ToolBar fx:id="ToolBarMenu" layoutX="12.0" prefWidth="1908.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -288,6 +329,9 @@
                   </ToolBar>
                </children>
             </AnchorPane>
+=======
+            <AnchorPane fx:id="AnchorPane2" prefHeight="8.0" prefWidth="1467.0" VBox.vgrow="NEVER" />
+>>>>>>> 39a78d3fd9e27e605460dc02fef58fcced8b31cb
             <AnchorPane fx:id="AnchorPane3" prefWidth="1920.0" VBox.vgrow="ALWAYS" />
             <AnchorPane fx:id="Anchorpane4" prefHeight="24.0" prefWidth="1920.0" style="-fx-background-color: WHITE;" VBox.vgrow="NEVER">
                <children>

@@ -33,8 +33,7 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
 
 	private static final Logger logger = Logger.getLogger(StageInitializer.class.getName());
 
-	private final CustomResourceLoader customResourceLoader;
-
+	private CustomResourceLoader customResourceLoader;
 	private ApplicationContext applicationContext;
 
 	public Stage stage;
@@ -42,10 +41,27 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
 	@Value("classpath:/fxml/MenuPrincipal.fxml")
 	private Resource menuPrincipal;
 
+
 	public StageInitializer(ApplicationContext applicationContext) {
 		this.applicationContext = applicationContext;
 		this.customResourceLoader = new CustomResourceLoader();
 
+	}
+
+	private boolean getFormLogin() throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/fxml/LoginCommerce.fxml"));
+		
+		Image icon = customResourceLoader.loadImage("LogoECommerce.png");
+		Parent rootLogin = loader.load();
+		Stage stageLogin = new Stage();
+		
+		Scene sceneLogin = new Scene(rootLogin);
+		stageLogin.setTitle("Login");
+		stageLogin.getIcons().add(icon);
+		stageLogin.setScene(sceneLogin);
+		stageLogin.showAndWait();
+		return true;
 	}
 
 	public void onApplicationEvent(StageReadyEvent event) {
@@ -64,50 +80,7 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
 			Parent root = fxmlLoader.load();
 			MenuPrincipalController menuPrincipalController = fxmlLoader.getController();
 			menuPrincipalController.setStagePrincipal(stage);
-			/*
-			 * Parent root =
-			 * SpringFXMLLoader.create().applicationContext(applicationContext)
-			 * .location(getClass().getResource("/fxml/MenuPrincipal.fxml")).charset(Charset
-			 * .forName("UTF-8")) .load();
-			 */
-
-			// Añade la hoja de estilos (css)
-			// Scene scene = customResourceLoader.load(root, "/estilos/ToolBar.css");
 			Scene scene = new Scene(root);
-
-			scene.widthProperty().addListener((observable, oldValue, newValue) -> {
-				double width = newValue.doubleValue();
-				String cssFile = "";
-				logger.info("ancho: " + width);
-				if (width > 1680) {
-					cssFile = "/estilos/Grande.css";
-					// imageView.setFitWidth(300); // Nuevo ancho
-					// imageView.setFitHeight(200); // Nuevo alto
-				}
-
-				if (width > 1280 && width <= 1680) {
-					cssFile = "/estilos/Mediano3.css";
-
-				}
-				if (width > 1152 && width <= 1280) {
-					cssFile = "/estilos/Mediano2.css";
-
-				}
-				if (width > 1024 && width <= 1152) {
-					cssFile = "/estilos/Mediano1.css";
-
-				}
-				if (width > 800 && width <= 1024) {
-					cssFile = "/estilos/Pequeño2.css";
-				}
-				if (width < 800) {
-					cssFile = "/estilos/Pequeño1.css";
-				}
-			
-				scene.getStylesheets().clear();
-				scene.getStylesheets().add(getClass().getResource(cssFile).toExternalForm());
-				scene.getStylesheets().add(getClass().getResource("/estilos/ToolBar.css").toExternalForm());
-			});
 
 			// obtiene el icono
 			Image icon = customResourceLoader.loadImage("LogoECommerce.png");
@@ -117,8 +90,6 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
 			stage.setResizable(true);
 			stage.setMaximized(true);
 
-			// String classpath = System.getProperty("java.class.path");
-			// System.out.println("Classpath: " + classpath);
 			stage.getIcons().add(icon);
 
 			String os = System.getProperty("os.name").toLowerCase();
@@ -131,9 +102,13 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
 				MGeneral.Idioma.cargarIdiomaControles(stage, null);
 			}
 
-			stage.toFront();
-			stage.show();
-			// logger.info(stage.toString());
+			if (getFormLogin()) {
+				stage.toFront();
+				stage.show();
+			} else {
+				System.exit(0);
+			}
+
 		} catch (IOException e) {
 
 			e.printStackTrace();

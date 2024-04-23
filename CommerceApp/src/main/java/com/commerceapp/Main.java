@@ -16,6 +16,9 @@ import com.commerceapp.service.StageReadyEvent;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 //chartApplication
@@ -25,8 +28,6 @@ public class Main extends Application {
 	private static final Logger logger = Logger.getLogger(Main.class.getName());
 
 	private ConfigurableApplicationContext applicationContext;
-
-	
 
 	@Override
 	public void init() {
@@ -47,11 +48,14 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage stage) throws IOException {
+
 		logger.info("start");
-		//logger.info(stage.toString());
+		
+		
+
 		applicationContext.publishEvent(new StageReadyEvent(stage));
 		applicationContext.getAutowireCapableBeanFactory().autowireBean(this);
-		
+
 	}
 
 	public static HostServices getHostService() {

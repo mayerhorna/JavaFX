@@ -1,0 +1,130 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.1'
+	id 'io.spring.dependency-management' version '1.1.4'
+	//se añade el plugin de javaFX
+	id 'application'
+  	id 'org.openjfx.javafxplugin' version '0.1.0'
+  	//plugin para el jpackage (puede ser la 1.12.5)
+  	id 'org.beryx.runtime' version '1.13.0'
+  	//plugin para componentes customizados
+  	id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+group = 'org.registradores'
+//al momento de empaquetar quitar esto que da error
+//version = '1.0.0-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17.0.9'
+	targetCompatibility = '17.0.9'
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+
+repositories {
+	mavenCentral()
+}
+
+//indicar la version de javafx y los modulos a usar
+javafx {
+    version = "17.0.9"
+    modules = [ 'javafx.graphics','javafx.base','javafx.controls', 'javafx.fxml' ]
+}
+
+application {
+    mainClassName ='org.registradores.CommerceApp'
+    applicationName = 'CommerceApp'    
+    //mainModule.set("com.commerceapp")
+}
+shadowJar {
+    manifest {
+        attributes 'Main-Class': "org.registradores.CommerceApp"     // main class of your app
+    }
+    //destinationDir.set('C://Users//Sergi//AppData//Roaming//Scene Builder//Library')
+   // destinationDirectory.set(file(""))
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'com.lowagie:itext:2.1.7'
+	implementation group: 'net.sf.jasperreports', name: 'jasperreports', version: '6.11.0'
+    implementation 'net.sourceforge.barbecue:barbecue:1.5-beta1'
+	/*implementation 'org.openjfx:javafx-controls:17.0.9'
+	implementation 'org.openjfx:javafx-graphics:17.0.9'
+	implementation 'org.openjfx:javafx-base:17.0.9'
+	implementation 'org.openjfx:javafx-fxml:17.0.9'*/
+}
+//--module-path C:\JavaFX\lib --add-modules=javafx.graphics,javafx.base,javafx.controls, javafx.fxml
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+
+runtime {
+    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+    modules = ["javafx.graphics","javafx.base", "javafx.controls", "javafx.fxml"]
+    
+    //local
+	targetPlatform("windows",'C:/Program Files/Java/jdk-17.0.5') //cambiar segun donde se encuentre alojado su proyecto
+    
+    //online
+    /*targetPlatform("win") {
+    //Direccion de la jdk que se usara, debe tener los jmod de java fx
+    //caso contrario añadirlos manualmente en el directorio build\jdks\win\jdk\jmods
+        jdkHome = jdkDownload("https://github.com/AdoptOpenJDK/openjdk17-binaries/releases/download/jdk-2021-05-07-13-31/OpenJDK-jdk_x64_windows_hotspot_2021-05-06-23-30.zip")
+        
+    }*/
+    
+    launcher {
+        jvmArgs = ["--add-modules=javafx.base,javafx.controls,javafx.fxml"]
+    }
+    jpackage {
+        // Uncomment and adjust the following line if your runtime task is configured to generate images for multiple platforms
+        
+         installerName = 'CommerceApp'
+        installerType = 'exe'
+         targetPlatformName = "windows"
+
+        def currentOs = org.gradle.internal.os.OperatingSystem.current()
+        def imgType = currentOs.windows ? 'ico' : currentOs.macOsX ? 'icns' : 'png'
+        installerOptions += '--verbose'
+        imageOptions += ['--icon', "src/main/resources/imagenes/icono.$imgType"]
+        installerOptions += ['--resource-dir', "src/main/resources"]
+        installerOptions += ['--vendor', 'LIMATI']
+        
+
+        if(currentOs.windows) {
+            installerOptions += ['--win-per-user-install', '--win-dir-chooser', '--win-menu', '--win-shortcut']
+        }
+        else if (currentOs.linux) {
+            installerOptions += ['--linux-package-name', 'hellofx','--linux-shortcut']
+        }
+        else if (currentOs.macOsX) {
+            installerOptions += ['--mac-package-name', 'hellofx']
+        }
+    }
+    
+}
+
+/*sourceSets {
+    main {     
+        resources {
+            srcDirs += ['src/main/resources']
+        }
+    }
+}*/
+

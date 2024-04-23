@@ -1,0 +1,13 @@
+Apellido1: 
+Apellido2: 
+CIF/NIF: 
+Código Postal: 
+Directorio Legislación: 
+Domicilio: 
+Email: 
+Encriptar Ficheros: true
+Factor Ajuste H: 
+Factor Ajuste V: 
+Fax: 
+Nombre: 
+Teléfono: 

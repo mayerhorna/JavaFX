@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Configuracion version="1.5.6">
+    <Legalia2>
+        <Legalia2>Juan</Legalia2>
+        <Apellido>Pérez</Apellido>
+        <ValoresDefectoPresentante>
+            <test>test</test>
+        </ValoresDefectoPresentante>
+    </Legalia2>
+</Configuracion>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="frmImportarLegalizacion" prefHeight="485.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.commerceapp.controller.ImportarLegalizacionController">
+   <children>
+      <AnchorPane fx:id="pnlContenedor" layoutX="27.0" layoutY="39.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+         <children>
+            <AnchorPane fx:id="pnlContenedor" layoutX="6.0" layoutY="366.0" prefHeight="55.0" prefWidth="804.0" style="-fx-border-color: gray;">
+               <children>
+                  <Button fx:id="btnImportar" layoutX="32.0" layoutY="18.0" mnemonicParsing="false" onAction="#importarLegalizacion" prefHeight="40.0" prefWidth="100.0" text="Importar" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0" />
+                  <Button fx:id="btnCancelar" layoutX="677.0" layoutY="10.0" mnemonicParsing="false" onAction="#salir" prefHeight="40.0" prefWidth="100.0" text="Cancelar" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0" />
+               </children>
+            </AnchorPane>
+            <Button fx:id="btnSelecRuta" layoutX="759.0" layoutY="51.0" mnemonicParsing="false" onAction="#seleccionarRuta" text="Buscar" />
+            <Button fx:id="btnSelecRutaZip" layoutX="759.0" layoutY="100.0" mnemonicParsing="false" onAction="#btnSelecRutaZip_Click" text="Buscar" />
+            <Label fx:id="lblIncluirLibros" layoutX="6.0" layoutY="258.0" text="Incluir los libros" />
+            <Label fx:id="lblPresentantePorDefecto" layoutX="6.0" layoutY="305.0" text="Nueva legalización con los datos del presentante por defecto" />
+            <Label fx:id="lblSelecRuta" layoutY="51.0" text="Directorio de la legalización origen:" />
+            <Label fx:id="lblSelecRutaZip" layoutX="3.0" layoutY="102.0" text="Zip de la legalización origen" />
+            <Label fx:id="lblNombreLega" layoutX="2.0" layoutY="149.0" text="Nombre de la legalización destino:" />
+            <Label fx:id="lblDescripcionLega" layoutX="3.0" layoutY="202.0" text="Descripción de la legalización destino:" />
+            <Label fx:id="lblSeleccion" layoutX="3.0" prefHeight="20.0" prefWidth="796.0" text="a" />
+            <TextField fx:id="txtRuta" disable="true" layoutX="251.0" layoutY="51.0" prefHeight="30.0" prefWidth="500.0" />
+            <TextField fx:id="txtRutaZip" disable="true" layoutX="251.0" layoutY="98.0" prefHeight="30.0" prefWidth="500.0" />
+            <TextField fx:id="txtNombreLega" layoutX="252.0" layoutY="144.0" prefHeight="30.0" prefWidth="488.0" />
+            <TextField fx:id="txtDescripcionLega" layoutX="253.0" layoutY="197.0" prefHeight="30.0" prefWidth="488.0" />
+            <CheckBox fx:id="chkIncluirLibros" layoutX="253.0" layoutY="258.0" mnemonicParsing="false" selected="true" />
+            <CheckBox fx:id="chkPresentantePorDefecto" layoutX="412.0" layoutY="305.0" mnemonicParsing="false" selected="true" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="frmZipGenerado" prefHeight="369.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.commerceapp.controller.ZipGeneradoController">
+   <children>
+      <Button layoutX="59.0" layoutY="291.0" mnemonicParsing="false" onAction="#btnCopiarPortapaleles_Click" prefHeight="40.0" text="Copiar camino en el portapapeles y cerrar" />
+      <Button layoutX="479.0" layoutY="291.0" mnemonicParsing="false" onAction="#btnCerrar_Click" prefHeight="40.0" text="Cerrar" />
+      <ImageView fitHeight="37.0" fitWidth="39.0" layoutX="59.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../imagenes/Toolbar-IconoOk.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="txtPathZip" layoutX="148.0" layoutY="104.0" prefHeight="30.0" prefWidth="408.0" />
+      <Label layoutX="149.0" layoutY="50.0" text="El ZIP se ha generado correctamente en la siguiente localización" />
+      <Label layoutX="41.0" layoutY="109.0" text="Camino ZIP" />
+      <Label layoutX="22.0" layoutY="159.0" prefHeight="56.0" prefWidth="616.0" text="Recuerde que para su presentación Telemática en el Registro Mercantil debe remitir la Legalización mediante el portal www.registradores.org" wrapText="true" />
+      <Label layoutX="22.0" layoutY="221.0" prefHeight="40.0" prefWidth="599.0" text="En el portal web de Presentación telemática se podrán añadir los ficheros complementarios a la legalización en caso de ser necesario" wrapText="true" />
+   </children>
+</AnchorPane>

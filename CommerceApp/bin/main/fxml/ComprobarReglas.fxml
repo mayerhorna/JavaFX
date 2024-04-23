@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="frmComprobarReglas" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.commerceapp.controller.ComprobarReglasController">
+   <children>
+      <VBox layoutX="63.0" layoutY="27.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <Label fx:id="lblTitulo1" prefHeight="20.0" prefWidth="641.0" text="Lista de errores primarios (obligatorios para la generación de la huella digital)" VBox.vgrow="ALWAYS" />
+            <ListView fx:id="lstErrores" onMouseClicked="#lstErrores_MouseDoubleClick" prefHeight="109.0" prefWidth="641.0" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </ListView>
+            <Label fx:id="lblTitulo2" prefHeight="20.0" prefWidth="641.0" text="Lista de errores implícitos (no obligatorios)" VBox.vgrow="ALWAYS" />
+            <ListView fx:id="lstAvisos" onMouseClicked="#lstAvisos_MouseDoubleClick" prefHeight="122.0" prefWidth="641.0" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </ListView>
+            <AnchorPane VBox.vgrow="ALWAYS">
+               <children>
+                  <Button fx:id="btnCorregirError" mnemonicParsing="false" onAction="#btnCorregirError_Click" prefHeight="40.0" prefWidth="100.0" text="Corregir" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0" />
+                  <Button fx:id="btnSalir" layoutX="534.0" mnemonicParsing="false" onAction="#salir" prefHeight="40.0" prefWidth="100.0" text="Salir" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" />
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

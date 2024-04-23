@@ -43,7 +43,7 @@ javafx {
 }
 
 application {
-    mainClassName ='org.registradores.CommerceApp'
+    mainClassName ='com.commerceapp.CommerceApp'
     applicationName = 'CommerceApp'    
     //mainModule.set("com.commerceapp")
 }

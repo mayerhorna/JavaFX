@@ -247,47 +247,6 @@ public class MenuPrincipalController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		logger.info("Iniciando menu");
 
-		try {
-
-			Platform.runLater(new Runnable() {
-
-				@Override
-				public void run() {
-					MGeneral.Idioma.cargarIdiomaControles(stage, frmMDIPrincipal);
-
-					if (esPrimeraCargaMDI) {
-
-						esPrimeraCargaMDI = false;
-				
-						// Utilidades.cursorEsperaJavaFX(stagePrincipal,true);
-						MGeneral.Configuracion.actualizarVersion();
-						// Utilidades.cursorEsperaJavaFX(stagePrincipal, false);
-
-						if (!MGeneral.Configuracion.aceptarPoliticaPrivacidad()) {
-							return;
-						}
-
-						MGeneral.Configuracion.mostrarMensajeSiEsPrimeraEjecucionDeLaVersion();
-
-					}
-
-				}
-			});
-
-			Platform.runLater(new Runnable() {
-
-				@Override
-				public void run() {
-					if (!MGeneral.batchAbrirDir.trim().equals("")) {
-						EntradaDatos(MGeneral.batchAbrirDir);
-						MGeneral.batchAbrirDir = "";
-					}
-				}
-			});
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-
 	}
 
 	@FXML
@@ -512,7 +471,6 @@ public class MenuPrincipalController implements Initializable {
 		if (form != null) {
 			form.eliminarListener();
 		}
-		
 
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Encriptacion.fxml"));
 		Parent abrirEncriptacion = loader.load();
@@ -522,7 +480,6 @@ public class MenuPrincipalController implements Initializable {
 		encriptacionController.setParentController(this);
 
 		encriptacionController.initialize(null, null);
-		
 
 		stage = new Stage();
 		scene = new Scene(abrirEncriptacion);

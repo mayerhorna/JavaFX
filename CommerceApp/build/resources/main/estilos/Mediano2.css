@@ -1,0 +1,32 @@
+.label {
+	-fx-font-size: 14px /* Tamaño predeterminado */	
+}
+.text-field {   
+     -fx-font-size: 12px
+}
+.combo {
+	 -fx-font-size: 12px
+}
+.button{
+	 -fx-font-size: 12px
+}
+#titulo,#regMercantil{
+	-fx-font-size: 18px;
+	-fx-font-weight: bold
+}
+/* Media query para pantallas más pequeñas */
+
+#entidadEmpresario,#presentante,#datosRegistrales{
+	-fx-font-weight: bold
+}
+.table-view .column-header-background .label{
+    /* -fx-background-color: white;*/
+    -fx-font-weight:bold;
+    -fx-text-fill: black;
+    -fx-font-size:10px     
+}
+
+.table-view .table-cell{    
+    -fx-font-size:10px         
+    /* -fx-text-fill:orange; */
+}

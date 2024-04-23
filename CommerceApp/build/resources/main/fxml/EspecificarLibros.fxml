@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import com.commerceapp.gui.custom.combobox.CustomCombobox?>
+<?import com.commerceapp.gui.custom.datePicker.CustomDatePicker?>
+
+<AnchorPane fx:id="frmEspecificarLibros" maxWidth="8000.0" prefWidth="1001.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.commerceapp.controller.EspecificarLibrosController">
+  
+   <children>
+      <VBox maxWidth="8000.0" prefWidth="1000.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <GridPane hgap="10.0" maxWidth="2000.0" style="-fx-border-color: gray;" vgap="10.0" VBox.vgrow="ALWAYS">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0" />
+                  <ColumnConstraints minWidth="10.0" percentWidth="15.0" />
+                  <ColumnConstraints minWidth="10.0" percentWidth="15.0" />
+                  <ColumnConstraints minWidth="10.0" percentWidth="5.0" />
+                  <ColumnConstraints minWidth="10.0" percentWidth="15.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" percentHeight="20.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" percentHeight="20.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" percentHeight="20.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="20.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="20.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label fx:id="lblTipo" text="Tipo:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin></Label>
+                  <CustomCombobox fx:id="cboTipo" editable="true" maxWidth="1.7976931348623157E308"  styleClass="combo" GridPane.columnIndex="1" />
+                  <Label fx:id="lblTipoShort" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: gray;" text="Label" GridPane.columnIndex="5" GridPane.halignment="CENTER">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <Label fx:id="lblFichero" text="fichero" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin></Label>
+                  <TextField fx:id="txtFichero" disable="true" styleClass=".text-field" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font></TextField>
+                  <Button fx:id="btnBuscar" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cargarFolderDialog" styleClass=".button" text="Button" GridPane.columnIndex="5" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Label fx:id="lblFormato" text="formato" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin></Label>
+                  <CustomCombobox fx:id="cboFormato" disable="true" onAction="#cboFormatoSelected" styleClass="combo" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="lblFormatoShort" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: gray;" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <Label fx:id="lblEncriptado" disable="true" text="Encrip" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin></Label>
+                  <CheckBox fx:id="chkEncriptado" disable="true" mnemonicParsing="false" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                  <Label fx:id="lblNombre" text="nombre" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin></Label>
+                  <TextField fx:id="txtNombre" styleClass=".text-field" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="18.0" />
+                     </font></TextField>
+                  <Label fx:id="lblNumero" text="numero" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <TextField fx:id="txtNumero" onKeyTyped="#soloNumeros" styleClass=".text-field" GridPane.columnIndex="6" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="18.0" />
+                     </font></TextField>
+                  <Label fx:id="lblFechaApertura" text="f.apertura" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin></Label>
+                  <CustomDatePicker fx:id="txtFechaApertura" styleClass=".text-field" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="18.0" />
+                     </font></CustomDatePicker>
+                  <Label fx:id="lblFechaCierre" text="f.cierre" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <Label fx:id="lblFechaCierreUltimoLegalizado" text="f.cierre max" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <CustomDatePicker fx:id="txtFechaCierre" styleClass=".text-field" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="18.0" />
+                     </font></CustomDatePicker>
+                  <CustomDatePicker fx:id="txtFechaCierreUltimoLegalizado" styleClass=".text-field" GridPane.columnIndex="7" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="18.0" />
+                     </font></CustomDatePicker>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </GridPane>
+            <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-border-color: gray;">
+               <children>
+                  <Button fx:id="btnInsertar" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#insertar" styleClass=".button" text="insertar" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" top="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnModificar" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#modificar" styleClass=".button" text="modificar" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnEliminar" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#eliminarLibro" styleClass=".button" text="eliminar" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnLimpiar" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#limpiar" styleClass=".button" text="limpiar" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnAbrirLibro" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnAbrirLibroClicked" styleClass=".button" text="abrir libro" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <GridPane VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <TableView fx:id="lsvLibros" prefHeight="300.0" styleClass=".table-view" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                    <columns>
+                      <TableColumn fx:id="cTipo" minWidth="50.0" prefWidth="111.0" styleClass="." text="tipo" />
+                      <TableColumn fx:id="cNumero" minWidth="25.0" prefWidth="57.0" text="n°" />
+                        <TableColumn fx:id="cNombre" minWidth="43.0" prefWidth="303.0" text="nombre" />
+                        <TableColumn fx:id="cApertura" minWidth="41.0" prefWidth="95.0" text="f.apertura" />
+                        <TableColumn fx:id="cCierre" minWidth="50.0" prefWidth="119.0" text="f.cierre" />
+                        <TableColumn fx:id="cCierreUltima" minWidth="50.0" prefWidth="170.0" text="f.cierre. ult" />
+                        <TableColumn fx:id="cEncriptado" minWidth="50.0" prefWidth="125.0" text="encriptado" />
+                    </columns>
+                  </TableView>
+               </children>
+            </GridPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

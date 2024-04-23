@@ -1,0 +1,9 @@
+.botonToolBar{
+	-fx-background-color:transparent;
+}
+.botonToolBar:hover{     
+  -fx-background-color:red;
+  -fx-text-fill:black;
+  -fx-font-weight:bold; 
+  -fx-border:blue; 
+}

@@ -103,14 +103,14 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
 				if (width < 800) {
 					cssFile = "/estilos/Pequeño1.css";
 				}
-				logger.info(cssFile);
+			
 				scene.getStylesheets().clear();
 				scene.getStylesheets().add(getClass().getResource(cssFile).toExternalForm());
 				scene.getStylesheets().add(getClass().getResource("/estilos/ToolBar.css").toExternalForm());
 			});
 
 			// obtiene el icono
-			Image icon = customResourceLoader.loadImage("IconoColegio.png");
+			Image icon = customResourceLoader.loadImage("LogoECommerce.png");
 
 			stage.setTitle("Legalización de libros");
 			stage.setScene(scene);

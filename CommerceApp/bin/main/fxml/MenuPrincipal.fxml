@@ -63,22 +63,8 @@
 								</Menu>
 								<Menu fx:id="AyudaMenu" mnemonicParsing="false">
 									<items>
-										<MenuItem fx:id="AyudaToolStripMenuItem" mnemonicParsing="false" onAction="#Ayuda">
-                                 <graphic>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../imagenes/ayuda.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic></MenuItem>
-										<MenuItem fx:id="AcercaDeToolStripMenuItem" mnemonicParsing="false" onAction="#AcercaDe">
-                                 <graphic>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../imagenes/acercade.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic></MenuItem>
+										<MenuItem fx:id="AyudaToolStripMenuItem" mnemonicParsing="false" onAction="#Ayuda" />
+										<MenuItem fx:id="AcercaDeToolStripMenuItem" mnemonicParsing="false" onAction="#AcercaDe" />
 									</items>
 								</Menu>
 

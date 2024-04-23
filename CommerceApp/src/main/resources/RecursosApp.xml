@@ -98,7 +98,7 @@ Inclusión del saltos de línea en los textos
 
           <TransaccionesMenu>
             <Text>Transacciones</Text>
-            <PedidosToolStripMenuItem>Pedidos de venta prueba</PedidosToolStripMenuItem>
+            <PedidosToolStripMenuItem>Pedidos de venta</PedidosToolStripMenuItem>
           </TransaccionesMenu>
 
           <EdicionMenu>

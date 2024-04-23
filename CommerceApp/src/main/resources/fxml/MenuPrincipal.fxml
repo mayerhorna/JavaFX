@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -10,100 +9,100 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="frmMDIPrincipal"
-	onKeyPressed="#keyPressed" prefHeight="1200.0" prefWidth="1920.0"
-	style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/21"
-	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.commerceapp.controller.MenuPrincipalController">
+<AnchorPane fx:id="frmMDIPrincipal" onKeyPressed="#keyPressed" prefHeight="1200.0" prefWidth="1920.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.commerceapp.controller.MenuPrincipalController">
 	<children>
-		<VBox fx:id="Vbox" maxHeight="1200.0" maxWidth="1920.0"
-			AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+		<VBox fx:id="Vbox" maxHeight="1200.0" maxWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<children>
-				<AnchorPane fx:id="AnchorPane1" prefWidth="1467.0"
-					VBox.vgrow="NEVER">
+				<AnchorPane fx:id="AnchorPane1" prefWidth="1467.0" VBox.vgrow="NEVER">
 					<children>
 
-						<MenuBar fx:id="MenuPrincipal" AnchorPane.leftAnchor="0.0"
-							AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+						<MenuBar fx:id="MenuPrincipal" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<menus>
-								<Menu fx:id="FormularioMenu" mnemonicParsing="false"
-									text="Form">
+								<Menu fx:id="FormularioMenu" mnemonicParsing="false">
 									<items>
-										<MenuItem fx:id="SubItemUsuarios"
-											mnemonicParsing="false" text="Nue">
+										<MenuItem fx:id="SubItemUsuarios" mnemonicParsing="false">
 											<graphic>
-												<ImageView fitHeight="15.0" fitWidth="15.0"
-													pickOnBounds="true">
+												<ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true">
 													<image>
-														<Image url="@../imagenes/Toolbar-Nuevo.png" />
+														<Image url="@../imagenes/klipartz.com.png" />
 													</image>
 												</ImageView>
 											</graphic>
 										</MenuItem>
-										<MenuItem fx:id="SubItemProductos"
-											mnemonicParsing="false" text="Ab">
+										<MenuItem fx:id="SubItemProductos" mnemonicParsing="false">
 											<graphic>
-												<ImageView fitHeight="15.0" fitWidth="15.0"
-													pickOnBounds="true">
+												<ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true">
 													<image>
-														<Image url="@../imagenes/Toolbar-abrir.png" />
+														<Image url="@../imagenes/camionproductos.png" />
 													</image>
 												</ImageView>
 											</graphic>
 										</MenuItem>
-										<MenuItem fx:id="SubItemClientes"
-											mnemonicParsing="false" text="Imp">
+										<MenuItem fx:id="SubItemClientes" mnemonicParsing="false">
 											<graphic>
-												<ImageView fitHeight="15.0" fitWidth="15.0"
-													pickOnBounds="true">
+												<ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true">
 													<image>
-														<Image url="@../imagenes/Toolbar-importar.png" />
+														<Image url="@../imagenes/clientes.png" />
 													</image>
 												</ImageView>
 											</graphic>
 										</MenuItem>
 									</items>
 								</Menu>
-								<Menu fx:id="TransaccionesMenu" mnemonicParsing="false"
-									text="Ve">
+								<Menu fx:id="TransaccionesMenu" mnemonicParsing="false">
 									<items>
-										<CheckMenuItem fx:id="PedidosToolStripMenuItem"
-											mnemonicParsing="false" selected="true" text="Barr herr" />
+                              <MenuItem fx:id="PedidosToolStripMenuItem" mnemonicParsing="false">
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true">
+                                       <image>
+                                          <Image url="@../imagenes/productos.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic></MenuItem>
 									</items>
 								</Menu>
-								<Menu fx:id="AyudaMenu" mnemonicParsing="false" text="Ayu">
+								<Menu fx:id="AyudaMenu" mnemonicParsing="false">
 									<items>
-										<MenuItem fx:id="AyudaToolStripMenuItem"
-											mnemonicParsing="false" onAction="#Ayuda"
-											text="Ayuda          Ctrl+F1" />
-										<MenuItem fx:id="AcercaDeToolStripMenuItem"
-											mnemonicParsing="false" onAction="#AcercaDe" text="Acerca de" />
+										<MenuItem fx:id="AyudaToolStripMenuItem" mnemonicParsing="false" onAction="#Ayuda">
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../imagenes/ayuda.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic></MenuItem>
+										<MenuItem fx:id="AcercaDeToolStripMenuItem" mnemonicParsing="false" onAction="#AcercaDe">
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../imagenes/acercade.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic></MenuItem>
 									</items>
 								</Menu>
 
-								<Menu fx:id="SalirMenu" mnemonicParsing="false"
-									text="Salir">
+								<Menu fx:id="SalirMenu" mnemonicParsing="false">
 									<items>
-										<MenuItem fx:id="SalirToolStripMenuItem"
-											mnemonicParsing="false" onAction="#salir" text="Salir" />
+										<MenuItem fx:id="SalirToolStripMenuItem" mnemonicParsing="false" onAction="#salir">
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../imagenes/salir.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic></MenuItem>
 									</items>
 								</Menu>
 							</menus>
 						</MenuBar>
 					</children>
 				</AnchorPane>
-				<AnchorPane fx:id="AnchorPane2" prefHeight="8.0"
-					prefWidth="1467.0" VBox.vgrow="NEVER" />
-				<AnchorPane fx:id="AnchorPane3" prefWidth="1920.0"
-					VBox.vgrow="ALWAYS" />
-				<AnchorPane fx:id="Anchorpane4" prefHeight="24.0"
-					prefWidth="1920.0" style="-fx-background-color: WHITE;"
-					VBox.vgrow="NEVER">
+				<AnchorPane fx:id="AnchorPane2" prefHeight="8.0" prefWidth="1467.0" VBox.vgrow="NEVER" />
+				<AnchorPane fx:id="AnchorPane3" prefWidth="1920.0" VBox.vgrow="ALWAYS" />
+				<AnchorPane fx:id="Anchorpane4" prefHeight="24.0" prefWidth="1920.0" style="-fx-background-color: WHITE;" VBox.vgrow="NEVER">
 					<children>
-						<ProgressBar fx:id="StatusProgressBar" layoutY="-1.0"
-							prefHeight="26.0" prefWidth="1920.0" progress="0.0"
-							style="-fx-background-color: GREEN;" visible="false" />
+						<ProgressBar fx:id="StatusProgressBar" layoutY="-1.0" prefHeight="26.0" prefWidth="1920.0" progress="0.0" style="-fx-background-color: GREEN;" visible="false" />
 					</children>
 				</AnchorPane>
 			</children>

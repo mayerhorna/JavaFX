@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.commerceapp.LegaliaApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-04-23T16:14:15" hostname="DESKTOP-OLFNEP9" time="2.623">
+  <properties/>
+  <testcase name="contextLoads()" classname="com.commerceapp.LegaliaApplicationTests" time="2.623"/>
+  <system-out><![CDATA[Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+11:14:09.958 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.commerceapp.LegaliaApplicationTests]: LegaliaApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+11:14:10.491 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.commerceapp.CommerceApp for test class com.commerceapp.LegaliaApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.1)
+
+2024-04-23T11:14:12.481-05:00  INFO 13348 --- [    Test worker] c.commerceapp.LegaliaApplicationTests    : Starting LegaliaApplicationTests using Java 17.0.9 with PID 13348 (started by monda in C:\workspace\JavaFX\CommerceApp)
+2024-04-23T11:14:12.485-05:00  INFO 13348 --- [    Test worker] c.commerceapp.LegaliaApplicationTests    : No active profile set, falling back to 1 default profile: "default"
+2024-04-23T11:14:15.959-05:00  INFO 13348 --- [    Test worker] c.commerceapp.LegaliaApplicationTests    : Started LegaliaApplicationTests in 4.686 seconds (process running for 9.39)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

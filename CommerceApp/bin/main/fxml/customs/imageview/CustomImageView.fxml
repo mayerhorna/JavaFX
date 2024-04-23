@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.layout.AnchorPane?>
-
-<fx:root fx:controller="com.commerceapp.gui.custom.imageview.CustomImageView" xmlns:fx="http://javafx.com/fxml/1" type="AnchorPane">
-	<imageview></imageview>
-</fx:root>
-

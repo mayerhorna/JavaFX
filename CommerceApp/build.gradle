@@ -63,10 +63,8 @@ dependencies {
 	implementation 'com.lowagie:itext:2.1.7'
 	implementation group: 'net.sf.jasperreports', name: 'jasperreports', version: '6.11.0'
     implementation 'net.sourceforge.barbecue:barbecue:1.5-beta1'
-	/*implementation 'org.openjfx:javafx-controls:17.0.9'
-	implementation 'org.openjfx:javafx-graphics:17.0.9'
-	implementation 'org.openjfx:javafx-base:17.0.9'
-	implementation 'org.openjfx:javafx-fxml:17.0.9'*/
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.33'
+
 }
 //--module-path C:\JavaFX\lib --add-modules=javafx.graphics,javafx.base,javafx.controls, javafx.fxml
 tasks.named('test') {

@@ -748,5 +748,33 @@ public class MenuPrincipalController implements Initializable {
 	private void salir(ActionEvent e) {
 		System.exit(0);
 	}
+	
+	@FXML
+	public void frmProductos() {
+
+		try {
+		
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Productos.fxml"));
+			Parent abrirfrmProductos = loader.load();
+			
+			stage = new Stage();
+			scene = new Scene(abrirfrmProductos);
+
+			// quitando el maximizar y minimizar
+			stage.initModality(Modality.APPLICATION_MODAL);
+			// bloquea la interacción con otras ventanas de la aplicación
+			stage.initStyle(StageStyle.UTILITY);
+			// quitando iconos
+			stage.getIcons().clear();
+			stage.setScene(scene);
+			
+		
+			stage.showAndWait();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+	}
 
 }

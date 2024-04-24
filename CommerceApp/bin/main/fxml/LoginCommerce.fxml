@@ -44,12 +44,12 @@
                   <Font name="Arial Black" size="12.0" />
                </font>
             </Label>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#btnSalir_Click" text="Acceder" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#btnLogin_Click" text="Acceder" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="120.0" />
                </GridPane.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#btnSalir_Click" text="Cancelar" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <Button mnemonicParsing="false" onAction="#btnCancelar_Click" text="Cancelar" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="95.0" />
                </GridPane.margin>
@@ -73,12 +73,12 @@
                   <Insets left="120.0" />
                </GridPane.margin>
             </ImageView>
-            <TextField GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+            <TextField fx:id="loginCommerce" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin>
             </TextField>
-            <PasswordField GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+            <PasswordField fx:id="passCommerce" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin>

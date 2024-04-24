@@ -2,6 +2,7 @@ package com.commerceapp.service;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.sql.SQLException;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +12,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import com.commerceapp.Main;
+import com.commerceapp.conexion.MySQLConnectionController;
 import com.commerceapp.controller.ConfiguracionController;
 import com.commerceapp.controller.MenuPrincipalController;
 import com.commerceapp.domain.Batch;
@@ -41,27 +43,35 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
 	@Value("classpath:/fxml/MenuPrincipal.fxml")
 	private Resource menuPrincipal;
 
-
 	public StageInitializer(ApplicationContext applicationContext) {
 		this.applicationContext = applicationContext;
 		this.customResourceLoader = new CustomResourceLoader();
 
 	}
 
-	private boolean getFormLogin() throws IOException {
+	private void getFormLogin() throws IOException, SQLException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/fxml/LoginCommerce.fxml"));
-		
+
 		Image icon = customResourceLoader.loadImage("LogoECommerce.png");
 		Parent rootLogin = loader.load();
 		Stage stageLogin = new Stage();
-		
+
 		Scene sceneLogin = new Scene(rootLogin);
 		stageLogin.setTitle("Login");
 		stageLogin.getIcons().add(icon);
 		stageLogin.setScene(sceneLogin);
 		stageLogin.showAndWait();
-		return true;
+
+		if (MGeneral.Configuracion.isInicioSesion()) {
+			stage.toFront();
+			stage.show();
+		} else {
+			System.out.println("Usuario y contra incorrectos");
+			;
+			getFormLogin();
+		}
+
 	}
 
 	public void onApplicationEvent(StageReadyEvent event) {
@@ -102,17 +112,15 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
 				MGeneral.Idioma.cargarIdiomaControles(stage, null);
 			}
 
-			if (getFormLogin()) {
-				stage.toFront();
-				stage.show();
-			} else {
-				System.exit(0);
-			}
+			getFormLogin();
 
 		} catch (IOException e) {
 
 			e.printStackTrace();
 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}

@@ -296,7 +296,17 @@ public class ConfiguracionC {
 
 	private static final String OperatingSystem = "os.name";
 
+	private static boolean InicioSesion = false;
+
 	// Variables
+
+	public static boolean isInicioSesion() {
+		return InicioSesion;
+	}
+
+	public static void setInicioSesion(boolean inicioSesion) {
+		InicioSesion = inicioSesion;
+	}
 
 	public static String getOperatingsystem() {
 

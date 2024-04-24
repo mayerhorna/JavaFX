@@ -27,7 +27,13 @@ public class LoginCommerceController implements Initializable{
 	}
 
 	@FXML
-	public void btnSalir_Click(ActionEvent e) {
+	public void btnCancelar_Click(ActionEvent e) {
+
+		System.exit(0);
+
+	}
+	
+	public void btnLogin_Click(ActionEvent e) {
 
 		close(e);
 

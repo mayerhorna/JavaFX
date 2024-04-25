@@ -84,9 +84,9 @@ public class JPAControllerBa_user {
 				query.setParameter("password", password);
 				usuario = (BaUser) query.getSingleResult();
 			} catch (NoResultException e) {
-				e.printStackTrace();
+			
 			} catch (Exception e) {
-				e.printStackTrace();
+				
 			}
 			if (usuario != null) {
 				return true;

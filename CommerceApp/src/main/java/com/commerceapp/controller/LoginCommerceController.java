@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import com.commerceapp.app.JPAControllerBa_user;
-import com.commerceapp.conexion.MySQLConnectionController;
 import com.commerceapp.domain.IdiomaC.EnumMensajes;
 import com.commerceapp.domain.MGeneral;
 

@@ -12,7 +12,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import com.commerceapp.Main;
-import com.commerceapp.conexion.MySQLConnectionController;
 import com.commerceapp.controller.ConfiguracionController;
 import com.commerceapp.controller.MenuPrincipalController;
 import com.commerceapp.domain.Batch;

@@ -939,7 +939,7 @@ public class IdiomaC {
 					public void run() {
 						// stage.getIcons().clear();
 						stage.getIcons()
-								.add(new Image(getClass().getResource("/imagenes/IconoColegioR.png").toString()));
+								.add(new Image(getClass().getResource("/imagenes/LogoECommerce.png").toString()));
 
 					}
 				});

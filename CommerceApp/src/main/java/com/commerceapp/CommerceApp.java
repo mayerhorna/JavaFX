@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 
 import com.commerceapp.domain.Batch;
@@ -14,6 +15,7 @@ import javafx.application.Platform;
 
 //stockUI
 @SpringBootApplication
+@EntityScan("com.commerceapp.model")
 public class CommerceApp {
 
 	private static final Logger logger = Logger.getLogger(CommerceApp.class.getName());

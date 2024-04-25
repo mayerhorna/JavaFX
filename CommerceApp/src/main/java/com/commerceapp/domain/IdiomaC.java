@@ -104,7 +104,7 @@ public class IdiomaC {
 		NoHayLibrosNoEncriptados, FicheroAEncriptarPerteneceALegalizacion, EnvioServicioHojaNoValida,
 		EnvioServicioCorrecto, EnvioServicioYaRealizado, MemoriaInsuficienteFirma, ErrorAlEnviarTramite,
 		ContenidoCampoCaracterNoPermitido, ContenidoCampoSoloNumeros, ContendioCamposSoloLetrasYNumeros,
-		EnvioCorrectoSinObtenerNE,ZIPYaExiste
+		EnvioCorrectoSinObtenerNE,ZIPYaExiste,UserPassIncorrectos
 	}
 
 	public enum EnumLiterales {

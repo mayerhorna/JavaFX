@@ -4,7 +4,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import com.commerceapp.app.JPAControllerBa_user;
 import com.commerceapp.conexion.MySQLConnectionController;
+import com.commerceapp.domain.IdiomaC.EnumMensajes;
 import com.commerceapp.domain.MGeneral;
 
 import javafx.event.ActionEvent;
@@ -24,6 +26,8 @@ public class LoginCommerceController implements Initializable {
 	TextField passCommerce;
 	private Stage stagePrincipal;
 
+	JPAControllerBa_user objControllerBa_user;
+
 	public Stage getStagePrincipal() {
 		return stagePrincipal;
 	}
@@ -35,7 +39,10 @@ public class LoginCommerceController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-
+		objControllerBa_user = new JPAControllerBa_user();
+		loginCommerce.setText("");
+		passCommerce.setText("");
+		loginCommerce.requestFocus();
 	}
 
 	@FXML
@@ -45,11 +52,18 @@ public class LoginCommerceController implements Initializable {
 
 	}
 
-	public void btnLogin_Click(ActionEvent e) throws SQLException {
-		if (MySQLConnectionController.validarInicioSesion(loginCommerce.getText(), passCommerce.getText())) {
-			MGeneral.Configuracion.setInicioSesion(true);
+	public void btnLogin_Click(ActionEvent e) throws Exception {
+		if (objControllerBa_user.buscarUsuarioPorCredenciales(loginCommerce.getText(), passCommerce.getText())) {
+
+			close(e);
+
+		} else {
+			MGeneral.Idioma.MostrarMensaje(EnumMensajes.UserPassIncorrectos, null, null, null);
+			loginCommerce.setText("");
+			passCommerce.setText("");
+			loginCommerce.requestFocus();
 		}
-		close(e);
+
 	}
 
 	private void close(ActionEvent e) {

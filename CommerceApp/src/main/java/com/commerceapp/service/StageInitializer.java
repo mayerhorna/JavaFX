@@ -63,15 +63,6 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
 		stageLogin.setScene(sceneLogin);
 		stageLogin.showAndWait();
 
-		if (MGeneral.Configuracion.isInicioSesion()) {
-			stage.toFront();
-			stage.show();
-		} else {
-			System.out.println("Usuario y contra incorrectos");
-			;
-			getFormLogin();
-		}
-
 	}
 
 	public void onApplicationEvent(StageReadyEvent event) {
@@ -113,14 +104,16 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
 			}
 
 			getFormLogin();
+			stage.toFront();
+			stage.show();
 
 		} catch (IOException e) {
 
-			e.printStackTrace();
+			
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}
 
 	}

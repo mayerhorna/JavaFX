@@ -64,7 +64,8 @@ dependencies {
 	implementation group: 'net.sf.jasperreports', name: 'jasperreports', version: '6.11.0'
     implementation 'net.sourceforge.barbecue:barbecue:1.5-beta1'
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.33'
-
+    implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.6.15.Final'
+    
 }
 //--module-path C:\JavaFX\lib --add-modules=javafx.graphics,javafx.base,javafx.controls, javafx.fxml
 tasks.named('test') {

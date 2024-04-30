@@ -1,0 +1,22 @@
+# Ignorar archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de configuración
+*.config
+
+# Ignorar archivos de compilación
+*.o
+*.pyc
+*.class
+
+# Ignorar directorios de dependencias
+/node_modules
+/bower_components
+
+# Ignorar archivos de construcción
+/build
+/dist
+
+# Ignorar archivos sensibles
+.env

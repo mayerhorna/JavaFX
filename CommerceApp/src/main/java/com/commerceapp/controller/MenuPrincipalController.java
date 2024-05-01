@@ -69,7 +69,7 @@ import javafx.scene.input.KeyEvent;
 public class MenuPrincipalController implements Initializable {
 
 	LegalizacionService legalizacion = new LegalizacionService();
-	EntradaDatosController form;
+	ProductosController form;
 	private boolean esPrimeraCargaMDI = true;
 
 	private Stage stage;
@@ -86,7 +86,7 @@ public class MenuPrincipalController implements Initializable {
 
 	private static final Logger logger = Logger.getLogger(MenuPrincipalController.class.getName());
 	@FXML
-	HBox frmEntradaDatos;
+	HBox frmProductos;
 
 	@FXML
 	private MenuItem AcercaDeToolStripMenuItem;
@@ -498,20 +498,6 @@ public class MenuPrincipalController implements Initializable {
 		}
 	}
 
-	private void verHuellasLibros() {
-		if (form != null) {
-		}
-		form.operacion(EnumTipoOperacion.GenerarHuellas);
-
-	}
-
-	@FXML
-	public void VerHuella() throws Exception {
-		// form.eliminarListener();
-		verHuellasLibros();
-		// form.aniadirListener();
-	}
-
 	@FXML
 	public void Recepcion() {
 
@@ -592,17 +578,39 @@ public class MenuPrincipalController implements Initializable {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/EntradaDatos.fxml"));
 
 		try {
-			frmEntradaDatos = loader.load();
+			frmProductos = loader.load();
 			form = loader.getController();
 			form.setParentController(this);
 			form.abrir(path);
-			AnchorPane3.getChildren().add(frmEntradaDatos);
-			AnchorPane.setTopAnchor(frmEntradaDatos, 0.0);
-			AnchorPane.setBottomAnchor(frmEntradaDatos, 0.0);
-			AnchorPane.setLeftAnchor(frmEntradaDatos, 0.0);
-			AnchorPane.setRightAnchor(frmEntradaDatos, 0.0);
+			AnchorPane3.getChildren().add(frmProductos);
+			AnchorPane.setTopAnchor(frmProductos, 0.0);
+			AnchorPane.setBottomAnchor(frmProductos, 0.0);
+			AnchorPane.setLeftAnchor(frmProductos, 0.0);
+			AnchorPane.setRightAnchor(frmProductos, 0.0);
 
-			MGeneral.Idioma.cargarIdiomaControles(null, frmEntradaDatos);
+			MGeneral.Idioma.cargarIdiomaControles(null, frmProductos);
+
+			establecerTitulo();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	public void Productos() {
+
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ProductosCommerce.fxml"));
+
+		try {
+			frmProductos = loader.load();
+			form = loader.getController();
+			form.setParentController(this);
+
+			AnchorPane3.getChildren().add(frmProductos);
+			AnchorPane.setTopAnchor(frmProductos, 0.0);
+			AnchorPane.setBottomAnchor(frmProductos, 0.0);
+			AnchorPane.setLeftAnchor(frmProductos, 0.0);
+			AnchorPane.setRightAnchor(frmProductos, 0.0);
 
 			establecerTitulo();
 		} catch (IOException e) {
@@ -643,11 +651,6 @@ public class MenuPrincipalController implements Initializable {
 		}
 
 		Utilidades.ProccessStarURL(fichero);
-	}
-
-	@FXML
-	public void generarZIP() {
-		form.operacion(EnumTipoOperacion.GenerarZip);
 	}
 
 	public void establecerTitulo() {
@@ -724,57 +727,8 @@ public class MenuPrincipalController implements Initializable {
 	}
 
 	@FXML
-	private void imprimir(ActionEvent e) {
-		imprimir();
-
-	}
-
-	private void imprimir() {
-
-		form.operacion(EnumTipoOperacion.Imprimir);
-	}
-
-	@FXML
-	private void enviar(ActionEvent e) {
-		enviar();
-
-	}
-
-	private void enviar() {
-		form.operacion(EnumTipoOperacion.Enviar);
-	}
-
-	@FXML
 	private void salir(ActionEvent e) {
 		System.exit(0);
-	}
-	
-	@FXML
-	public void frmProductos() {
-
-		try {
-		
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Productos.fxml"));
-			Parent abrirfrmProductos = loader.load();
-			
-			stage = new Stage();
-			scene = new Scene(abrirfrmProductos);
-
-			// quitando el maximizar y minimizar
-			stage.initModality(Modality.APPLICATION_MODAL);
-			// bloquea la interacción con otras ventanas de la aplicación
-			stage.initStyle(StageStyle.UTILITY);
-			// quitando iconos
-			stage.getIcons().clear();
-			stage.setScene(scene);
-			
-		
-			stage.showAndWait();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-
-		}
 	}
 
 }

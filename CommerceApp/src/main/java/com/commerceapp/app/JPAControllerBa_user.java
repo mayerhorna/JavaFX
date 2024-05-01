@@ -1,7 +1,5 @@
 package com.commerceapp.app;
 
-import java.sql.SQLException;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;

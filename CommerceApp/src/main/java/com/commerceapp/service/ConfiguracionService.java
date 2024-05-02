@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.commerceapp.controller.NuevaLegalizacionController;
 import com.commerceapp.domain.ConfiguracionC;
 
 @Component

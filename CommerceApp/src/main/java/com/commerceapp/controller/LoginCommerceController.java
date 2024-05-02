@@ -39,8 +39,6 @@ public class LoginCommerceController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		objControllerBa_user = new JPAControllerBa_user();
-		loginCommerce.setText("");
-		passCommerce.setText("");
 		loginCommerce.requestFocus();
 	}
 
@@ -51,6 +49,7 @@ public class LoginCommerceController implements Initializable {
 
 	}
 
+	@FXML
 	public void btnLogin_Click(ActionEvent e) throws Exception {
 		if (objControllerBa_user.buscarUsuarioPorCredenciales(loginCommerce.getText(), passCommerce.getText())) {
 

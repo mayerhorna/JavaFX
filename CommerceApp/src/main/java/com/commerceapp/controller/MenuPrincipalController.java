@@ -249,49 +249,14 @@ public class MenuPrincipalController implements Initializable {
 
 	}
 
-	@FXML
-	private void abrirConfiguracion(ActionEvent event) throws IOException {
-		if (form != null) {
-			form.eliminarListener();
-		}
-
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Configuracion.fxml"));
-		Parent root = fxmlLoader.load();
-
-		ConfiguracionController configuracionController = fxmlLoader.getController();
-		configuracionController.setParentController(this);
-
-		Stage stage = new Stage();
-
-		Scene scene = new Scene(root);
-
-		// quitando el maximizar y minimizar
-		stage.initStyle(StageStyle.UTILITY);
-		// quitando iconos
-		stage.getIcons().clear();
-		// bloquea la interacción con otras ventanas de la aplicación
-		stage.initModality(Modality.APPLICATION_MODAL);
-
-		stage.setScene(scene);
-		MGeneral.Idioma.cargarIdiomaControles(stage, null);
-		// stage.setTitle("Configuracion");
-		stage.showAndWait();
-		if (form != null) {
-			form.aniadirListener();
-		}
-	}
 
 	@FXML
 	private void Ayuda(ActionEvent event) throws IOException {
 
 		try {
-			if (form != null) {
-				form.eliminarListener();
-			}
+		
 			ayuda();
-			if (form != null) {
-				form.aniadirListener();
-			}
+			
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -339,213 +304,15 @@ public class MenuPrincipalController implements Initializable {
 		}
 	}
 
-	@FXML
-	private void importarLegalizacion(ActionEvent event) throws IOException {
-		if (form != null) {
+	
 
-			if (!form.cerrar()) {
-				form.eliminarListener();
-				return;
-			}
 
-		}
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ImportarLegalizacion.fxml"));
-		Parent root = fxmlLoader.load();
-
-		ImportarLegalizacionController importarLegalizacionController = fxmlLoader.getController();
-		importarLegalizacionController.setParentController(this);
-
-		Stage stage = new Stage();
-
-		Scene scene = new Scene(root);
-
-		stage.initStyle(StageStyle.UTILITY);
-
-		stage.getIcons().clear();
-
-		stage.initModality(Modality.APPLICATION_MODAL);
-
-		stage.setScene(scene);
-		MGeneral.Idioma.cargarIdiomaControles(stage, null);
-
-		stage.showAndWait();
-
-	}
-
-	@FXML
-	public void nuevaLegalizacion() throws Exception {
-		if (form != null) {
-
-			form.eliminarListener();
-			if (!form.cerrar()) {
-				return;
-			}
-
-		}
-
-		cerrar(null);
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/NuevaLegalizacion.fxml"));
-		Parent nuevaLegalizacion = loader.load();
-
-		NuevaLegalizacionController nuevaLegalizacionController = loader.getController();
-		nuevaLegalizacionController.setParentController(this);
-
-		stage = new Stage();
-		scene = new Scene(nuevaLegalizacion);
-
-		// quitando el maximizar y minimizar
-		stage.initModality(Modality.APPLICATION_MODAL);
-		// bloquea la interacción con otras ventanas de la aplicación
-		stage.initStyle(StageStyle.UTILITY);
-		// quitando iconos
-		stage.getIcons().clear();
-		stage.setScene(scene);
-		MGeneral.Idioma.cargarIdiomaControles(stage, null);
-		stage.showAndWait();
-
-	}
-
-	@FXML
-	private void datosLegalizacion() {
-		try {
-			if (form != null) {
-				form.eliminarListener();
-			}
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/DatosLegalizacion.fxml"));
-			Parent datosLegalizacion = loader.load();
-
-			DatosLegalizacionController datosLegalizacionController = loader.getController();
-			datosLegalizacionController.setParentController(this);
-
-			stage = new Stage();
-			scene = new Scene(datosLegalizacion);
-
-			// quitando el maximizar y minimizar
-			stage.initModality(Modality.APPLICATION_MODAL);
-			// bloquea la interacción con otras ventanas de la aplicación
-			stage.initStyle(StageStyle.UTILITY);
-			// quitando iconos
-			stage.getIcons().clear();
-			stage.setScene(scene);
-			MGeneral.Idioma.cargarIdiomaControles(stage, null);
-
-			stage.showAndWait();
-			if (form != null) {
-				form.aniadirListener();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@FXML
-	public void abrirLegalizacion() throws Exception {
-		if (form != null) {
-
-			if (!form.cerrar()) {
-				return;
-			}
-		}
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AbrirLegalizacion.fxml"));
-		Parent abrirLegalizacion = loader.load();
-
-		AbrirLegalizacionController abrirLegalizacionController = loader.getController();
-		abrirLegalizacionController.setParentController(this);
-
-		stage = new Stage();
-		scene = new Scene(abrirLegalizacion);
-
-		// quitando el maximizar y minimizar
-		stage.initModality(Modality.APPLICATION_MODAL);
-		// bloquea la interacción con otras ventanas de la aplicación
-		stage.initStyle(StageStyle.UTILITY);
-		// quitando iconos
-		stage.getIcons().clear();
-		stage.setScene(scene);
-		MGeneral.Idioma.cargarIdiomaControles(stage, null);
-		stage.showAndWait();
-	}
-
-	@FXML
-	public void encriptacionFichero() throws Exception {
-		if (form != null) {
-			form.eliminarListener();
-		}
-
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Encriptacion.fxml"));
-		Parent abrirEncriptacion = loader.load();
-
-		EncriptacionController encriptacionController = loader.getController();
-		encriptacionController.set_ModoApertura(EncriptacionController.EModoApertura.ENCRYPTAR_MANUAL);
-		encriptacionController.setParentController(this);
-
-		encriptacionController.initialize(null, null);
-
-		stage = new Stage();
-		scene = new Scene(abrirEncriptacion);
-
-		// quitando el maximizar y minimizar
-		stage.initModality(Modality.APPLICATION_MODAL);
-		// bloquea la interacción con otras ventanas de la aplicación
-		stage.initStyle(StageStyle.UTILITY);
-		// quitando iconos
-		stage.getIcons().clear();
-		stage.setScene(scene);
-		MGeneral.Idioma.cargarIdiomaControles(stage, null);
-		stage.showAndWait();
-		if (form != null) {
-			form.aniadirListener();
-		}
-	}
-
-	@FXML
-	public void Recepcion() {
-
-		if (form != null) {
-
-			if (!form.cerrar()) {
-				form.eliminarListener();
-				return;
-			}
-
-		}
-
-		try {
-
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/RecepcionAbrir.fxml"));
-			Parent recepcionAbrir = loader.load();
-			RecepcionAbrirController recepcionController = loader.getController();
-			recepcionController.setParentController(this);
-			stage = new Stage();
-			scene = new Scene(recepcionAbrir);
-
-			// quitando el maximizar y minimizar
-			stage.initModality(Modality.APPLICATION_MODAL);
-			// bloquea la interacción con otras ventanas de la aplicación
-			stage.initStyle(StageStyle.UTILITY);
-			// quitando iconos
-			stage.getIcons().clear();
-			stage.setScene(scene);
-			MGeneral.Idioma.cargarIdiomaControles(stage, null);
-			stage.showAndWait();
-
-			if (form != null) {
-				form.aniadirListener();
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-
-		}
-	}
 
 	@FXML
 	public void AcercaDe() {
 
 		try {
-			if (form != null) {
-				form.eliminarListener();
-			}
+			
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AcercaDe.fxml"));
 			Parent abrirAcercaDe = loader.load();
 			AcercaDeController objAcerController = loader.getController();
@@ -563,9 +330,7 @@ public class MenuPrincipalController implements Initializable {
 			objAcerController.initialize(null, null);
 			stage.showAndWait();
 
-			if (form != null) {
-				form.aniadirListener();
-			}
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -573,28 +338,7 @@ public class MenuPrincipalController implements Initializable {
 		}
 	}
 
-	public void EntradaDatos(String path) {
-
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/EntradaDatos.fxml"));
-
-		try {
-			frmProductos = loader.load();
-			form = loader.getController();
-			form.setParentController(this);
-			form.abrir(path);
-			AnchorPane3.getChildren().add(frmProductos);
-			AnchorPane.setTopAnchor(frmProductos, 0.0);
-			AnchorPane.setBottomAnchor(frmProductos, 0.0);
-			AnchorPane.setLeftAnchor(frmProductos, 0.0);
-			AnchorPane.setRightAnchor(frmProductos, 0.0);
-
-			MGeneral.Idioma.cargarIdiomaControles(null, frmProductos);
-
-			establecerTitulo();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+	
 
 	@FXML
 	public void Productos() {
@@ -699,7 +443,7 @@ public class MenuPrincipalController implements Initializable {
 
 	@FXML
 	public void validar() {
-		form.eliminarListener();
+		
 		form.validar(true);
 	}
 

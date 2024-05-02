@@ -62,7 +62,6 @@ import org.springframework.stereotype.Service;
 
 import com.commerceapp.controller.EncriptacionController;
 import com.commerceapp.controller.MenuPrincipalController;
-import com.commerceapp.controller.NuevaLegalizacionController;
 import com.commerceapp.domain.ConfiguracionC;
 import com.commerceapp.domain.Errores;
 import com.commerceapp.domain.IdiomaC;

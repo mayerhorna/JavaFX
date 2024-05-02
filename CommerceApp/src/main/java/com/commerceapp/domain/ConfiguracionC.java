@@ -112,7 +112,6 @@ import com.commerceapp.Main;
 import com.commerceapp.controller.ConfiguracionController;
 import com.commerceapp.controller.EncriptacionController;
 import com.commerceapp.controller.MensajeController;
-import com.commerceapp.controller.NuevaLegalizacionController;
 import com.commerceapp.controller.PoliticaPrivacidadController;
 import com.commerceapp.controller.VersionesController;
 import com.commerceapp.domain.MiVersion;

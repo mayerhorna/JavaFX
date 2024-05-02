@@ -2,10 +2,12 @@ package com.commerceapp.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -17,12 +19,14 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.UnaryOperator;
 import java.util.logging.Logger;
 
 import org.springframework.stereotype.Component;
 
 import com.commerceapp.Main;
+import com.commerceapp.app.JPAControllerProduct;
 import com.commerceapp.controller.helpers.NavigableControllerHelper;
 import com.commerceapp.domain.IdiomaC;
 import com.commerceapp.domain.MGeneral;
@@ -38,6 +42,7 @@ import com.commerceapp.gui.custom.datePicker.CustomDatePicker;
 import com.commerceapp.gui.custom.imageview.CustomImageView;
 import com.commerceapp.maestros.MaestroCodigoDescripcion;
 import com.commerceapp.maestros.MaestroCodigoDescripcionConverter;
+import com.commerceapp.model.Product;
 import com.commerceapp.reporting.instancia.ReportingPreviewService;
 import com.commerceapp.service.LegalizacionService;
 import com.commerceapp.service.LegalizacionService.EnumResultadoZip;
@@ -45,6 +50,7 @@ import com.commerceapp.util.Ficheros;
 import com.commerceapp.util.Formato;
 import com.commerceapp.util.Utilidades;
 import com.commerceapp.util.Utilidades.TimeLineClass;
+import com.lowagie.text.Table;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -55,6 +61,8 @@ import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.css.converter.StringConverter;
@@ -70,6 +78,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -84,17 +93,22 @@ import javafx.scene.control.Labeled;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 
 @Component
 public class ProductosController implements Initializable, NavigableControllerHelper {
@@ -126,18 +140,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 	private AnchorPane anchorpaneScroll;
 
 	@FXML
-	private CustomCombobox<String> cboPresentanteMunicipio;
-
-	@FXML
-	private CustomCombobox<MaestroCodigoDescripcion> cboPresentanteSolicitaRetencion;
-
-	@FXML
-	private CustomCombobox<MaestroCodigoDescripcion> cboxProvinciaPres;
-
-	@FXML
-	private CustomCombobox<MaestroCodigoDescripcion> cboPresentanteProvincia;
-
-	@FXML
 	private HBox frmEntradaDatos;
 
 	@FXML
@@ -150,27 +152,9 @@ public class ProductosController implements Initializable, NavigableControllerHe
 	private Label gbxPresentante;
 
 	@FXML
-	private CustomImageView iconErrorEmailPres;
-
-	@FXML
-	private Pane iconPanErrorEmailPres;
-
-	@FXML
-	private CustomImageView iconAlertNIFPres;
-
-	@FXML
 	private GridPane EntidadEmpresarioGB;
 	@FXML
 	private GridPane PresentanteGB;
-
-	@FXML
-	private Pane iconPaneNIFPres;
-
-	@FXML
-	private CustomImageView iconAlertPostalPres;
-
-	@FXML
-	private Pane iconPaneAlertPostalPres;
 
 	@FXML
 	private VBox idVOBXprueba;
@@ -179,70 +163,7 @@ public class ProductosController implements Initializable, NavigableControllerHe
 	private ScrollPane idpruebascroll;
 
 	@FXML
-	private Label lblPresentanteApellido1;
-
-	@FXML
-	private Label lblPresentanteApellido2;
-
-	@FXML
-	private Label lblPresentanteCiudad;
-
-	@FXML
-	private Label lblPresentanteCodigoPostal;
-
-	@FXML
-	private Label lblPresentanteDomicilio;
-
-	@FXML
-	private Label lblPresentanteEmail;
-
-	@FXML
-	private Label lblPresentanteFax;
-
-	@FXML
-	private Label lblPresentanteNif;
-
-	@FXML
-	private Label lblPresentanteNombre;
-
-	@FXML
-	private Label lblPresentanteProvincia;
-
-	@FXML
-	private Label lblPresentanteSolicitaRetencion;
-
-	@FXML
-	private Label lblPresentanteTelefono;
-
-	@FXML
-	private TextField txtPresentanteApellido1;
-
-	@FXML
-	private TextField txtPresentanteApellido2;
-
-	@FXML
-	private TextField txtPresentanteCodigoPostal;
-
-	@FXML
-	private TextField txtPresentanteDomicilio;
-
-	@FXML
-	private TextField txtPresentanteEmail;
-
-	@FXML
-	private TextField txtPresentanteFax;
-
-	@FXML
-	private TextField txtPresentanteNif;
-
-	@FXML
-	private TextField txtPresentanteNombre;
-
-	@FXML
 	private Pane lblPaneTitulo;
-
-	@FXML
-	private TextField txtPresentanteTelefono;
 
 	@FXML
 	private ImageView logo;
@@ -250,7 +171,61 @@ public class ProductosController implements Initializable, NavigableControllerHe
 	@FXML
 	private Tooltip tpGuardar;
 
-	public Control[] controlsInOrderToNavigate = new Control[] {};
+	@FXML
+	private TextField idBuscarProducto;
+
+	@FXML
+	private TableView<Product> idTableViewProductos;
+
+	@FXML
+	private TableColumn<Product, Number> columnId;
+	@FXML
+	private TableColumn<Product, String> columnCode;
+
+	@FXML
+	private TableColumn<Product, Number> columName;
+	@FXML
+	private TableColumn<Product, String> columnDescription;
+
+	@FXML
+	private TableColumn<Product, Number> columnSale;
+	@FXML
+	private TableColumn<Product, String> columnUM;
+	@FXML
+	private TableColumn<Product, Number> columnEAN;
+
+	@FXML
+	private TextField idCodigoProducto;
+
+	@FXML
+	private TextField idNombreProducto;
+
+	@FXML
+	private TextArea idDescProducto;
+
+	@FXML
+	private TextField idPrecioVenta;
+
+	@FXML
+	private Button idGuardarProductoButton;
+
+	@FXML
+	private CustomCombobox<String> idFamiliaProducto;
+
+	@FXML
+	private CustomCombobox<String> idUM;
+
+	@FXML
+	private TextField idEanProducto;
+
+	@FXML
+	private RowConstraints idRowFamilia;
+
+	private ArrayList<Product> selectedProducts = new ArrayList<>();
+
+	public Control[] controlsInOrderToNavigate;
+
+	JPAControllerProduct objJPAControllerProduct;
 
 	public enum EnumTipoOperacion {
 		Imprimir(1), Enviar(2), GenerarZip(3), GenerarHuellas(4), EncriptarTodo(5);
@@ -295,8 +270,100 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 	private void setPendienteGuardar(boolean value) {
 		pendienteGuardar = value;
-		parentController.GuardarToolStrip.setDisable(!value);
-		parentController.SubItemGuardar.setDisable(!value);
+		idGuardarProductoButton.setDisable(!value);
+
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+
+		Image image = new Image(getClass().getResourceAsStream("/imagenes/LogoECommerce.png"));
+
+		logo.setFitWidth(150);
+		logo.setFitHeight(70);
+		logo.setImage(image);
+		initializeControlsInOrderToNavigate();
+		registerKeyPressENTERInControlsToNavigate();
+		controlsInOrderToNavigate = new Control[] { idCodigoProducto, idNombreProducto, idDescProducto, idPrecioVenta,
+				idUM, idEanProducto };
+
+		columnId.setCellValueFactory(new PropertyValueFactory<>("tb_product_id"));
+		columnCode.setCellValueFactory(new PropertyValueFactory<>("code"));
+
+		columName.setCellValueFactory(new PropertyValueFactory<>("name"));
+		columnDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+
+		columnSale.setCellValueFactory(new PropertyValueFactory<>("salesPriceWithTax"));
+		columnUM.setCellValueFactory(new PropertyValueFactory<>("defaultUom"));
+		columnEAN.setCellValueFactory(new PropertyValueFactory<>("ean"));
+
+		cargarProductos();
+		cargarComboUM();
+
+		objJPAControllerProduct = new JPAControllerProduct();
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+
+				pendienteGuardar = false;
+				primeraVez = true;
+
+				getParentController().getStagePrincipal().getScene().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+					if (event.getCode() == KeyCode.TAB) {
+						event.consume(); // Consumir el evento de teclado para evitar la navegación por TAB en todo el
+											// form
+					}
+				});
+
+				getParentController().getStagePrincipal().getScene().widthProperty()
+						.addListener((observable, oldValue, newValue) -> {
+							double width = newValue.doubleValue();
+							String cssFile = "";
+							ancho = width;
+
+							try {
+
+								if (width > 1680) {
+									cssFile = "/estilos/Grande.css";
+
+								}
+
+								if (width > 1280 && width <= 1680) {
+									cssFile = "/estilos/Mediano3.css";
+
+								}
+								if (width > 1152 && width <= 1280) {
+									cssFile = "/estilos/Mediano2.css";
+
+								}
+								if (width > 1024 && width <= 1152) {
+									cssFile = "/estilos/Mediano1.css";
+
+								}
+								if (width > 801 && width <= 1024) {
+									cssFile = "/estilos/Pequeño2.css";
+								}
+								if (width <= 801) {
+									cssFile = "/estilos/Pequeño.css";
+								}
+
+								frmEntradaDatos.getStylesheets().clear();
+								frmEntradaDatos.getStylesheets().add(getClass().getResource(cssFile).toExternalForm());
+								frmEntradaDatos.getStylesheets()
+										.add(getClass().getResource("/estilos/ToolBar.css").toExternalForm());
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						});
+			}
+		});
+
+		iniciarValidaciones();
+
+		iniciarImageIcon();
+		scroolPane();
+		idBuscarProducto.requestFocus();
+
 	}
 
 	public void activacionIconosBarra(EnumActivacionIconos activacion) {
@@ -487,154 +554,47 @@ public class ProductosController implements Initializable, NavigableControllerHe
 		}
 	}
 
-	public void validarTextChangesGuardar() {
+	public void validarTextChangesGuardar(boolean aux) {
+		// Crear un AtomicBoolean para rastrear si se han realizado cambios
+		AtomicBoolean cambiosRealizados = new AtomicBoolean(false);
 
 		for (int i = 0; i < controlsInOrderToNavigate.length; i++) {
 			if (controlsInOrderToNavigate[i] instanceof TextField) {
-
 				TextField controlfinal = (TextField) controlsInOrderToNavigate[i];
+				String originalValue = selectedProducts.get(0).getCode(); // Guardar valor original
 				controlfinal.textProperty().addListener((observable, oldValue, newValue) -> {
-					if (primeraVez) {
-						setPendienteGuardar(true);
+					// Verificar si hay un cambio en el campo
+					if (!newValue.equalsIgnoreCase(originalValue)) {
+						cambiosRealizados.set(true);
+						// Establecer el botón de guardar en consecuencia
+						setPendienteGuardar(aux);
 					}
-
 				});
-
 			} else if (controlsInOrderToNavigate[i] instanceof ComboBox) {
-
 				ComboBox controlfinal = (ComboBox) controlsInOrderToNavigate[i];
-				if (controlsInOrderToNavigate[i].getId().equalsIgnoreCase("cboTipoPersona")) {
-					controlfinal.valueProperty().addListener((observable, oldValue, newValue) -> {
-						if (primeraVez) {
-							setPendienteGuardar(true);
+				if (controlsInOrderToNavigate[i].getId().equalsIgnoreCase("idUM")) {
+					String originalValue = selectedProducts.get(0).getDefaultUom(); // Guardar valor original
+					controlfinal.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+						// Verificar si hay un cambio en el campo
+						if (!newValue.equalsIgnoreCase(originalValue)) {
+							cambiosRealizados.set(true);
+							// Establecer el botón de guardar en consecuencia
+							setPendienteGuardar(aux);
 						}
 					});
 				}
-
-				controlfinal.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-					if (primeraVez) {
-						setPendienteGuardar(true);
-					}
-
-				});
 			}
 		}
 
-	}
-
-	private static final Logger logger = Logger.getLogger(ProductosController.class.getName());
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-
-		Image image = new Image(getClass().getResourceAsStream("/imagenes/LogoECommerce.png"));
-
-		logo.setFitWidth(200);
-		logo.setFitHeight(98);
-		logo.setImage(image);
-		initializeControlsInOrderToNavigate();
-		registerKeyPressENTERInControlsToNavigate();
-
-		validarTextChangesGuardar();
-
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-
-				pendienteGuardar = false;
-				primeraVez = true;
-
-				getParentController().getStagePrincipal().getScene().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-					if (event.getCode() == KeyCode.TAB) {
-						event.consume(); // Consumir el evento de teclado para evitar la navegación por TAB en todo el
-											// form
-					}
-				});
-
-				getParentController().getStagePrincipal().getScene().widthProperty()
-						.addListener((observable, oldValue, newValue) -> {
-							double width = newValue.doubleValue();
-							String cssFile = "";
-							ancho = width;
-
-							try {
-
-								if (width > 1680) {
-									cssFile = "/estilos/Grande.css";
-
-								}
-
-								if (width > 1280 && width <= 1680) {
-									cssFile = "/estilos/Mediano3.css";
-
-								}
-								if (width > 1152 && width <= 1280) {
-									cssFile = "/estilos/Mediano2.css";
-
-								}
-								if (width > 1024 && width <= 1152) {
-									cssFile = "/estilos/Mediano1.css";
-
-								}
-								if (width > 801 && width <= 1024) {
-									cssFile = "/estilos/Pequeño2.css";
-								}
-								if (width <= 801) {
-									cssFile = "/estilos/Pequeño.css";
-								}
-
-								frmEntradaDatos.getStylesheets().clear();
-								frmEntradaDatos.getStylesheets().add(getClass().getResource(cssFile).toExternalForm());
-								frmEntradaDatos.getStylesheets()
-										.add(getClass().getResource("/estilos/ToolBar.css").toExternalForm());
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						});
-			}
-		});
-
-		iniciarValidaciones();
-		iniciarValidacionesTextFormatter();
-		iniciarImageIcon();
-		scroolPane();
-
-	}
-
-	private void changeControlsInOrderToNavigate() {
-		if (esPersonaFisica()) {
-			controlsInOrderToNavigate = new Control[] {};
-		} else if (esPersonaJuridica()) {
-			controlsInOrderToNavigate = new Control[] {};
+		// Después de iterar sobre todos los campos, establecer el estado del botón de
+		// guardar
+		if (!cambiosRealizados.get()) {
+			// No se han realizado cambios, deshabilitar el botón de guardar
+			setPendienteGuardar(!aux);
 		}
-
 	}
 
 	private void iniciarImageIcon() {
-		iconErrorEmailPres.setImage(new Image(getClass().getResourceAsStream("/imagenes/error.png")));
-		iconErrorEmailPres.setVisible(false);
-
-		iconAlertNIFPres.setImage(new Image(getClass().getResourceAsStream("/imagenes/aviso.png")));
-		iconAlertNIFPres.setVisible(false);
-
-		iconAlertPostalPres.setImage(new Image(getClass().getResourceAsStream("/imagenes/aviso.png")));
-		iconAlertPostalPres.setVisible(false);
-
-	}
-
-	private void iniciarValidacionesTextFormatter() {
-		formatoTextfieldDatosPersonaSoli();
-		formatoTextfieldDatosPersonaPres();
-		formatoTextfieldPostalPres();
-		formatoTextfieldNIFFaxTelefonoPres();
-		formatoTextfieldEmailPres();
-		formatoTextfieldNIFFaxTelefonoSoli();
-		formatoTextfieldPostalSoli();
-		formatoTextfieldTIPOREGISTRO();
-		formatoTextfieldOTROS();
-		formatoTextfieldHOJA();
-		formatoTextfieldFOLIO();
-		formatoTextfieldTOMO();
 
 	}
 
@@ -713,6 +673,15 @@ public class ProductosController implements Initializable, NavigableControllerHe
 		return cancelar;
 	}
 
+	private void cargarProductos() {
+		JPAControllerProduct controller = new JPAControllerProduct();
+		List<Product> productos = controller.obtenerTodosProductos();
+
+		// Crea una ObservableList de productos y añádela al TableView
+		ObservableList<Product> productList = FXCollections.observableArrayList(productos);
+		idTableViewProductos.setItems(productList);
+	}
+
 	public boolean cerrar() {
 		boolean cerrar = true;
 		if (cancelaGuardar()) {
@@ -736,158 +705,70 @@ public class ProductosController implements Initializable, NavigableControllerHe
 		return cerrar;
 	}
 
-	void abrir(String pathDatos) {
-		getParentController().cerrar(null);
+	@FXML
+	public void EliminarProducto(ActionEvent e) throws Exception {
+		if (selectedProducts.size() != 0) {
+			if (IdiomaC.MostrarMensaje(EnumMensajes.EliminarProducto, "", "", "")) {
 
-		try {
-			// aqui se inicializan las combos
-
-			Utilidades.cursorEspera(getParentController().getStagePrincipal(), true);
-
-			pendienteGuardar = false;
-			activacionIconosBarra(EnumActivacionIconos.DesactivarTodo);
-
-			getParentController().getStagePrincipal().getScene().setCursor(Cursor.WAIT);
-
-			MGeneral.mlform = new LegalizacionService(true, null);
-
-			MGeneral.mlform.carga(pathDatos);
-
-			if (!MGeneral.mlform.isValidaEstructura())
-				return;
-
-			if (MGeneral.mlform.Datos.getEstadoEnvio() == cDatos.eEstadoEnvio.EnviadaPorServicioCorrectamente) {
-
-				MGeneral.mlform = new LegalizacionService(true, LegalizacionService.EnumModo.SoloLectura);
-				MGeneral.mlform.carga(pathDatos);
-				if (!MGeneral.mlform.isValidaEstructura())
-					return;
+				objJPAControllerProduct.eliminarProducto(selectedProducts.get(0));
+				cargarProductos();
 			}
-
-			if (MGeneral.mlform.Datos.getEstadoEnvio() == cDatos.eEstadoEnvio.EnviadaPorServicioErrorReintentable) {
-
-				MGeneral.mlform = new LegalizacionService(true, LegalizacionService.EnumModo.SoloReenviar);
-				MGeneral.mlform.carga(pathDatos);
-				if (!MGeneral.mlform.isValidaEstructura())
-					return;
-			}
-
-			cboPresentanteProvincia.cargarCombo("Provincias");
-
-			cboPresentanteSolicitaRetencion.cargarCombo("SolicitaRetencion");
-
-			cboPresentanteProvincia.setConverter(new MaestroCodigoDescripcionConverter(cboPresentanteProvincia));
-
-			cboPresentanteSolicitaRetencion
-					.setConverter(new MaestroCodigoDescripcionConverter(cboPresentanteSolicitaRetencion));
-
-			String prov = MGeneral.mlform.Presentacion.getProvinciaCodigo();
-
-			MaestroCodigoDescripcion provincia = new MaestroCodigoDescripcion("Provincias");
-
-			String prov2 = MGeneral.mlform.Presentacion.getPresentante().get_ProvinciaCodigo();
-			if (provincia.existeCodigo(prov2)) {
-
-				List<String> Lista = MGeneral.Idioma.obtenerMunicipiosDeProvincia(prov);
-
-				cboPresentanteMunicipio.cargarCombo(Lista);
-			}
-			cargaDatosPresentacion();
-			pendienteGuardar = false;
-
-			activacionIconosBarra(EnumActivacionIconos.HayLegalizacionCargada);
-			// getParentController().activacionIconosBarra(EnumActivacionIconos.HayLegalizacionCargada);
-
-			// Si la legalización abierta es de formato anterior se fuerza el pendiente de
-			// guardar
-			// (al guardar quedará ya con el nuevo formato)
-
-			if (MGeneral.mlform.Datos.getFormato() == enumFormato.Legalia)
-				pendienteGuardar = true;
-
-			if (!new java.io.File(MGeneral.mlform.getPathFicheroDesc()).exists())
-				pendienteGuardar = true;
-
-			Utilidades.cursorEspera(getParentController().getStagePrincipal(), false);
-
-			if (!MGeneral.mlform.isValidaCargaDeLibros()) {
-				validar(true);
-			}
-
-		} catch (Exception ex) {
-			MGeneral.Idioma.MostrarMensaje(IdiomaC.EnumMensajes.Excepcion, ex.getMessage(), "", "");
-			ex.printStackTrace();
-		} finally {
-
-			validarTodosLosControles(frmEntradaDatos, true, false);
-			Utilidades.cursorEspera(getParentController().getStagePrincipal(), false);
 		}
 	}
 
-	public void camposVisiblesSegunTipoPersona(ActionEvent event) {
-		String tipoPersona = "";
-
-		switch (tipoPersona) {
-		case kLegalizacion.kTipoPersonaFisica:
-
-			break;
-		case kLegalizacion.kTipoPersonaJuridica:
-
-			break;
-		}
+	@FXML
+	public void ActualizarProductos(ActionEvent e) throws Exception {
+		cargarProductos();
 	}
 
-	void iniciarValidaciones() {
-		aniadirListener();
-		// Agregar controlador para el evento de cambio de texto
+	@FXML
+	public void GuardarProductos(ActionEvent e) throws Exception {
+		
+		Product objProduct=new Product();
+		objProduct.setTb_product_id(selectedProducts.get(0).getTb_product_id());
+		objProduct.setCode(idCodigoProducto.getText());
+		objProduct.setName(idNombreProducto.getText());
+		objProduct.setDescription(idDescProducto.getText());
+		objProduct.setSalesPriceWithTax(new BigDecimal( idPrecioVenta.getText()));
+		objProduct.setDefaultUom(idUM.getValue());
+		objProduct.setEan(idEanProducto.getText());
+		objJPAControllerProduct.actualizarProducto(objProduct);
+		cargarProductos();
+	}
+	
+	private void iniciarValidaciones() {
+		idTableViewProductos.getSelectionModel().selectedItemProperty()
+				.addListener((obs, oldSelection, newSelection) -> {
+					if (newSelection != null) {
 
-		txtPresentanteEmail.textProperty().addListener((observable, oldValue,
-				newValue) -> evValidarInput(txtPresentanteEmail, iconErrorEmailPres, iconPanErrorEmailPres));
-		txtPresentanteCodigoPostal.textProperty().addListener((observable, oldValue,
-				newValue) -> evValidarInput(txtPresentanteCodigoPostal, iconAlertPostalPres, iconPaneAlertPostalPres));
-		txtPresentanteNif.textProperty().addListener((observable, oldValue,
-				newValue) -> evValidarInput(txtPresentanteEmail, iconAlertNIFPres, iconPaneNIFPres));
+						selectedProducts.clear();
+						selectedProducts.add(newSelection);
+						rellenarCampos();
+						validarTextChangesGuardar(true);
+					}
+				});
 
-		txtPresentanteNif.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue) {
+	}
 
-				// Se ejecuta cuando el TextField pierde el foco
-				evValidarAlValidar(txtPresentanteNif);
-			}
-		});
+	private void rellenarCampos() {
+		idCodigoProducto.setText(selectedProducts.get(0).getCode());
 
-		txtPresentanteCodigoPostal.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue) {
+		idNombreProducto.setText(selectedProducts.get(0).getName());
 
-				// Se ejecuta cuando el TextField pierde el foco
-				evValidarAlValidar(txtPresentanteCodigoPostal);
-			}
-		});
+		idDescProducto.setText(selectedProducts.get(0).getDescription());
 
-		cboPresentanteMunicipio.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue) {
+		idPrecioVenta.setText(String.valueOf(selectedProducts.get(0).getSalesPriceWithTax()));
 
-				// Se ejecuta cuando el TextField pierde el foco
-				evValidarAlValidar(cboPresentanteMunicipio);
-			}
-		});
+		// idFamiliaProducto.getItems().set g(selectedProducts.get(0).getCode());
 
-		txtPresentanteCodigoPostal.addEventHandler(KeyEvent.KEY_TYPED, this::evSoloNumerosInterfaz);
+		idUM.setValue(selectedProducts.get(0).getDefaultUom());
 
-		txtPresentanteEmail.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue) {
+		idEanProducto.setText(selectedProducts.get(0).getEan());
 
-				// Se ejecuta cuando el TextField pierde el foco
-				evValidarAlValidar(txtPresentanteEmail);
-			}
-		});
+	}
 
-		txtPresentanteEmail.textProperty().addListener((observable, oldValue,
-				newValue) -> evValidarInput(txtPresentanteEmail, iconErrorEmailPres, iconPanErrorEmailPres));
-		txtPresentanteCodigoPostal.textProperty().addListener((observable, oldValue,
-				newValue) -> evValidarInput(txtPresentanteCodigoPostal, iconAlertPostalPres, iconPaneAlertPostalPres));
-		txtPresentanteNif.textProperty().addListener((observable, oldValue,
-				newValue) -> evValidarInput(txtPresentanteNif, iconAlertNIFPres, iconPaneNIFPres));
+	private void cargarComboUM() {
+		idUM.getItems().addAll("Bien", "Servicio");
 
 	}
 
@@ -949,13 +830,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 		String codigo2 = MGeneral.mlform.Presentacion.getPresentante().get_ProvinciaCodigo();
 		MaestroCodigoDescripcion provinciados = new MaestroCodigoDescripcion("Provincias");
-		if (provinciados.existeCodigo(codigo2)) {
-			provinciados.setCodigo(codigo2);
-			provinciados.setDescripcion(provinciados.obtenerDescripcion(codigo2));
-			cboPresentanteProvincia.setValue(provinciados);
-		}
-
-		cboPresentanteMunicipio.setValue(MGeneral.mlform.Presentacion.getPresentante().get_Ciudad());
 
 		String codigo3 = MGeneral.mlform.Presentacion.getRegistroMercantilDestinoCodigo();
 
@@ -970,11 +844,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 		MaestroCodigoDescripcion retencion = new MaestroCodigoDescripcion("SolicitaRetencion");
 		String codigo4 = MGeneral.mlform.Presentacion.getPresentante().get_SolicitaRetencion();
 
-		if (retencion.existeCodigo(codigo4)) {
-			retencion.setCodigo(codigo4);
-			retencion.setDescripcion(retencion.obtenerDescripcion(codigo4));
-			cboPresentanteSolicitaRetencion.setValue(retencion);
-		}
 		MaestroCodigoDescripcion tipo = new MaestroCodigoDescripcion("TipoPersona");
 		String codigo5 = MGeneral.mlform.Datos.get_TipoPersona();
 
@@ -983,17 +852,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 		LocalDate fecha = convertirAFecha(MGeneral.mlform.Presentacion.getFechaSolicitud());
 
 		// //Covertir a localdate
-
-		// TextField
-		txtPresentanteNombre.setText(MGeneral.mlform.Presentacion.getPresentante().get_Nombre());
-		txtPresentanteApellido1.setText(MGeneral.mlform.Presentacion.getPresentante().get_Apellido1());
-		txtPresentanteApellido2.setText(MGeneral.mlform.Presentacion.getPresentante().get_Apellido2());
-		txtPresentanteCodigoPostal.setText(MGeneral.mlform.Presentacion.getPresentante().get_CodigoPostal());
-		txtPresentanteDomicilio.setText(MGeneral.mlform.Presentacion.getPresentante().get_Domicilio());
-		txtPresentanteEmail.setText(MGeneral.mlform.Presentacion.getPresentante().get_Email());
-		txtPresentanteFax.setText(MGeneral.mlform.Presentacion.getPresentante().get_Fax());
-		txtPresentanteNif.setText(MGeneral.mlform.Presentacion.getPresentante().get_Nif());
-		txtPresentanteTelefono.setText(MGeneral.mlform.Presentacion.getPresentante().get_Telefono());
 
 	}
 
@@ -1051,53 +909,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 //FaxSoli
 
-//Presentante
-//NombrePres
-			MGeneral.mlform.Presentacion._Presentante.set_Nombre(txtPresentanteNombre.getText());
-//Apellido1 Pres
-			MGeneral.mlform.Presentacion._Presentante.set_Apellido1(txtPresentanteApellido1.getText());
-//Apellido2 Pres
-			MGeneral.mlform.Presentacion._Presentante.set_Apellido2(txtPresentanteApellido2.getText());
-//Nif Presentante			
-			MGeneral.mlform.Presentacion._Presentante.set_Nif(txtPresentanteNif.getText());
-//Domicilio			
-			MGeneral.mlform.Presentacion._Presentante.set_Domicilio(txtPresentanteDomicilio.getText());
-//Ciudad		
-			if (cboPresentanteMunicipio.getValue() == null) {
-				MGeneral.mlform.Presentacion._Presentante.set_Ciudad("");
-			} else {
-				MGeneral.mlform.Presentacion._Presentante.set_Ciudad(cboPresentanteMunicipio.getValue());
-			}
-
-//Postal			
-			MGeneral.mlform.Presentacion._Presentante.set_CodigoPostal(txtPresentanteCodigoPostal.getText());
-
-			String presentanteProvinciaCodigo;
-			if (cboPresentanteProvincia.getValue() == null
-					|| cboPresentanteProvincia.getValue().getDescripcion().isEmpty()) {
-				presentanteProvinciaCodigo = "";
-			} else {
-				MaestroCodigoDescripcion maestro = new MaestroCodigoDescripcion("Provincias");
-				presentanteProvinciaCodigo = maestro
-						.obtenerCodigoDeDescripcion(cboPresentanteProvincia.getValue().getDescripcion());
-			}
-			MGeneral.mlform.Presentacion._Presentante.set_ProvinciaCodigo(presentanteProvinciaCodigo);
-
-			MGeneral.mlform.Presentacion._Presentante.set_Fax(txtPresentanteFax.getText());
-			MGeneral.mlform.Presentacion._Presentante.set_Telefono(txtPresentanteTelefono.getText());
-			MGeneral.mlform.Presentacion._Presentante.set_Email(txtPresentanteEmail.getText());
-
-			String presentanteSolicitaRetencion;
-			if (cboPresentanteSolicitaRetencion.getValue() == null
-					|| cboPresentanteSolicitaRetencion.getValue().getDescripcion().isEmpty()) {
-				presentanteSolicitaRetencion = "";
-			} else {
-				MaestroCodigoDescripcion maestro = new MaestroCodigoDescripcion("SolicitaRetencion");
-				presentanteSolicitaRetencion = maestro
-						.obtenerCodigoDeDescripcion(cboPresentanteSolicitaRetencion.getValue().getDescripcion());
-			}
-			MGeneral.mlform.Presentacion._Presentante.set_SolicitaRetencion(presentanteSolicitaRetencion);
-
 			MGeneral.mlform.guarda();
 
 			pendienteGuardar = false;
@@ -1120,34 +931,11 @@ public class ProductosController implements Initializable, NavigableControllerHe
 		}
 	}
 
-	public void recargaMuniPres(ActionEvent event) {
-		try {
-
-			String filtro = cboPresentanteProvincia.getEditor().getText().toUpperCase();
-
-			if (cboPresentanteProvincia.validarSeleccion()) {
-				cboPresentanteMunicipio.setValue(null);
-				MaestroCodigoDescripcion aux = new MaestroCodigoDescripcion("Provincias");
-				String codigo = aux.obtenerCodigoDeDescripcion(filtro);
-
-				List<String> Lista = MGeneral.Idioma.obtenerMunicipiosDeProvincia(codigo);
-
-				cboPresentanteMunicipio.cargarCombo(Lista);
-
-			}
-
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
-	}
-
 	public void operacion(EnumTipoOperacion tipoOperacion) {
-		eliminarListener();
 
 		try {
 			if (!guardar(true, true)) {
-				aniadirListener();
+
 				return;
 			}
 			Utilidades.cursorEspera(getParentController().getStagePrincipal(), true);
@@ -1155,17 +943,17 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 			// Para el modo Recepción, solo se puede imprimir
 			if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.Recepcion) {
-				verificarRegistroYProvincia(true);
+
 				if (tipoOperacion == EnumTipoOperacion.Imprimir) {
 					// ReportePreviewService reportDiagnostico = new ReportePreviewService();
 					// reportDiagnostico.cargarReporteDiagnostico();
 				}
-				aniadirListener();
+
 				return;
 			}
 
 			if (!validarTodosLosControles(frmEntradaDatos, false, false)) {
-				aniadirListener();
+
 				return;
 			}
 
@@ -1174,7 +962,7 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 			if (resul == kLegalizacion.enumResultadoValidacion.NoValida) {
 				validar(false);
-				aniadirListener();
+
 				return;
 			}
 
@@ -1194,7 +982,7 @@ public class ProductosController implements Initializable, NavigableControllerHe
 				// getParentController().StatusProgressBar;
 				if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.SoloLectura
 						|| MGeneral.mlform.getModo() == LegalizacionService.EnumModo.SoloReenviar) {
-					aniadirListener();
+
 					return;
 				}
 				File ficheroZip = new File(MGeneral.mlform.getPathFicheroZip());
@@ -1217,7 +1005,7 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 				if (resulZip == LegalizacionService.EnumResultadoZip.Correcto) {
 					if (!MGeneral.mlform.generaInstancia()) {
-						aniadirListener();
+
 						return;
 					}
 
@@ -1242,7 +1030,7 @@ public class ProductosController implements Initializable, NavigableControllerHe
 					stage.setScene(scene);
 
 					stage.showAndWait();
-					aniadirListener();
+
 				}
 
 				activacionIconosBarra(EnumActivacionIconos.DesactivarTodo);
@@ -1250,264 +1038,7 @@ public class ProductosController implements Initializable, NavigableControllerHe
 				Ficheros.FicheroBorra(MGeneral.mlform.getPathFicheroInstancia());
 
 				break;
-			case Enviar:
-				if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.SoloLectura)
-					return; // No se puede enviar en modo solo lectura
 
-				if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.SoloReenviar) {
-					boolean resenvio;
-					ceDoc veDoc = new ceDoc();
-
-					resenvio = veDoc.enviarPorServicio(true);
-
-					abrir(MGeneral.mlform.getPathDatos()); // Se vuelve a abrir para que se cargue como corresponda
-
-					if (resenvio) {
-						if (MGeneral.Idioma.MostrarMensaje(IdiomaC.EnumMensajes.EnvioServicioCorrecto, "", "",
-								"") == true) {
-							if (!new File(MGeneral.mlform.getPathFicheroAcuseEntrada()).exists()) {
-								MGeneral.Idioma.MostrarMensaje(IdiomaC.EnumMensajes.FicheroInexistente,
-										MGeneral.mlform.getPathFicheroAcuseEntrada(), "", "");
-								return;
-							}
-							try {
-								Utilidades.ProcessStartFichero(MGeneral.mlform.getPathFicheroAcuseEntrada());
-
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
-						}
-					}
-
-					return;
-				}
-
-				if (MGeneral.mlform.Datos.getEstadoEnvio() == cDatos.eEstadoEnvio.EnviadaPorServicioCorrectamente) {
-					MGeneral.Idioma.MostrarMensaje(IdiomaC.EnumMensajes.EnvioServicioYaRealizado, "", "", "");
-					return;
-				}
-
-				File ficheroZipEnvio = new File(MGeneral.mlform.getPathFicheroZip());
-				if (!ficheroZipEnvio.isDirectory()) {
-					if (ficheroZipEnvio.exists()) {
-
-						IdiomaC.MostrarMensaje(EnumMensajes.ZIPYaExiste, "", "", "");
-
-						if (!IdiomaC.MostrarMensaje(EnumMensajes.FicheroZipYaGenerado, "", "", "")) {
-
-						}
-
-					}
-				}
-
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PrevioEnvio.fxml"));
-				Parent previoEnvio = loader.load();
-
-				PrevioEnvioController previoEnvioController = loader.getController();
-				Stage stage = new Stage();
-				Scene scene = new Scene(previoEnvio);
-				stage.initModality(Modality.APPLICATION_MODAL);
-				stage.initStyle(StageStyle.UTILITY);
-				stage.getIcons().clear();
-				stage.setScene(scene);
-				MGeneral.Idioma.cargarIdiomaControles(stage, null);
-				stage.toFront();
-				stage.showAndWait();
-
-				if (!MGeneral.RetornoFormulario)
-					return;
-
-				if (MGeneral.RetornoFormaDeEnvioDirecto) {
-					ceDoc veDoc = new ceDoc();
-					if (!veDoc.compruebaTodosLosNodos())
-						return;
-				}
-				Utilidades.cursorEspera(getParentController().getStagePrincipal(), true);
-
-				activacionIconosBarra(EnumActivacionIconos.DesactivarTodo);
-
-				// MGeneral.mlform.getProgreso().inicializa(10, 80, 10);
-
-				Ficheros.FicheroBorra(MGeneral.mlform.getPathFicheroInstancia());
-
-				resulZip = MGeneral.mlform.generarZip("");
-
-				if (resulZip == LegalizacionService.EnumResultadoZip.Correcto) {
-					if (!MGeneral.mlform.generaInstancia())
-						return; // Después de GenerarZip para que las huellas estén generadas
-				}
-
-				Utilidades.cursorEspera(getParentController().getStagePrincipal(), false);
-
-				// MGeneral.mlform.getProgreso().finaliza();
-				if (MGeneral.RetornoFormaDeEnvioDirecto) {
-					boolean resenvio;
-					ceDoc veDoc = new ceDoc();
-
-					resenvio = veDoc.enviarPorServicio(false);
-
-					abrir(MGeneral.mlform.getPathDatos()); // Se vuelve a abrir para que se cargue como corresponda
-
-					if (resenvio) {
-						if (MGeneral.Idioma.MostrarMensaje(IdiomaC.EnumMensajes.EnvioServicioCorrecto, "", "",
-								"") == true) {
-							if (!new File(MGeneral.mlform.getPathFicheroAcuseEntrada()).exists()) {
-								MGeneral.Idioma.MostrarMensaje(IdiomaC.EnumMensajes.FicheroInexistente,
-										MGeneral.mlform.getPathFicheroAcuseEntrada(), "", "");
-								return;
-							}
-							try {
-								Utilidades.ProcessStartFichero(MGeneral.mlform.getPathFicheroAcuseEntrada());
-
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
-						}
-					}
-				} else {
-					switch (resulZip) {
-					case Correcto:
-						MGeneral.mlform.enviarZipPorPortal();
-						break;
-					default:
-						break;
-					}
-				}
-				break;
-			case Imprimir:
-
-				if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.Normal) {
-
-					Utilidades.cursorEspera(getParentController().getStagePrincipal(), true);
-
-					activacionIconosBarra(EnumActivacionIconos.DesactivarTodo);
-					// Application.DoEvents(); // No hay equivalente directo en Java
-					// MGeneral.mlform.getVProgreso().Inicializa(50, 50);
-
-					Ficheros.FicheroBorra(MGeneral.mlform.getPathFicheroInstancia());
-					if (MGeneral.mlform.generarHuellas()) {
-						if (MGeneral.mlform.generaInstancia()) {
-
-							HostServices hostServices = Main.getHostService();
-
-							hostServices.showDocument(MGeneral.mlform.getPathFicheroInstancia());
-							aniadirListener();
-							// MGeneral.mlform.getVProgreso().Finaliza();
-
-						}
-					}
-					Utilidades.cursorEspera(getParentController().getStagePrincipal(), false);
-
-					// mlform.getVProgreso().Finaliza();
-				}
-				// Se abre el Pdf de la instancia
-				if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.SoloLectura
-						|| MGeneral.mlform.getModo() == LegalizacionService.EnumModo.SoloReenviar) {
-					File file = new File(MGeneral.mlform.getPathFicheroInstancia());
-					if (file.exists()) {
-						HostServices hostServices = Main.getHostService();
-
-						hostServices.showDocument(MGeneral.mlform.getPathFicheroInstancia());
-						aniadirListener();
-					} else {
-						IdiomaC.MostrarMensaje(IdiomaC.EnumMensajes.FicheroInexistente, "", "",
-								MGeneral.mlform.getPathFicheroInstancia());
-						aniadirListener();
-					}
-				}
-				break;
-
-			// Agregar los otros casos de operación aquí...
-			case GenerarHuellas:
-
-				boolean resulBool = false;
-
-				if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.Normal) {
-					Utilidades.cursorEspera(getParentController().getStagePrincipal(), true);
-
-					// ActivacionIconosBarra(EnumActivacionIconos.DesactivarTodo);
-					// mlform.vProgreso.Inicializa(100);
-					resulBool = MGeneral.mlform.generarHuellas();
-
-					Utilidades.cursorEspera(getParentController().getStagePrincipal(), false);
-
-					// mlform.vProgreso.Finaliza();
-				}
-
-				if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.SoloLectura) {
-					resulBool = true;
-				}
-
-				if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.SoloReenviar) {
-					resulBool = true;
-				}
-
-				if (resulBool) {
-
-					FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/fxml/VerHuellas.fxml"));
-					Parent verHuellas = loader1.load();
-
-					VerHuellasController verHuellasController = loader1.getController();
-					stage = new Stage();
-					scene = new Scene(verHuellas);
-					stage.initModality(Modality.APPLICATION_MODAL);
-					stage.initStyle(StageStyle.UTILITY);
-					stage.getIcons().clear();
-					stage.setScene(scene);
-					MGeneral.Idioma.cargarIdiomaControles(stage, null);
-					stage.showAndWait();
-					aniadirListener();
-				}
-
-				break;
-			case EncriptarTodo:
-				if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.SoloLectura)
-					return;
-				if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.SoloReenviar)
-					return;
-
-				resulBool = false;
-				String cadNombres = "";
-
-				if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.Normal) {
-
-					/*
-					 * Frm_Encriptacion f = new
-					 * Frm_Encriptacion(Frm_Encriptacion.eModoApertura.EncriptarTodosLosLibros, "",
-					 * ""); f.WindowState = FormWindowState.Normal; f.StartPosition =
-					 * FormStartPosition.CenterScreen; f.showAndWait();
-					 */
-
-					if (!MGeneral.RetornoFormulario)
-						return;
-
-					Utilidades.cursorEspera(getParentController().getStagePrincipal(), true);
-
-					activacionIconosBarra(EnumActivacionIconos.DesactivarTodo);
-
-					// MGeneral.mlform.getProgreso().inicializa(100);
-
-					// resulBool = MGeneral.mlform.encriptarTodosLosLibros(cadNombres);
-
-					Utilidades.cursorEspera(getParentController().getStagePrincipal(), false);
-
-					// MGeneral.mlform.getProgreso().finaliza();
-
-					if (resulBool) {
-						if (!MGeneral.Configuracion.isMostrarMensajeAlEncriptarEnLegalizacion())
-							return;
-
-						String cad = MGeneral.Encriptacion.obtenerResultadoEncriptacion();
-
-						/*
-						 * Frm_EncriptacionResultado fr = new
-						 * Frm_EncriptacionResultado(Frm_EncriptacionResultado.eModoApertura.
-						 * EncriptadosTodosLibros, cad, cadNombres); fr.WindowState =
-						 * FormWindowState.Normal; fr.StartPosition = FormStartPosition.CenterScreen;
-						 * fr.showAndWait();
-						 */
-					}
-				}
 			default:
 				break;
 			}
@@ -1558,7 +1089,7 @@ public class ProductosController implements Initializable, NavigableControllerHe
 				stage.setScene(scene);
 				MGeneral.Idioma.cargarIdiomaControles(stage, null);
 				stage.showAndWait();
-				aniadirListener();
+
 				irACampoFoco();
 			}
 
@@ -1629,136 +1160,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 			}
 			switch (control.getId().toString()) {
 
-			case "txtPresentanteNif":
-
-				if (!((TextField) control).getText().isEmpty()) {
-
-					if (!Formato.validaNif(((TextField) control).getText())) {
-						ErrorProvider(IdiomaC
-								.obtenerMensaje(IdiomaC.EnumMensajes.FormatoNifIncorrecto, null, null, null).toString(),
-								iconPaneNIFPres, iconAlertNIFPres, true, control);
-
-					} else {
-
-						ErrorProvider(IdiomaC
-								.obtenerMensaje(IdiomaC.EnumMensajes.FormatoNifIncorrecto, null, null, null).toString(),
-								iconPaneNIFPres, iconAlertNIFPres, false, control);
-					}
-				} else {
-					ErrorProvider(IdiomaC.obtenerMensaje(IdiomaC.EnumMensajes.FormatoNifIncorrecto, null, null, null)
-							.toString(), iconPaneNIFPres, iconAlertNIFPres, false, control);
-				}
-				break;
-
-			case "txtPresentanteCodigoPostal":
-
-				if (!((TextField) control).getText().isEmpty()) {
-
-					if ((((TextField) control).getText().length()) != 5
-							|| (((TextField) control).getText().length()) == 0) {
-
-						ErrorProvider(
-								MGeneral.Idioma.obtenerMensaje(IdiomaC.EnumMensajes.CodigoPostalNoTiene5Digitos, null,
-										null, null).toString(),
-								iconPaneAlertPostalPres, iconAlertPostalPres, true, control);
-
-					} else {
-
-						ErrorProvider(
-								MGeneral.Idioma.obtenerMensaje(IdiomaC.EnumMensajes.CodigoPostalNoTiene5Digitos, null,
-										null, null).toString(),
-								iconPaneAlertPostalPres, iconAlertPostalPres, false, control);
-
-						if ((Formato.verificaProvinciaYCodigoPostal(txtPresentanteCodigoPostal,
-								cboPresentanteProvincia)) == false) {
-							ErrorProvider(MGeneral.Idioma.obtenerMensaje(
-									IdiomaC.EnumMensajes.CodigoPostalNoConcuerdaConProvincia, null, null, null)
-									.toString(), iconPaneAlertPostalPres, iconAlertPostalPres, true, control);
-
-						} else {
-							ErrorProvider(MGeneral.Idioma.obtenerMensaje(
-									IdiomaC.EnumMensajes.CodigoPostalNoConcuerdaConProvincia, null, null, null)
-									.toString(), iconPaneAlertPostalPres, iconAlertPostalPres, false, control);
-
-						}
-					}
-				} else {
-					ErrorProvider(
-							MGeneral.Idioma.obtenerMensaje(IdiomaC.EnumMensajes.CodigoPostalNoConcuerdaConProvincia,
-									null, null, null).toString(),
-							iconPaneAlertPostalPres, iconAlertPostalPres, false, control);
-				}
-				break;
-
-			case "cboxProvinciaPres":
-
-				if (txtPresentanteCodigoPostal.getText().isEmpty()) {
-
-					if (txtPresentanteCodigoPostal.getText().length() != 5) {
-
-						ErrorProvider(
-								MGeneral.Idioma.obtenerMensaje(IdiomaC.EnumMensajes.CodigoPostalNoTiene5Digitos, null,
-										null, null).toString(),
-								iconPaneAlertPostalPres, iconAlertPostalPres, true, control);
-
-					} else {
-
-						ErrorProvider(
-								MGeneral.Idioma.obtenerMensaje(IdiomaC.EnumMensajes.CodigoPostalNoTiene5Digitos, null,
-										null, null).toString(),
-								iconPaneAlertPostalPres, iconAlertPostalPres, false, control);
-
-						if ((Formato.verificaProvinciaYCodigoPostal(txtPresentanteCodigoPostal,
-								cboPresentanteProvincia)) == false) {
-							ErrorProvider(MGeneral.Idioma.obtenerMensaje(
-									IdiomaC.EnumMensajes.CodigoPostalNoConcuerdaConProvincia, null, null, null)
-									.toString(), iconPaneAlertPostalPres, iconAlertPostalPres, true, control);
-
-						} else {
-							ErrorProvider(MGeneral.Idioma.obtenerMensaje(
-									IdiomaC.EnumMensajes.CodigoPostalNoConcuerdaConProvincia, null, null, null)
-									.toString(), iconPaneAlertPostalPres, iconAlertPostalPres, false, control);
-
-						}
-					}
-				}
-				break;
-
-			case "txtPresentanteEmail":
-
-				if (!Formato.ValorNulo(txtPresentanteEmail.getText())) {
-
-					if (!Formato.validaEmail(txtPresentanteEmail.getText())) {
-
-						ErrorProvider(
-								MGeneral.Idioma.obtenerLiteral(IdiomaC.EnumLiterales.FormatoEmailIncorrecto).toString(),
-								iconPanErrorEmailPres, iconErrorEmailPres, true, control);
-
-					} else {
-						ErrorProvider(
-								MGeneral.Idioma.obtenerLiteral(IdiomaC.EnumLiterales.FormatoEmailIncorrecto).toString(),
-								iconPanErrorEmailPres, iconErrorEmailPres, false, control);
-					}
-				} else {
-					ErrorProvider(
-							MGeneral.Idioma.obtenerLiteral(IdiomaC.EnumLiterales.FormatoEmailIncorrecto).toString(),
-							iconPanErrorEmailPres, iconErrorEmailPres, false, control);
-
-				}
-				break;
-
-			case "cboxMunicipioPres":
-
-				if (!Formato.ValorNulo(cboPresentanteProvincia) && !Formato.ValorNulo(control)) {
-
-					if (!new IdiomaC("es").existeMunicipioDeProvincia(cboPresentanteProvincia.getValue().getCodigo(),
-							cboPresentanteMunicipio.getValue())) {
-
-					}
-
-				}
-				break;
-
 			default:
 				break;
 			}
@@ -1770,37 +1171,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 			return false;
 		}
 
-	}
-
-	public String procesarFecha(CustomDatePicker dtp) {
-		LocalDate fechaSeleccionada = dtp.getValue();
-
-		if (fechaSeleccionada != null) {
-			String fechaFormateada = fechaSeleccionada.format(DateTimeFormatter.ofPattern("ddMMyyyy"));
-			return fechaFormateada;
-		} else {
-			return "error";
-		}
-	}
-
-	public boolean esPersonaJuridica() {
-		try {
-			String tipoPersona = "";
-
-			return true;
-		} catch (Exception ex) {
-			return false;
-		}
-	}
-
-	public boolean esPersonaFisica() {
-		try {
-			String tipoPersona = "";
-
-			return false;
-		} catch (Exception ex) {
-			return false;
-		}
 	}
 
 	private void ErrorProvider(String error, Pane paneIconImageView, CustomImageView cbImageView,
@@ -1818,149 +1188,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 	public void evSoloNumerosInterfaz(KeyEvent event) {
 		Utilidades.evSoloNumeros(null, event);
-	}
-
-	private void formatoTextfieldDatosPersonaSoli() {
-		UnaryOperator<TextFormatter.Change> filter = change -> {
-			if (change.getControlNewText().length() <= 35) {
-				return change;
-			}
-			return null;
-		};
-
-	}
-
-	private void formatoTextfieldDatosPersonaPres() {
-		UnaryOperator<TextFormatter.Change> filter = change -> {
-			if (change.getControlNewText().length() <= 35) {
-				return change;
-			}
-			return null;
-		};
-
-		txtPresentanteNombre.setTextFormatter(new TextFormatter<>(filter));
-		txtPresentanteApellido1.setTextFormatter(new TextFormatter<>(filter));
-		txtPresentanteApellido2.setTextFormatter(new TextFormatter<>(filter));
-		txtPresentanteDomicilio.setTextFormatter(new TextFormatter<>(filter));
-	}
-
-	private void formatoTextfieldPostalPres() {
-		UnaryOperator<TextFormatter.Change> filter = change -> {
-			if (change.getControlNewText().length() <= 5) {
-				return change;
-			}
-			return null;
-		};
-
-		txtPresentanteCodigoPostal.setTextFormatter(new TextFormatter<>(filter));
-
-	}
-
-	private void formatoTextfieldPostalSoli() {
-		UnaryOperator<TextFormatter.Change> filter = change -> {
-			if (change.getControlNewText().length() <= 5) {
-				return change;
-			}
-			return null;
-		};
-
-	}
-
-	private void formatoTextfieldTOMO() {
-		UnaryOperator<TextFormatter.Change> filter = change -> {
-			if (change.getControlNewText().length() <= 6) {
-				return change;
-			}
-			return null;
-		};
-
-	}
-
-	private void formatoTextfieldFOLIO() {
-		UnaryOperator<TextFormatter.Change> filter = change -> {
-			if (change.getControlNewText().length() <= 6) {
-				return change;
-			}
-			return null;
-		};
-
-	}
-
-	private void formatoTextfieldHOJA() {
-		UnaryOperator<TextFormatter.Change> filter = change -> {
-			if (change.getControlNewText().length() <= 10) {
-				return change;
-			}
-			return null;
-		};
-
-	}
-
-	private void formatoTextfieldOTROS() {
-		UnaryOperator<TextFormatter.Change> filter = change -> {
-			if (change.getControlNewText().length() <= 32) {
-				return change;
-			}
-			return null;
-		};
-
-	}
-
-	private void formatoTextfieldTIPOREGISTRO() {
-		UnaryOperator<TextFormatter.Change> filter = change -> {
-			if (change.getControlNewText().length() <= 32) {
-				return change;
-			}
-			return null;
-		};
-
-	}
-
-	private void formatoTextfieldEmailPres() {
-		UnaryOperator<TextFormatter.Change> filter = change -> {
-			if (change.getControlNewText().length() <= 60) {
-				return change;
-			}
-			return null;
-		};
-
-		txtPresentanteEmail.setTextFormatter(new TextFormatter<>(filter));
-
-	}
-
-	private void formatoTextfieldNIFFaxTelefonoPres() {
-		UnaryOperator<TextFormatter.Change> filter = change -> {
-			if (change.getControlNewText().length() <= 10) {
-				return change;
-			}
-			return null;
-		};
-
-		txtPresentanteFax.setTextFormatter(new TextFormatter<>(filter));
-		txtPresentanteNif.setTextFormatter(new TextFormatter<>(filter));
-		txtPresentanteTelefono.setTextFormatter(new TextFormatter<>(filter));
-
-	}
-
-	private void formatoTextfieldNIFFaxTelefonoSoli() {
-		UnaryOperator<TextFormatter.Change> filter = change -> {
-			if (change.getControlNewText().length() <= 10) {
-				return change;
-			}
-			return null;
-		};
-
-	}
-
-	public boolean verificarRegistroYProvincia(boolean mostrarMensaje) {
-
-		if (MGeneral.mlform == null || MGeneral.mlform.getModo() == LegalizacionService.EnumModo.Recepcion
-				|| MGeneral.mlform.getModo() == LegalizacionService.EnumModo.SoloLectura
-				|| MGeneral.mlform.getModo() == LegalizacionService.EnumModo.SoloReenviar) {
-			return false;
-		}
-
-		return true;
 	}
 
 	public void abrirRecepcion(String pathDatos, String identificadorEntrada) {
@@ -2000,7 +1227,7 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 	public void cargaLibros() {
 		try {
-			eliminarListener();
+
 			if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.Normal) {
 				if (!guardar(true, true))
 					return;
@@ -2034,7 +1261,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 					MGeneral.Idioma.cargarIdiomaControles(stage, null);
 
 					stage.showAndWait();
-					aniadirListener();
 
 				}
 			}
@@ -2184,14 +1410,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 			cbImageView.setVisible(false);
 			cbImageView.setManaged(false);
 		}
-	}
-
-	public void aniadirListener() {
-
-	}
-
-	public void eliminarListener() {
-
 	}
 
 	@Override

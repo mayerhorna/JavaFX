@@ -91,20 +91,20 @@ public class IdiomaC {
 		FechaCierreUltimoLegalizadoMayorFechaApertura, BatchSeleccionandoEliminar, BatchGenerandoLog,
 		BatchSeleccioneUnaOpcion, NombreFicheroDirectorioNoValido, ErrorSeHaProducido,
 		FechaAperturaFechaCierreMasDeUnAnio, CambioConfiguracionConReinicio, BytesAvisoZip, RegistroProvinciaDiferentes,
-		MensajeFaltante, ZipGeneradoCorrectamente, FuenteCodigoBarrarDesinstalada, EjecutarComoAdministrador,
-		ErrorEnSoloLectura, ErrorAlBorrarFichero, ErrorNavegadorPortal, ExtensionFicheroNoAdmitida,
-		NoSeHaPodidoCrearElDirectorio, AvisoEliminarFichero, NumeroMaximoAdjuntosSuperado, FicheroZipYaGenerado,
-		FicheroZipYaEnviado, LibrosDeEjerciciosDiferentesApertura, LibrosDeEjerciciosDiferentesCierre,
-		FormatoCifIncorrecto, FormatoNifIncorrecto, CodigoPostalNoConcuerdaConProvincia, CodigoPostalNoTiene5Digitos,
-		Framework452NoInstalado, BatchAbrirRaizLegalizaciones, FormatoEsLegalia, FormatoEsLegalia2,
-		SeAplicanReglasNuevasaLegalia, NoSeAplicanReglasNuevasaLegalia, NoSeHaPodidoAccederALaConfiguracionCentral,
-		FactorResolucionIncorrecto, DebeSeleccionarUnFicheroZip, FicheroExistenteDeseaSobreescribir,
-		ResultadoEncriptacion, VectorInicializacion, ErrorAlEncriptar, NoEncriptadoConLegalia, ErrorAlDesencriptar,
-		ErrorTamanioClaveEncriptacion, ClaveEncriptacionyConfirmacionDistintas, ErrorReglasClaveEncriptacion,
-		NoHayLibrosNoEncriptados, FicheroAEncriptarPerteneceALegalizacion, EnvioServicioHojaNoValida,
-		EnvioServicioCorrecto, EnvioServicioYaRealizado, MemoriaInsuficienteFirma, ErrorAlEnviarTramite,
-		ContenidoCampoCaracterNoPermitido, ContenidoCampoSoloNumeros, ContendioCamposSoloLetrasYNumeros,
-		EnvioCorrectoSinObtenerNE,ZIPYaExiste,UserPassIncorrectos
+		MensajeFaltante,ZipGeneradoCorrectamente, FuenteCodigoBarrarDesinstalada, EjecutarComoAdministrador, ErrorEnSoloLectura,
+		ErrorAlBorrarFichero, ErrorNavegadorPortal, ExtensionFicheroNoAdmitida, NoSeHaPodidoCrearElDirectorio,
+		AvisoEliminarFichero, NumeroMaximoAdjuntosSuperado, FicheroZipYaGenerado, FicheroZipYaEnviado,
+		LibrosDeEjerciciosDiferentesApertura, LibrosDeEjerciciosDiferentesCierre, FormatoCifIncorrecto,
+		FormatoNifIncorrecto, CodigoPostalNoConcuerdaConProvincia, CodigoPostalNoTiene5Digitos, Framework452NoInstalado,
+		BatchAbrirRaizLegalizaciones, FormatoEsLegalia, FormatoEsLegalia2, SeAplicanReglasNuevasaLegalia,
+		NoSeAplicanReglasNuevasaLegalia, NoSeHaPodidoAccederALaConfiguracionCentral, FactorResolucionIncorrecto,
+		DebeSeleccionarUnFicheroZip, FicheroExistenteDeseaSobreescribir, ResultadoEncriptacion, VectorInicializacion,
+		ErrorAlEncriptar, NoEncriptadoConLegalia, ErrorAlDesencriptar, ErrorTamanioClaveEncriptacion,
+		ClaveEncriptacionyConfirmacionDistintas, ErrorReglasClaveEncriptacion, NoHayLibrosNoEncriptados,
+		FicheroAEncriptarPerteneceALegalizacion, EnvioServicioHojaNoValida, EnvioServicioCorrecto,
+		EnvioServicioYaRealizado, MemoriaInsuficienteFirma, ErrorAlEnviarTramite, ContenidoCampoCaracterNoPermitido,
+		ContenidoCampoSoloNumeros, ContendioCamposSoloLetrasYNumeros, EnvioCorrectoSinObtenerNE, ZIPYaExiste,
+		UserPassIncorrectos, EliminarProducto
 	}
 
 	public enum EnumLiterales {
@@ -285,8 +285,6 @@ public class IdiomaC {
 			}
 		} catch (Exception ex) {
 
-			
-
 		}
 	}
 
@@ -315,7 +313,7 @@ public class IdiomaC {
 
 						textotooltip = obtenerValor(ObjetosIdioma.FORMULARIOS, padre.getId().toString(),
 								ElementosIdiomaC.TEXT_CONTROLES, children.get(0).getId(), "");
-						
+
 						if (!textotooltip.isEmpty()) {
 
 							setToolTip(nodo, children.get(0), textotooltip);

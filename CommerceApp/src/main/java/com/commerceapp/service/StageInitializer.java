@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.commerceapp.Main;
 import com.commerceapp.controller.ConfiguracionController;
+import com.commerceapp.controller.LoginCommerceController;
 import com.commerceapp.controller.MenuPrincipalController;
 import com.commerceapp.domain.Batch;
 import com.commerceapp.domain.MGeneral;
@@ -54,6 +55,8 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
 
 		Image icon = customResourceLoader.loadImage("LogoECommerce.png");
 		Parent rootLogin = loader.load();
+		LoginCommerceController objLoginController = loader.getController();
+		
 		Stage stageLogin = new Stage();
 
 		Scene sceneLogin = new Scene(rootLogin);

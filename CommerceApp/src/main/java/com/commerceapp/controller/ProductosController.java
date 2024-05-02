@@ -126,24 +126,14 @@ public class ProductosController implements Initializable, NavigableControllerHe
 	private AnchorPane anchorpaneScroll;
 
 	@FXML
-	private CustomCombobox<String> cboMunicipio;
-
-	@FXML
 	private CustomCombobox<String> cboPresentanteMunicipio;
 
 	@FXML
 	private CustomCombobox<MaestroCodigoDescripcion> cboPresentanteSolicitaRetencion;
 
 	@FXML
-	private CustomCombobox<MaestroCodigoDescripcion> cboProvincia;
-
-	@FXML
-	private CustomCombobox<MaestroCodigoDescripcion> cboTipoPersona;
-
-	@FXML
 	private CustomCombobox<MaestroCodigoDescripcion> cboxProvinciaPres;
 
-	
 	@FXML
 	private CustomCombobox<MaestroCodigoDescripcion> cboPresentanteProvincia;
 
@@ -169,23 +159,9 @@ public class ProductosController implements Initializable, NavigableControllerHe
 	private CustomImageView iconAlertNIFPres;
 
 	@FXML
-	private CustomImageView iconAlertCIFSoli;
-	@FXML
 	private GridPane EntidadEmpresarioGB;
 	@FXML
 	private GridPane PresentanteGB;
-
-	@FXML
-	private Pane iconPaneApellidoSoli;
-
-	@FXML
-	private CustomImageView iconApellidoSoli;
-
-	@FXML
-	private Pane iconPaneNombreSoli;
-
-	@FXML
-	private CustomImageView iconNombreSoli;
 
 	@FXML
 	private Pane iconPaneNIFPres;
@@ -197,106 +173,10 @@ public class ProductosController implements Initializable, NavigableControllerHe
 	private Pane iconPaneAlertPostalPres;
 
 	@FXML
-	private CustomImageView iconDomicilioSoli;
-
-	@FXML
-	private Pane iconPaneDomicilioSoli;
-
-	@FXML
-	private CustomImageView iconDenominacionJuridicoApellidoSoli;
-
-	@FXML
-	private Pane iconPaneApellidoDenominacionJuridicoSoli;
-
-	@FXML
-	private CustomImageView iconAlertCIFNIFSoli;
-
-	@FXML
-	private Pane iconPaneFechaSoli;
-
-	@FXML
-	private CustomImageView iconFechaSoli;
-
-	@FXML
-	private Pane iconPaneAlertCodPostal;
-
-	@FXML
-	private CustomImageView iconAlertCodPostal;
-
-	@FXML
-	private Pane iconPaneRegistroMercantil;
-
-	@FXML
-	private CustomImageView iconRegistroMercantil;
-
-	@FXML
-	private Pane iconPaneAlertCIFNIFSoli;
-
-	@FXML
-	private CustomImageView iconMunicipioSoli;
-
-	@FXML
-	private Pane iconPaneMunicipioSoli;
-
-	@FXML
-	private CustomImageView iconProvincia;
-
-	@FXML
-	private CustomImageView iconProvinciaError;
-
-	@FXML
-	private Pane iconPaneProvincia;
-
-	@FXML
 	private VBox idVOBXprueba;
 
 	@FXML
 	private ScrollPane idpruebascroll;
-
-	@FXML
-	private Label lblApellido1;
-
-	@FXML
-	private Label lblApellido2;
-
-	@FXML
-	private Label lblCif;
-
-	@FXML
-	private Label lblCiudad;
-
-	@FXML
-	private Label lblCodigoPostal;
-
-	@FXML
-	private Label lblDatosRegistralesFolio;
-
-	@FXML
-	private Label lblDatosRegistralesHoja;
-
-	@FXML
-	private Label lblDatosRegistralesOtros;
-
-	@FXML
-	private Label lblDatosRegistralesTomo;
-
-	@FXML
-	private Label lblDenominacion;
-
-	@FXML
-	private Label lblDomicilio;
-
-	@FXML
-	private Label lblFax;
-
-	@FXML
-	private Label lblFechaSolicitud;
-
-	@FXML
-	private Label lblNif;
-
-	@FXML
-	private Label lblNombre;
 
 	@FXML
 	private Label lblPresentanteApellido1;
@@ -335,69 +215,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 	private Label lblPresentanteTelefono;
 
 	@FXML
-	private Label lblProvincia;
-
-	@FXML
-	private Label lblRegistroMercantil;
-
-	@FXML
-	private Label lblTelefono;
-
-	@FXML
-	private Label lblTipoPersona;
-
-	@FXML
-	private Label lblTipoRegistroPublico;
-
-	@FXML
-	private Label lblTitulo;
-
-	@FXML
-	private Label lblTotalLibros;
-
-	@FXML
-	private TextField txtApellido1;
-
-	@FXML
-	private TextField txtApellido2;
-
-	@FXML
-	private TextField txtCifNif;
-
-	@FXML
-	private TextField txtCodigoPostal;
-
-	@FXML
-	private TextField txtDatosRegistralesFolio;
-
-	@FXML
-	private TextField txtDatosRegistralesHoja;
-
-	@FXML
-	private TextField txtDatosRegistralesOtros;
-
-	@FXML
-	private TextField txtDatosRegistralesTomo;
-
-	@FXML
-	private TextField txtDenominacion;
-
-	@FXML
-	private TextField txtDomicilio;
-
-	@FXML
-	private TextField txtFax;
-
-	@FXML
-	private CustomDatePicker txtFechaSolicitud;
-
-	@FXML
-	public TextField txtLibrosPresentados;
-
-	@FXML
-	private TextField txtNombre;
-
-	@FXML
 	private TextField txtPresentanteApellido1;
 
 	@FXML
@@ -428,20 +245,12 @@ public class ProductosController implements Initializable, NavigableControllerHe
 	private TextField txtPresentanteTelefono;
 
 	@FXML
-	private TextField txtTelefono;
-
-	@FXML
-	private TextField txtTipoRegistroPublico;
-
-	@FXML
 	private ImageView logo;
 
 	@FXML
 	private Tooltip tpGuardar;
 
 	public Control[] controlsInOrderToNavigate = new Control[] {};
-
-	
 
 	public enum EnumTipoOperacion {
 		Imprimir(1), Enviar(2), GenerarZip(3), GenerarHuellas(4), EncriptarTodo(5);
@@ -553,11 +362,10 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 					EntidadEmpresarioGB.setDisable(true);
 					PresentanteGB.setDisable(true);
-					
+
 					gbxEntidadEmpresario.setDisable(true);
 					gbxPresentante.setDisable(true);
-					lblTitulo.setDisable(true);
-					lblRegistroMercantil.setDisable(true);
+
 					break;
 
 				case SoloLectura, SoloReenviar:
@@ -594,8 +402,7 @@ public class ProductosController implements Initializable, NavigableControllerHe
 					PresentanteGB.setDisable(true);
 					gbxEntidadEmpresario.setDisable(true);
 					gbxPresentante.setDisable(true);
-					lblTitulo.setDisable(true);
-					lblRegistroMercantil.setDisable(true);
+
 					break;
 
 				default:
@@ -727,15 +534,13 @@ public class ProductosController implements Initializable, NavigableControllerHe
 		logo.setImage(image);
 		initializeControlsInOrderToNavigate();
 		registerKeyPressENTERInControlsToNavigate();
-		registerCamposVisibles();
+
 		validarTextChangesGuardar();
 
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
 
-				registerEventControl();
-			
 				pendienteGuardar = false;
 				primeraVez = true;
 
@@ -751,7 +556,7 @@ public class ProductosController implements Initializable, NavigableControllerHe
 							double width = newValue.doubleValue();
 							String cssFile = "";
 							ancho = width;
-						
+
 							try {
 
 								if (width > 1680) {
@@ -778,7 +583,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 									cssFile = "/estilos/Pequeño.css";
 								}
 
-							
 								frmEntradaDatos.getStylesheets().clear();
 								frmEntradaDatos.getStylesheets().add(getClass().getResource(cssFile).toExternalForm());
 								frmEntradaDatos.getStylesheets()
@@ -790,16 +594,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 			}
 		});
 
-		GridPane.setColumnSpan(txtDomicilio, 5);
-		GridPane.setColumnSpan(cboMunicipio, 5);
-
-		GridPane.setColumnSpan(txtPresentanteDomicilio, 5);
-		GridPane.setColumnSpan(cboPresentanteMunicipio, 5);
-		GridPane.setColumnSpan(txtPresentanteEmail, 5);
-		GridPane.setColumnSpan(txtDatosRegistralesOtros, 4);
-		GridPane.setColumnSpan(lblPaneTitulo, 1);
-		GridPane.setColumnSpan(txtApellido1, 2);
-		GridPane.setColumnSpan(txtPresentanteApellido1, 2);
 		iniciarValidaciones();
 		iniciarValidacionesTextFormatter();
 		iniciarImageIcon();
@@ -807,33 +601,11 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 	}
 
-	private void registerEventControl() {
-		this.cboProvincia.addEventHandler(ActionEvent.ACTION, this::recargaMuniSoli);
-		this.cboPresentanteProvincia.addEventHandler(ActionEvent.ACTION, this::recargaMuniPres);
-
-	}
-
-	private void registerCamposVisibles() {
-		this.cboTipoPersona.addEventHandler(ActionEvent.ACTION, this::camposVisiblesSegunTipoPersona);
-	}
-
 	private void changeControlsInOrderToNavigate() {
 		if (esPersonaFisica()) {
-			controlsInOrderToNavigate = new Control[] { cboTipoPersona, txtNombre, txtApellido1,
-					txtApellido2, txtCifNif, txtDomicilio, txtCodigoPostal, cboProvincia, cboMunicipio, txtTelefono,
-					txtFax, txtFechaSolicitud, txtDatosRegistralesTomo, txtDatosRegistralesFolio,
-					txtDatosRegistralesHoja, txtDatosRegistralesOtros, txtTipoRegistroPublico, txtPresentanteNombre,
-					txtPresentanteApellido1, txtPresentanteApellido2, txtPresentanteNif, txtPresentanteDomicilio,
-					txtPresentanteCodigoPostal, cboPresentanteProvincia, cboPresentanteMunicipio,
-					txtPresentanteTelefono, txtPresentanteFax, txtPresentanteEmail, cboPresentanteSolicitaRetencion };
+			controlsInOrderToNavigate = new Control[] {};
 		} else if (esPersonaJuridica()) {
-			controlsInOrderToNavigate = new Control[] {cboTipoPersona, txtDenominacion,
-					txtCifNif, txtDomicilio, txtCodigoPostal, cboProvincia, cboMunicipio, txtTelefono, txtFax,
-					txtFechaSolicitud, txtDatosRegistralesTomo, txtDatosRegistralesFolio, txtDatosRegistralesHoja,
-					txtDatosRegistralesOtros, txtTipoRegistroPublico, txtPresentanteNombre, txtPresentanteApellido1,
-					txtPresentanteApellido2, txtPresentanteNif, txtPresentanteDomicilio, txtPresentanteCodigoPostal,
-					cboPresentanteProvincia, cboPresentanteMunicipio, txtPresentanteTelefono, txtPresentanteFax,
-					txtPresentanteEmail, cboPresentanteSolicitaRetencion };
+			controlsInOrderToNavigate = new Control[] {};
 		}
 
 	}
@@ -847,39 +619,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 		iconAlertPostalPres.setImage(new Image(getClass().getResourceAsStream("/imagenes/aviso.png")));
 		iconAlertPostalPres.setVisible(false);
-
-		iconAlertCIFNIFSoli.setImage(new Image(getClass().getResourceAsStream("/imagenes/aviso.png")));
-		iconAlertCIFNIFSoli.setVisible(false);
-
-		iconDenominacionJuridicoApellidoSoli.setImage(new Image(getClass().getResourceAsStream("/imagenes/error.png")));
-		iconDenominacionJuridicoApellidoSoli.setVisible(false);
-
-		iconDomicilioSoli.setImage(new Image(getClass().getResourceAsStream("/imagenes/error.png")));
-		iconDomicilioSoli.setVisible(false);
-
-		iconApellidoSoli.setImage(new Image(getClass().getResourceAsStream("/imagenes/error.png")));
-		iconApellidoSoli.setVisible(false);
-
-		iconNombreSoli.setImage(new Image(getClass().getResourceAsStream("/imagenes/error.png")));
-		iconNombreSoli.setVisible(false);
-
-		iconAlertCodPostal.setImage(new Image(getClass().getResourceAsStream("/imagenes/aviso.png")));
-		iconAlertCodPostal.setVisible(false);
-
-		iconFechaSoli.setImage(new Image(getClass().getResourceAsStream("/imagenes/error.png")));
-		iconFechaSoli.setVisible(false);
-
-		iconRegistroMercantil.setImage(new Image(getClass().getResourceAsStream("/imagenes/error.png")));
-		iconRegistroMercantil.setVisible(false);
-
-		iconProvincia.setImage(new Image(getClass().getResourceAsStream("/imagenes/aviso.png")));
-		iconProvincia.setVisible(false);
-
-		iconMunicipioSoli.setImage(new Image(getClass().getResourceAsStream("/imagenes/error.png")));
-		iconMunicipioSoli.setVisible(false);
-
-		iconProvinciaError.setImage(new Image(getClass().getResourceAsStream("/imagenes/error.png")));
-		iconProvinciaError.setVisible(false);
 
 	}
 
@@ -1035,31 +774,16 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 			cboPresentanteProvincia.cargarCombo("Provincias");
 
-			cboProvincia.cargarCombo("Provincias");
-
-		
-
 			cboPresentanteSolicitaRetencion.cargarCombo("SolicitaRetencion");
 
-			cboTipoPersona.cargarCombo("TipoPersona");
-
 			cboPresentanteProvincia.setConverter(new MaestroCodigoDescripcionConverter(cboPresentanteProvincia));
-			cboProvincia.setConverter(new MaestroCodigoDescripcionConverter(cboProvincia));
-			
+
 			cboPresentanteSolicitaRetencion
 					.setConverter(new MaestroCodigoDescripcionConverter(cboPresentanteSolicitaRetencion));
-			cboTipoPersona.setConverter(new MaestroCodigoDescripcionConverter(cboTipoPersona));
 
 			String prov = MGeneral.mlform.Presentacion.getProvinciaCodigo();
 
 			MaestroCodigoDescripcion provincia = new MaestroCodigoDescripcion("Provincias");
-
-			if (provincia.existeCodigo(prov)) {
-
-				List<String> Lista = MGeneral.Idioma.obtenerMunicipiosDeProvincia(prov);
-
-				cboMunicipio.cargarCombo(Lista);
-			}
 
 			String prov2 = MGeneral.mlform.Presentacion.getPresentante().get_ProvinciaCodigo();
 			if (provincia.existeCodigo(prov2)) {
@@ -1090,19 +814,11 @@ public class ProductosController implements Initializable, NavigableControllerHe
 				validar(true);
 			}
 
-			cboTipoPersona.requestFocus();
-
 		} catch (Exception ex) {
 			MGeneral.Idioma.MostrarMensaje(IdiomaC.EnumMensajes.Excepcion, ex.getMessage(), "", "");
 			ex.printStackTrace();
 		} finally {
 
-			if (txtTipoRegistroPublico.getText().isEmpty()) {
-				txtTipoRegistroPublico.setText(
-						MGeneral.Idioma.obtenerValor(ObjetosIdioma.FORMULARIOS, frmEntradaDatos.getId().toString(),
-								ElementosIdiomaC.TEXT_CONTROLES, txtTipoRegistroPublico.getId(), ""));
-
-			}
 			validarTodosLosControles(frmEntradaDatos, true, false);
 			Utilidades.cursorEspera(getParentController().getStagePrincipal(), false);
 		}
@@ -1110,68 +826,13 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 	public void camposVisiblesSegunTipoPersona(ActionEvent event) {
 		String tipoPersona = "";
-		txtDenominacion.setVisible(false);
-		lblDenominacion.setVisible(false);
-		txtNombre.setVisible(false);
-		lblNombre.setVisible(false);
-		txtApellido1.setVisible(false);
-		lblApellido1.setVisible(false);
-		txtApellido2.setVisible(false);
-		lblApellido2.setVisible(false);
-		lblCif.setVisible(false);
-		lblNif.setVisible(false);
-
-		txtDenominacion.setManaged(false);
-		lblDenominacion.setManaged(false);
-		txtNombre.setManaged(false);
-		lblNombre.setManaged(false);
-		txtApellido1.setManaged(false);
-		lblApellido1.setManaged(false);
-		txtApellido2.setManaged(false);
-		lblApellido2.setManaged(false);
-		lblCif.setManaged(false);
-		lblNif.setManaged(false);
-		iconApellidoSoli.setVisible(false);
-		iconApellidoSoli.setManaged(false);
-
-		iconNombreSoli.setVisible(false);
-		iconNombreSoli.setManaged(false);
-
-		if (cboTipoPersona.getValue() != null) {
-			tipoPersona = cboTipoPersona.getValue().getCodigo();
-		}
 
 		switch (tipoPersona) {
 		case kLegalizacion.kTipoPersonaFisica:
 
-			txtNombre.setVisible(true);
-			lblNombre.setVisible(true);
-			txtApellido1.setVisible(true);
-			lblApellido1.setVisible(true);
-			txtApellido2.setVisible(true);
-			lblApellido2.setVisible(true);
-			lblNif.setVisible(true);
-
-			txtNombre.setManaged(true);
-			lblNombre.setManaged(true);
-			txtApellido1.setManaged(true);
-			lblApellido1.setManaged(true);
-			txtApellido2.setManaged(true);
-			lblApellido2.setManaged(true);
-			lblNif.setManaged(true);
-
-			GridPane.setColumnSpan(txtDenominacion, 1);
 			break;
 		case kLegalizacion.kTipoPersonaJuridica:
 
-			txtDenominacion.setVisible(true);
-			lblDenominacion.setVisible(true);
-			lblCif.setVisible(true);
-
-			txtDenominacion.setManaged(true);
-			lblDenominacion.setManaged(true);
-			lblCif.setManaged(true);
-			GridPane.setColumnSpan(txtDenominacion, 8);
 			break;
 		}
 	}
@@ -1179,65 +840,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 	void iniciarValidaciones() {
 		aniadirListener();
 		// Agregar controlador para el evento de cambio de texto
-		txtTipoRegistroPublico.textProperty().addListener((observable, oldValue, newValue) -> {
-			evValidarRegistroPublico(txtTipoRegistroPublico);
-		});
-
-		// Agregar controlador para el evento de salir del control
-		txtTipoRegistroPublico.setOnMouseExited(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent event) {
-				evValidarRegistroPublico(txtTipoRegistroPublico);
-			}
-
-		});
-
-		cboTipoPersona.valueProperty().addListener((observable, oldValue, newValue) -> {
-			if (newValue != null) {
-
-				evValidarAlValidar(cboTipoPersona);
-			}
-		});
-
-		cboProvincia.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue) {
-				evValidarAlValidar(cboProvincia);
-
-			}
-		});
-
-		txtNombre.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue) {
-
-				evValidarAlValidar(txtNombre);
-			}
-		});
-
-		cboProvincia.getEditor().textProperty().addListener((observable, oldValue,
-				newValue) -> evValidarInputCombobox(cboProvincia, iconProvinciaError, iconPaneProvincia));
-
-		cboProvincia.getEditor().textProperty().addListener((observable, oldValue,
-				newValue) -> evValidarInputComboboxSegundavalidacion(cboProvincia, iconProvincia, iconPaneProvincia));
-
-		txtCodigoPostal.textProperty().addListener((observable, oldValue, newValue) -> evValidarInput(txtCodigoPostal,
-				iconAlertCodPostal, iconPaneAlertCodPostal));
-
-		txtCifNif.textProperty().addListener((observable, oldValue, newValue) -> evValidarInput(txtCifNif,
-				iconAlertCIFNIFSoli, iconPaneAlertCIFNIFSoli));
-
-		txtNombre.textProperty().addListener(
-				(observable, oldValue, newValue) -> evValidarInput(txtNombre, iconNombreSoli, iconPaneNombreSoli));
-
-		txtApellido1.textProperty().addListener((observable, oldValue, newValue) -> evValidarInput(txtApellido1,
-				iconApellidoSoli, iconPaneApellidoSoli));
-
-		txtApellido2.textProperty().addListener((observable, oldValue, newValue) -> evValidarInput(txtApellido2,
-				iconDenominacionJuridicoApellidoSoli, iconPaneApellidoDenominacionJuridicoSoli));
-
-		txtDomicilio.textProperty().addListener((observable, oldValue, newValue) -> evValidarInput(txtDomicilio,
-				iconDomicilioSoli, iconPaneDomicilioSoli));
-
-		txtDenominacion.textProperty().addListener((observable, oldValue, newValue) -> evValidarInput(txtDenominacion,
-				iconDenominacionJuridicoApellidoSoli, iconPaneApellidoDenominacionJuridicoSoli));
 
 		txtPresentanteEmail.textProperty().addListener((observable, oldValue,
 				newValue) -> evValidarInput(txtPresentanteEmail, iconErrorEmailPres, iconPanErrorEmailPres));
@@ -1246,75 +848,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 		txtPresentanteNif.textProperty().addListener((observable, oldValue,
 				newValue) -> evValidarInput(txtPresentanteEmail, iconAlertNIFPres, iconPaneNIFPres));
 
-		txtCodigoPostal.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue) {
-
-				evValidarAlValidar(txtCodigoPostal);
-			}
-		});
-
-		txtApellido1.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue) {
-
-				evValidarAlValidar(txtApellido1);
-			}
-		});
-
-		txtApellido2.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue) {
-
-				evValidarAlValidar(txtApellido2);
-			}
-		});
-
-		txtDomicilio.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue) {
-
-				evValidarAlValidar(txtDomicilio);
-			}
-		});
-
-		txtDenominacion.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue) {
-
-				evValidarAlValidar(txtDenominacion);
-			}
-		});
-
-		
-
-		cboMunicipio.getEditor().textProperty().addListener((observable, oldValue,
-				newValue) -> evValidarInputCombobox(cboMunicipio, iconMunicipioSoli, iconPaneMunicipioSoli));// revisao
-
-		cboMunicipio.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue) {
-
-				evValidarAlValidar(cboMunicipio);
-			}
-		});
-
-		cboTipoPersona.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-			changeControlsInOrderToNavigate();
-			if (esPersonaJuridica()) {
-
-				ErrorProvider(MGeneral.Idioma.obtenerLiteral(IdiomaC.EnumLiterales.CampoObligatorio).toString(),
-						iconPaneApellidoSoli, iconApellidoSoli, false, txtApellido1);
-				ErrorProvider(MGeneral.Idioma.obtenerLiteral(IdiomaC.EnumLiterales.CampoObligatorio).toString(),
-						iconPaneNombreSoli, iconNombreSoli, false, txtNombre);
-				ErrorProvider(MGeneral.Idioma.obtenerLiteral(IdiomaC.EnumLiterales.CampoObligatorio).toString(),
-						iconPaneApellidoDenominacionJuridicoSoli, iconDenominacionJuridicoApellidoSoli, false,
-						txtDenominacion);
-
-			}
-
-		});
-
-		txtCifNif.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue) {
-
-				evValidarAlValidar(txtCifNif);
-			}
-		});
 		txtPresentanteNif.focusedProperty().addListener((observable, oldValue, newValue) -> {
 			if (!newValue) {
 
@@ -1322,16 +855,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 				evValidarAlValidar(txtPresentanteNif);
 			}
 		});
-		txtFechaSolicitud.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue) {
-
-				// Se ejecuta cuando el TextField pierde el foco
-				evValidarAlValidar(txtFechaSolicitud);
-			}
-		});
-
-		txtFechaSolicitud.textProperty().addListener((observable, oldValue,
-				newValue) -> evValidarInput(txtFechaSolicitud, iconFechaSoli, iconPaneFechaSoli));
 
 		txtPresentanteCodigoPostal.focusedProperty().addListener((observable, oldValue, newValue) -> {
 			if (!newValue) {
@@ -1351,44 +874,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 		txtPresentanteCodigoPostal.addEventHandler(KeyEvent.KEY_TYPED, this::evSoloNumerosInterfaz);
 
-		txtCodigoPostal.addEventHandler(KeyEvent.KEY_TYPED, this::evSoloNumerosInterfaz);
-
-		txtDatosRegistralesTomo.addEventHandler(KeyEvent.KEY_TYPED, this::evSoloNumerosInterfaz);
-
-		txtDatosRegistralesFolio.addEventHandler(KeyEvent.KEY_TYPED, this::evSoloNumerosInterfaz);
-
-		txtDatosRegistralesTomo.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue) {
-
-				// Se ejecuta cuando el TextField pierde el foco
-				evValidarAlValidar(txtDatosRegistralesTomo);
-			}
-		});
-
-		txtDatosRegistralesFolio.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue) {
-
-				// Se ejecuta cuando el TextField pierde el foco
-				evValidarAlValidar(txtDatosRegistralesFolio);
-			}
-		});
-
-		txtDatosRegistralesHoja.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue) {
-
-				// Se ejecuta cuando el TextField pierde el foco
-				evValidarAlValidar(txtDatosRegistralesHoja);
-			}
-		});
-
-		txtDatosRegistralesOtros.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue) {
-
-				// Se ejecuta cuando el TextField pierde el foco
-				evValidarAlValidar(txtDatosRegistralesOtros);
-			}
-		});
-
 		txtPresentanteEmail.focusedProperty().addListener((observable, oldValue, newValue) -> {
 			if (!newValue) {
 
@@ -1403,8 +888,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 				newValue) -> evValidarInput(txtPresentanteCodigoPostal, iconAlertPostalPres, iconPaneAlertPostalPres));
 		txtPresentanteNif.textProperty().addListener((observable, oldValue,
 				newValue) -> evValidarInput(txtPresentanteNif, iconAlertNIFPres, iconPaneNIFPres));
-
-		txtLibrosPresentados.setAlignment(javafx.geometry.Pos.CENTER_RIGHT);
 
 	}
 
@@ -1459,25 +942,10 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 	private void cargaDatosPresentacion() {
 
-		if (MGeneral.mlform.Datos.get_TipoPersona().equals(kLegalizacion.kTipoPersonaFisica)) {
-			txtNombre.setText(MGeneral.mlform.Presentacion.getNombreSociedadoEmpresario());
-		} else if (MGeneral.mlform.Datos.get_TipoPersona().equals(kLegalizacion.kTipoPersonaJuridica)) {
-			txtDenominacion.setText(MGeneral.mlform.Presentacion.getNombreSociedadoEmpresario());
-		}
 		// Comboboxes
 		String codigo = MGeneral.mlform.Presentacion.getProvinciaCodigo();
 
 		MaestroCodigoDescripcion provincia = new MaestroCodigoDescripcion("Provincias");
-
-		if (provincia.existeCodigo(codigo)) {
-			provincia.setCodigo(codigo);
-			provincia.setDescripcion(provincia.obtenerDescripcion(codigo));
-			cboProvincia.setValue(provincia);
-		}
-		cboMunicipio.setValue(MGeneral.mlform.Presentacion.getCiudad());
-
-		System.out.print(cboProvincia.getValue());
-		System.out.print(cboMunicipio.getValue());
 
 		String codigo2 = MGeneral.mlform.Presentacion.getPresentante().get_ProvinciaCodigo();
 		MaestroCodigoDescripcion provinciados = new MaestroCodigoDescripcion("Provincias");
@@ -1487,8 +955,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 			cboPresentanteProvincia.setValue(provinciados);
 		}
 
-		System.out.print(cboProvincia.getValue());
-		System.out.print(cboMunicipio.getValue());
 		cboPresentanteMunicipio.setValue(MGeneral.mlform.Presentacion.getPresentante().get_Ciudad());
 
 		String codigo3 = MGeneral.mlform.Presentacion.getRegistroMercantilDestinoCodigo();
@@ -1498,7 +964,7 @@ public class ProductosController implements Initializable, NavigableControllerHe
 		if (registros.existeCodigo(codigo3)) {
 			registros.setCodigo(codigo3);
 			registros.setDescripcion(registros.obtenerDescripcion(codigo3));
-		
+
 		}
 
 		MaestroCodigoDescripcion retencion = new MaestroCodigoDescripcion("SolicitaRetencion");
@@ -1512,16 +978,10 @@ public class ProductosController implements Initializable, NavigableControllerHe
 		MaestroCodigoDescripcion tipo = new MaestroCodigoDescripcion("TipoPersona");
 		String codigo5 = MGeneral.mlform.Datos.get_TipoPersona();
 
-		if (tipo.existeCodigo(codigo5)) {
-			tipo.setCodigo(codigo5);
-			tipo.setDescripcion(tipo.obtenerDescripcion(codigo5));
-			cboTipoPersona.setValue(tipo);
-		}
-
 		// DatePicker
 		// Convertir el String a LocalDate
 		LocalDate fecha = convertirAFecha(MGeneral.mlform.Presentacion.getFechaSolicitud());
-		txtFechaSolicitud.setValue(fecha);
+
 		// //Covertir a localdate
 
 		// TextField
@@ -1535,28 +995,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 		txtPresentanteNif.setText(MGeneral.mlform.Presentacion.getPresentante().get_Nif());
 		txtPresentanteTelefono.setText(MGeneral.mlform.Presentacion.getPresentante().get_Telefono());
 
-		txtApellido1.setText(MGeneral.mlform.Presentacion.getApellido1());
-		txtApellido2.setText(MGeneral.mlform.Presentacion.getApellido2());
-		txtCodigoPostal.setText(MGeneral.mlform.Presentacion.getCodigoPostal());
-		txtDomicilio.setText(MGeneral.mlform.Presentacion.getDomicilio());
-		txtFax.setText(MGeneral.mlform.Presentacion.getFax());
-		txtDatosRegistralesFolio.setText(MGeneral.mlform.Presentacion.getDatosRegistralesFolio());
-		txtDatosRegistralesHoja.setText(MGeneral.mlform.Presentacion.getDatosRegistralesHoja());
-		txtLibrosPresentados.setText(MGeneral.mlform.Presentacion.getDatosRegistralesLibro());
-		txtCifNif.setText(MGeneral.mlform.Presentacion.getNifCif());
-
-		txtDatosRegistralesOtros.setText(MGeneral.mlform.Presentacion.getDatosRegistralesOtros());
-		txtTelefono.setText(MGeneral.mlform.Presentacion.getTelefono());
-		txtTipoRegistroPublico.setText(MGeneral.mlform.Presentacion.getTipoRegistroPublico());
-		txtDatosRegistralesTomo.setText(MGeneral.mlform.Presentacion.getDatosRegistralesTomo());
-		txtLibrosPresentados.setText(String.valueOf(MGeneral.mlform.getNumeroTotalFicherosPresentados()));
-
-		txtTipoRegistroPublico.setText(MGeneral.mlform.Presentacion.getTipoRegistroPublico());
-		System.out.print(cboProvincia.getValue());
-		System.out.print(cboMunicipio.getValue());
-
-		System.out.print(cboPresentanteProvincia.getValue());
-		System.out.print(cboPresentanteMunicipio.getValue());
 	}
 
 //Activado en menu principal
@@ -1606,71 +1044,12 @@ public class ProductosController implements Initializable, NavigableControllerHe
 //Aca creo que con un get codigo y get descripcion funca igual
 			String registroMercantilDestinoCodigo;
 
-		
-
-			if (cboTipoPersona.getValue() == null) {
-				MGeneral.mlform.Datos.set_TipoPersona("");
-			} else {
-				MGeneral.mlform.Datos.set_TipoPersona(cboTipoPersona.getValue().getCodigo().toUpperCase());
-			}
-
-			if (MGeneral.mlform.Datos.get_TipoPersona().equals(kLegalizacion.kTipoPersonaFisica)) {
-				// Nombre Soli
-				MGeneral.mlform.Presentacion.setNombreSociedadoEmpresario(txtNombre.getText());
-				// Apellido1 Soli
-				MGeneral.mlform.Presentacion.setApellido1(txtApellido1.getText());
-				// Apelldo 2 Soli
-				MGeneral.mlform.Presentacion.setApellido2(txtApellido2.getText());
-
-			}
-
-			if (MGeneral.mlform.Datos.get_TipoPersona().equals(kLegalizacion.kTipoPersonaJuridica)) {
-				MGeneral.mlform.Presentacion.setNombreSociedadoEmpresario(txtDenominacion.getText());
-				MGeneral.mlform.Presentacion.setApellido1("");
-				MGeneral.mlform.Presentacion.setApellido2("");
-			}
-//Nif Soli
-			MGeneral.mlform.Presentacion.setNifCif(txtCifNif.getText());
-//Domicilio Soli
-			MGeneral.mlform.Presentacion.setDomicilio(txtDomicilio.getText());
-//MuniSoli (quiza falte seguridad)
-			if (cboMunicipio.getValue() == null) {
-				MGeneral.mlform.Presentacion.setCiudad("");
-			} else {
-				MGeneral.mlform.Presentacion.setCiudad(cboMunicipio.getValue());
-			}
-
-//CodigoPostalSoli
-			MGeneral.mlform.Presentacion.setCodigoPostal(txtCodigoPostal.getText());
+//CodigoP
 
 //ProvinciaSoli
 			String provinciaCodigo;
 
-			if (cboProvincia.getValue() == null) {
-				provinciaCodigo = "";
-			} else {
-				MaestroCodigoDescripcion maestro = new MaestroCodigoDescripcion("Provincias");
-				provinciaCodigo = maestro.obtenerCodigoDeDescripcion(cboProvincia.getValue().getDescripcion());
-			}
-			MGeneral.mlform.Presentacion.setProvinciaCodigo(provinciaCodigo);
 //FaxSoli
-			MGeneral.mlform.Presentacion.setFax(txtFax.getText());
-//Telefono Soli
-			MGeneral.mlform.Presentacion.setTelefono(txtTelefono.getText());
-//FechaSoli DatePicker
-
-//setDatosRegistralesLibro
-			MGeneral.mlform.Presentacion.setDatosRegistralesLibro(txtLibrosPresentados.getText());
-//setDatosRegistralesTomo
-			MGeneral.mlform.Presentacion.setDatosRegistralesTomo(txtDatosRegistralesTomo.getText());
-//setDatosRegistralesFolio
-			MGeneral.mlform.Presentacion.setDatosRegistralesFolio(txtDatosRegistralesFolio.getText());
-//setDatosRegistralesHoja
-			MGeneral.mlform.Presentacion.setDatosRegistralesHoja(txtDatosRegistralesHoja.getText());
-//setDatosRegistralesOtros
-			MGeneral.mlform.Presentacion.setDatosRegistralesOtros(txtDatosRegistralesOtros.getText());
-//setTipoRegistroPublico
-			MGeneral.mlform.Presentacion.setTipoRegistroPublico(txtTipoRegistroPublico.getText());
 
 //Presentante
 //NombrePres
@@ -1719,18 +1098,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 			}
 			MGeneral.mlform.Presentacion._Presentante.set_SolicitaRetencion(presentanteSolicitaRetencion);
 
-			if (txtFechaSolicitud.getValue() == null) {
-				MGeneral.mlform.Presentacion.setFechaSolicitud("");
-
-			} else {
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy");
-				LocalDate fecha = txtFechaSolicitud.getValue();
-				String formattedDate = fecha.format(formatter);
-
-				MGeneral.mlform.Presentacion.setFechaSolicitud(formattedDate);
-
-			}
-
 			MGeneral.mlform.guarda();
 
 			pendienteGuardar = false;
@@ -1746,18 +1113,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 	public void recargaMuniSoli(ActionEvent event) {
 		try {
-			String filtro = cboProvincia.getEditor().getText().toUpperCase();
-
-			if (cboProvincia.validarSeleccion()) {
-				cboMunicipio.setValue(null);
-				MaestroCodigoDescripcion aux = new MaestroCodigoDescripcion("Provincias");
-				String codigo = aux.obtenerCodigoDeDescripcion(filtro);
-
-				List<String> Lista = MGeneral.Idioma.obtenerMunicipiosDeProvincia(codigo);
-
-				cboMunicipio.cargarCombo(Lista);
-
-			}
 
 		} catch (Exception e) {
 
@@ -1855,7 +1210,8 @@ public class ProductosController implements Initializable, NavigableControllerHe
 					}
 				}
 
-				//Utilidades.cursorEsperaJavaFX(getParentController().getStagePrincipal(), true, Duration.INDEFINITE);
+				// Utilidades.cursorEsperaJavaFX(getParentController().getStagePrincipal(),
+				// true, Duration.INDEFINITE);
 
 				resulZip = MGeneral.mlform.generarZip("");
 
@@ -1866,7 +1222,8 @@ public class ProductosController implements Initializable, NavigableControllerHe
 					}
 
 				}
-				//Utilidades.cursorEsperaJavaFX(getParentController().getStagePrincipal(), false, Duration.ZERO);
+				// Utilidades.cursorEsperaJavaFX(getParentController().getStagePrincipal(),
+				// false, Duration.ZERO);
 
 				// getParentController().StatusProgressBar;
 				if (resulZip == LegalizacionService.EnumResultadoZip.Correcto) {
@@ -2062,7 +1419,7 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 			// Agregar los otros casos de operación aquí...
 			case GenerarHuellas:
-				
+
 				boolean resulBool = false;
 
 				if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.Normal) {
@@ -2241,11 +1598,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 				// Aquí deberías sustituir con la lógica correspondiente para determinar la
 				// visibilidad de los labels
 
-				if (lblCif.isVisible()) {
-					sufijo = "Cif";
-				} else if (lblNif.isVisible()) {
-					sufijo = "Nif";
-				}
 			}
 
 			nombreCampoLabel = "lbl" + sufijo;
@@ -2258,7 +1610,7 @@ public class ProductosController implements Initializable, NavigableControllerHe
 				textoLabel = aux.getText().trim();
 			}
 		} catch (Exception ex) {
-			
+
 		}
 
 		return textoLabel;
@@ -2277,81 +1629,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 			}
 			switch (control.getId().toString()) {
 
-			case "cboTipoPersona":
-
-				if (!txtCifNif.getText().isEmpty()) {
-					if (esPersonaJuridica()) {
-						if (!Formato.validaCif(txtCifNif.getText())) {
-							ErrorProvider(
-									IdiomaC.obtenerMensaje(IdiomaC.EnumMensajes.FormatoCifIncorrecto, null, null, null)
-											.toString(),
-									iconPaneAlertCIFNIFSoli, iconAlertCIFSoli, true, control);
-
-						} else {
-							ErrorProvider(
-									IdiomaC.obtenerMensaje(IdiomaC.EnumMensajes.FormatoCifIncorrecto, null, null, null)
-											.toString(),
-									iconPaneAlertCIFNIFSoli, iconAlertCIFNIFSoli, false, control);
-
-						}
-					} else if (esPersonaFisica()) {
-						if (!Formato.validaNif(txtCifNif.getText())) {
-							ErrorProvider(
-									IdiomaC.obtenerMensaje(IdiomaC.EnumMensajes.FormatoNifIncorrecto, null, null, null)
-											.toString(),
-									iconPaneAlertCIFNIFSoli, iconAlertCIFNIFSoli, true, control);
-
-						} else {
-							ErrorProvider(
-									IdiomaC.obtenerMensaje(IdiomaC.EnumMensajes.FormatoNifIncorrecto, null, null, null)
-											.toString(),
-									iconPaneAlertCIFNIFSoli, iconAlertCIFNIFSoli, false, control);
-						}
-					}
-				}
-
-				break;
-
-			case "txtCifNif":
-
-				if (!((TextField) control).getText().isEmpty()) {
-					ErrorProvider(MGeneral.Idioma.obtenerLiteral(IdiomaC.EnumLiterales.CampoObligatorio).toString(),
-							iconPaneAlertCIFNIFSoli, iconAlertCIFNIFSoli, false, control);
-					if (esPersonaJuridica()) {
-						if (!Formato.validaCif(txtCifNif.getText())) {
-							ErrorProvider(
-									IdiomaC.obtenerMensaje(IdiomaC.EnumMensajes.FormatoCifIncorrecto, null, null, null)
-											.toString(),
-									iconPaneAlertCIFNIFSoli, iconAlertCIFNIFSoli, true, control);
-
-						} else {
-							ErrorProvider(
-									IdiomaC.obtenerMensaje(IdiomaC.EnumMensajes.FormatoCifIncorrecto, null, null, null)
-											.toString(),
-									iconPaneAlertCIFNIFSoli, iconAlertCIFNIFSoli, false, control);
-
-						}
-					} else if (esPersonaFisica()) {
-						if (!Formato.validaNif(txtCifNif.getText())) {
-							ErrorProvider(
-									IdiomaC.obtenerMensaje(IdiomaC.EnumMensajes.FormatoNifIncorrecto, null, null, null)
-											.toString(),
-									iconPaneAlertCIFNIFSoli, iconAlertCIFNIFSoli, true, control);
-
-						} else {
-							ErrorProvider(
-									IdiomaC.obtenerMensaje(IdiomaC.EnumMensajes.FormatoNifIncorrecto, null, null, null)
-											.toString(),
-									iconPaneAlertCIFNIFSoli, iconAlertCIFNIFSoli, false, control);
-
-						}
-					}
-				} else {
-					ErrorProvider(MGeneral.Idioma.obtenerLiteral(IdiomaC.EnumLiterales.CampoObligatorio).toString(),
-							iconPaneAlertCIFNIFSoli, iconAlertCIFNIFSoli, true, control);
-
-				}
-				break;
 			case "txtPresentanteNif":
 
 				if (!((TextField) control).getText().isEmpty()) {
@@ -2470,50 +1747,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 				}
 				break;
 
-			case "txtDenominacion":
-
-				if (esPersonaJuridica()) {
-
-					if (!((TextField) control).getText().isEmpty()) {
-						ErrorProvider(MGeneral.Idioma.obtenerLiteral(IdiomaC.EnumLiterales.CampoObligatorio).toString(),
-								iconPaneApellidoDenominacionJuridicoSoli, iconDenominacionJuridicoApellidoSoli, false,
-								control);
-					} else {
-
-						ErrorProvider(MGeneral.Idioma.obtenerLiteral(IdiomaC.EnumLiterales.CampoObligatorio).toString(),
-								iconPaneApellidoDenominacionJuridicoSoli, iconDenominacionJuridicoApellidoSoli, true,
-								control);
-						validarPrimerControlNoValido = false;
-					}
-				}
-				break;
-			case "txtDomicilio":
-
-				if (!((TextField) control).getText().isEmpty()) {
-					ErrorProvider(MGeneral.Idioma.obtenerLiteral(IdiomaC.EnumLiterales.CampoObligatorio).toString(),
-							iconPaneDomicilioSoli, iconDomicilioSoli, false, control);
-				} else {
-					ErrorProvider(MGeneral.Idioma.obtenerLiteral(IdiomaC.EnumLiterales.CampoObligatorio).toString(),
-							iconPaneDomicilioSoli, iconDomicilioSoli, true, control);
-					validarPrimerControlNoValido = false;
-				}
-				break;
-
-			case "txtNombre":
-
-				if (esPersonaFisica()) {
-
-					if (!((TextField) control).getText().isEmpty()) {
-						ErrorProvider(MGeneral.Idioma.obtenerLiteral(IdiomaC.EnumLiterales.CampoObligatorio).toString(),
-								iconPaneNombreSoli, iconNombreSoli, false, control);
-					} else {
-						ErrorProvider(MGeneral.Idioma.obtenerLiteral(IdiomaC.EnumLiterales.CampoObligatorio).toString(),
-								iconPaneNombreSoli, iconNombreSoli, true, control);
-						validarPrimerControlNoValido = false;
-					}
-				}
-				break;
-
 			case "cboxMunicipioPres":
 
 				if (!Formato.ValorNulo(cboPresentanteProvincia) && !Formato.ValorNulo(control)) {
@@ -2525,106 +1758,7 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 				}
 				break;
-			case "txtApellido1":
-				if (esPersonaFisica()) {
-					if (!((TextField) control).getText().isEmpty()) {
-						ErrorProvider(MGeneral.Idioma.obtenerLiteral(IdiomaC.EnumLiterales.CampoObligatorio).toString(),
-								iconPaneApellidoSoli, iconApellidoSoli, false, control);
-					} else {
-						ErrorProvider(MGeneral.Idioma.obtenerLiteral(IdiomaC.EnumLiterales.CampoObligatorio).toString(),
-								iconPaneApellidoSoli, iconApellidoSoli, true, control);
-						validarPrimerControlNoValido = false;
-					}
-				}
-				break;
-			case "txtApellido2":
-				if (esPersonaFisica()) {
-					if (!((TextField) control).getText().isEmpty()) {
-						ErrorProvider(MGeneral.Idioma.obtenerLiteral(IdiomaC.EnumLiterales.CampoObligatorio).toString(),
-								iconPaneApellidoDenominacionJuridicoSoli, iconDenominacionJuridicoApellidoSoli, false,
-								control);
-					} else {
-						ErrorProvider(MGeneral.Idioma.obtenerLiteral(IdiomaC.EnumLiterales.CampoObligatorio).toString(),
-								iconPaneApellidoDenominacionJuridicoSoli, iconDenominacionJuridicoApellidoSoli, true,
-								control);
 
-					}
-				}
-				break;
-
-			case "txtCodigoPostal":
-
-				if ((((TextField) control).getText().length()) != 5
-						|| (((TextField) control).getText().length()) == 0) {
-
-					ErrorProvider(MGeneral.Idioma
-							.obtenerMensaje(IdiomaC.EnumMensajes.CodigoPostalNoTiene5Digitos, null, null, null)
-							.toString(), iconPaneAlertCodPostal, iconAlertCodPostal, true, control);
-					validarPrimerControlNoValido = false;
-				} else {
-
-					ErrorProvider(MGeneral.Idioma
-							.obtenerMensaje(IdiomaC.EnumMensajes.CodigoPostalNoTiene5Digitos, null, null, null)
-							.toString(), iconPaneAlertCodPostal, iconAlertCodPostal, false, control);
-
-					if ((Formato.verificaProvinciaYCodigoPostal(txtCodigoPostal, cboProvincia)) == false) {
-						ErrorProvider(
-								MGeneral.Idioma.obtenerMensaje(IdiomaC.EnumMensajes.CodigoPostalNoConcuerdaConProvincia,
-										null, null, null).toString(),
-								iconPaneAlertCodPostal, iconAlertCodPostal, true, control);
-
-					} else {
-						ErrorProvider(
-								MGeneral.Idioma.obtenerMensaje(IdiomaC.EnumMensajes.CodigoPostalNoConcuerdaConProvincia,
-										null, null, null).toString(),
-								iconPaneAlertCodPostal, iconAlertCodPostal, false, control);
-
-					}
-
-				}
-				break;
-
-			case "txtFechaSolicitud":
-
-				if (txtFechaSolicitud.getValue() == null) {
-					ErrorProvider(MGeneral.Idioma.obtenerLiteral(IdiomaC.EnumLiterales.CampoObligatorio).toString(),
-							iconPaneFechaSoli, iconFechaSoli, true, control);
-					validarPrimerControlNoValido = false;
-				} else if (!Formato.ValorNulo(control)) {
-
-					if (!LegalizacionService.comprobarFecha(txtFechaSolicitud.getValue().toString(), null)) {
-
-						ErrorProvider(MGeneral.Idioma
-								.obtenerMensaje(IdiomaC.EnumMensajes.FechaNoValida, null, null, null).toString(),
-								iconPaneFechaSoli, iconFechaSoli, false, control);
-
-					}
-				}
-				break;
-
-			case "cboxRegistroMercantil":
-
-				if (!cboProvincia.getEditor().getText().isEmpty()) {
-
-					verificarRegistroYProvincia(validarObligatoriedad);
-
-				}
-
-				
-
-				break;
-
-			case "cboMunicipio":
-
-				if (cboMunicipio.getEditor().getText().isEmpty()) {
-					ErrorProvider(MGeneral.Idioma.obtenerLiteral(IdiomaC.EnumLiterales.CampoObligatorio).toString(),
-							iconPaneMunicipioSoli, iconMunicipioSoli, true, control);
-					validarPrimerControlNoValido = false;
-				}
-
-				break;
-
-			
 			default:
 				break;
 			}
@@ -2653,16 +1787,7 @@ public class ProductosController implements Initializable, NavigableControllerHe
 		try {
 			String tipoPersona = "";
 
-			if (cboTipoPersona.getValue() != null) {
-				tipoPersona = cboTipoPersona.getValue().getCodigo();
-
-				if (tipoPersona.equals(kLegalizacion.kTipoPersonaJuridica)) {
-
-					return true;
-				}
-			}
-
-			return false;
+			return true;
 		} catch (Exception ex) {
 			return false;
 		}
@@ -2671,13 +1796,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 	public boolean esPersonaFisica() {
 		try {
 			String tipoPersona = "";
-
-			if (cboTipoPersona.getValue() != null) {
-				tipoPersona = cboTipoPersona.getValue().getCodigo();
-				if (tipoPersona.equals(kLegalizacion.kTipoPersonaFisica)) {
-					return true;
-				}
-			}
 
 			return false;
 		} catch (Exception ex) {
@@ -2710,10 +1828,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 			return null;
 		};
 
-		txtNombre.setTextFormatter(new TextFormatter<>(filter));
-		txtApellido1.setTextFormatter(new TextFormatter<>(filter));
-		txtApellido2.setTextFormatter(new TextFormatter<>(filter));
-		txtDomicilio.setTextFormatter(new TextFormatter<>(filter));
 	}
 
 	private void formatoTextfieldDatosPersonaPres() {
@@ -2750,8 +1864,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 			return null;
 		};
 
-		txtCodigoPostal.setTextFormatter(new TextFormatter<>(filter));
-
 	}
 
 	private void formatoTextfieldTOMO() {
@@ -2761,8 +1873,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 			}
 			return null;
 		};
-
-		txtDatosRegistralesTomo.setTextFormatter(new TextFormatter<>(filter));
 
 	}
 
@@ -2774,8 +1884,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 			return null;
 		};
 
-		txtDatosRegistralesFolio.setTextFormatter(new TextFormatter<>(filter));
-
 	}
 
 	private void formatoTextfieldHOJA() {
@@ -2785,8 +1893,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 			}
 			return null;
 		};
-
-		txtDatosRegistralesHoja.setTextFormatter(new TextFormatter<>(filter));
 
 	}
 
@@ -2798,8 +1904,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 			return null;
 		};
 
-		txtDatosRegistralesOtros.setTextFormatter(new TextFormatter<>(filter));
-
 	}
 
 	private void formatoTextfieldTIPOREGISTRO() {
@@ -2809,8 +1913,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 			}
 			return null;
 		};
-
-		txtTipoRegistroPublico.setTextFormatter(new TextFormatter<>(filter));
 
 	}
 
@@ -2848,30 +1950,15 @@ public class ProductosController implements Initializable, NavigableControllerHe
 			return null;
 		};
 
-		txtFax.setTextFormatter(new TextFormatter<>(filter));
-		txtCifNif.setTextFormatter(new TextFormatter<>(filter));
-		txtTelefono.setTextFormatter(new TextFormatter<>(filter));
-
 	}
 
 	public boolean verificarRegistroYProvincia(boolean mostrarMensaje) {
-
-	
 
 		if (MGeneral.mlform == null || MGeneral.mlform.getModo() == LegalizacionService.EnumModo.Recepcion
 				|| MGeneral.mlform.getModo() == LegalizacionService.EnumModo.SoloLectura
 				|| MGeneral.mlform.getModo() == LegalizacionService.EnumModo.SoloReenviar) {
 			return false;
 		}
-
-	
-
-		if (Formato.ValorNulo(cboProvincia.getValue())) {
-			return false;
-		}
-
-		
-
 
 		return true;
 	}
@@ -3033,11 +2120,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 				switch (campoPonerFoco) {
 				case "txtNombreODenominacion":
 
-					if (lblNombre.isVisible()) {
-						campoPonerFoco = "txtNombre";
-					} else if (lblDenominacion.isVisible()) {
-						campoPonerFoco = "txtDenominacion";
-					}
 					break;
 				default:
 					break;
@@ -3105,23 +2187,17 @@ public class ProductosController implements Initializable, NavigableControllerHe
 	}
 
 	public void aniadirListener() {
-	
+
 	}
 
 	public void eliminarListener() {
-	
+
 	}
 
 	@Override
 	public void initializeControlsInOrderToNavigate() {
-		controlsInOrderToNavigate = new Control[] { cboTipoPersona, txtDenominacion, txtNombre,
-				txtApellido1, txtApellido2, txtCifNif, txtDomicilio, txtCodigoPostal, cboProvincia, cboMunicipio,
-				txtTelefono, txtFax, txtFechaSolicitud, txtDatosRegistralesTomo, txtDatosRegistralesFolio,
-				txtDatosRegistralesHoja, txtDatosRegistralesOtros, txtTipoRegistroPublico, txtPresentanteNombre,
-				txtPresentanteApellido1, txtPresentanteApellido2, txtPresentanteNif, txtPresentanteDomicilio,
-				txtPresentanteCodigoPostal, cboPresentanteProvincia, cboPresentanteMunicipio, txtPresentanteTelefono,
-				txtPresentanteFax, txtPresentanteEmail, cboPresentanteSolicitaRetencion }; // TODO Auto-generated method
-																							// stub
+		controlsInOrderToNavigate = new Control[] {}; // TODO Auto-generated method
+														// stub
 
 	}
 

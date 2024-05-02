@@ -358,7 +358,7 @@ public class EspecificarLibrosController implements Initializable, NavigableCont
 				Stage stage = (Stage) frmEspecificarLibros.getScene().getWindow();
 				stage.setOnCloseRequest(event -> {
 					// Consume the event to prevent automatic closing
-					frmEspecificarLibros_FormClosed();
+					
 				});
 
 				frmEspecificarLibros.getScene().widthProperty().addListener((observable, oldValue, newValue) -> {
@@ -392,21 +392,7 @@ public class EspecificarLibrosController implements Initializable, NavigableCont
 		});
 	}
 
-	@FXML
-	public void frmEspecificarLibros_FormClosed() {
-		// Actualizar el número de libros presentados
-		// 'Se actualiza el título ya que en él se ve el ejercicio
-		try {
-
-			if (getParentController().form != null) {
-				getParentController().form.txtLibrosPresentados
-						.setText(String.valueOf(MGeneral.mlform.getNumeroTotalFicherosPresentados()));
-				getParentController().establecerTitulo();
-			}
-		} catch (Exception e) {
-
-		}
-	}
+	
 
 	@FXML
 	public boolean cargarFolderDialog() {

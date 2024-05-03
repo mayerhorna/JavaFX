@@ -88,7 +88,7 @@ public class MenuPrincipalController implements Initializable {
 	HBox frmProductos;
 
 	@FXML
-	VBox frmVenta;
+	HBox frmVenta;
 	@FXML
 	private MenuItem AcercaDeToolStripMenuItem;
 
@@ -350,6 +350,7 @@ public class MenuPrincipalController implements Initializable {
 			venta.setParentController(this);
 			//form.abrir(path);
 			AnchorPane3.getChildren().add(frmVenta);
+			
 			AnchorPane.setTopAnchor(frmVenta, 0.0);
 			AnchorPane.setBottomAnchor(frmVenta, 0.0);
 			AnchorPane.setLeftAnchor(frmVenta, 0.0);
@@ -357,7 +358,7 @@ public class MenuPrincipalController implements Initializable {
 
 			//MGeneral.Idioma.cargarIdiomaControles(null, frmVenta);
 
-			//establecerTitulo();
+			establecerTitulo();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

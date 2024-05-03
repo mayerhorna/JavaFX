@@ -296,6 +296,7 @@ public class ConfiguracionC {
 	private static final String OperatingSystem = "os.name";
 
 	private static boolean InicioSesion = false;
+	public static ArrayList<String[]> ProductoPedido = new ArrayList<>();
 
 	// Variables
 

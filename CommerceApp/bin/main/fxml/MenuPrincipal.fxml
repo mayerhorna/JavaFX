@@ -51,7 +51,7 @@
 								</Menu>
 								<Menu fx:id="TransaccionesMenu" mnemonicParsing="false">
 									<items>
-                              <MenuItem fx:id="PedidosToolStripMenuItem" mnemonicParsing="false">
+                              <MenuItem fx:id="PedidosToolStripMenuItem" mnemonicParsing="false" onAction="#venta">
                                  <graphic>
                                     <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true">
                                        <image>

@@ -121,7 +121,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <TextField fx:id="idBuscarProducto" promptText="Buscar..." GridPane.columnIndex="4" GridPane.rowIndex="1">
+                              <TextField fx:id="idBuscarProducto" promptText="Buscar por nombre..." GridPane.columnIndex="4" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets right="10.0" />
                                  </GridPane.margin></TextField>

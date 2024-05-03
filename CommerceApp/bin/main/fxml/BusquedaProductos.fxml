@@ -28,8 +28,8 @@
       <TableView fx:id="idTableViewProductos" prefHeight="174.0" prefWidth="609.0" GridPane.columnSpan="4" GridPane.rowIndex="1">
         <columns>
           <TableColumn fx:id="columName" prefWidth="263.0" text="NOMBRE" />
-          <TableColumn fx:id="columnCode" prefWidth="137.0" text="CODIGO" />
-            <TableColumn fx:id="columnSale" prefWidth="166.0" text="P. UNIT" />
+          <TableColumn fx:id="columnCode" prefWidth="273.0" text="CODIGO" />
+            <TableColumn fx:id="columnSale" prefWidth="180.0" text="P. UNIT" />
         </columns>
          <GridPane.margin>
             <Insets />

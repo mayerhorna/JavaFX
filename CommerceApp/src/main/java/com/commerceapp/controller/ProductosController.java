@@ -1425,4 +1425,9 @@ public class ProductosController implements Initializable, NavigableControllerHe
 		return controlsInOrderToNavigate;
 	}
 
+	public void abrir(String path) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

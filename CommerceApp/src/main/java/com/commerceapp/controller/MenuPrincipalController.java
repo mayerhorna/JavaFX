@@ -70,6 +70,7 @@ public class MenuPrincipalController implements Initializable {
 
 	LegalizacionService legalizacion = new LegalizacionService();
 	ProductosController form;
+	PedidoVentaController venta;
 	private boolean esPrimeraCargaMDI = true;
 
 	private Stage stage;
@@ -88,6 +89,8 @@ public class MenuPrincipalController implements Initializable {
 	@FXML
 	HBox frmProductos;
 
+	@FXML
+	VBox frmVenta;
 	@FXML
 	private MenuItem AcercaDeToolStripMenuItem;
 
@@ -338,8 +341,30 @@ public class MenuPrincipalController implements Initializable {
 		}
 	}
 
-	
+	@FXML
+	public void venta() {
 
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PedidoVenta.fxml"));
+
+		try {
+			frmVenta = loader.load();
+			venta = loader.getController();
+			venta.setParentController(this);
+			//form.abrir(path);
+			AnchorPane3.getChildren().add(frmVenta);
+			AnchorPane.setTopAnchor(frmVenta, 0.0);
+			AnchorPane.setBottomAnchor(frmVenta, 0.0);
+			AnchorPane.setLeftAnchor(frmVenta, 0.0);
+			AnchorPane.setRightAnchor(frmVenta, 0.0);
+
+			//MGeneral.Idioma.cargarIdiomaControles(null, frmVenta);
+
+			//establecerTitulo();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@FXML
 	public void Productos() {
 

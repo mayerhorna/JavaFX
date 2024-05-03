@@ -119,15 +119,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 	private boolean pendienteGuardar = false;
 
-	private boolean primeraVez = false;
-
-	private Stage stage;
-	private Scene scene;
-
-	public void setScene(Scene scene) {
-		this.scene = scene;
-	}
-
 	Utilidades objTimeline = new Utilidades();
 	// Utilizada en la función irACampoFoco
 	@FXML
@@ -217,15 +208,58 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 	@FXML
 	private TextField idEanProducto;
+	@FXML
+	private Button idaniadirProducto;
+	@FXML
+	private Button idActualizarProducto;
 
 	@FXML
+	private Button idEliminarProducto;
+
+	@FXML
+	private Button idDeshacerCreacionProducto;
+	@FXML
 	private RowConstraints idRowFamilia;
+
+	@FXML
+	private Button idCrearProducto;
+
+	@FXML
+	private ImageView idIconCodigo;
+	@FXML
+	private ImageView idIconNombre;
 
 	private ArrayList<Product> selectedProducts = new ArrayList<>();
 
 	public Control[] controlsInOrderToNavigate;
 
 	JPAControllerProduct objJPAControllerProduct;
+
+	private ChangeListener<String> textChangeListener;
+
+	// Método para añadir el listener
+	public void addListener(TextField tf, Tooltip tp) {
+		textChangeListener = (ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+			if (newValue.isEmpty()) {
+				// Cambiar el borde a rojo y mostrar el tooltip
+				tf.setStyle("-fx-border-color: red; -fx-border-width: 1px;");
+				Tooltip.install(tf, tp);
+			} else {
+				System.out.println("casilla no está vacía");
+				// Cambiar el borde a azul y ocultar el tooltip
+				tf.setStyle("");
+				Tooltip.uninstall(tf, tp);
+			}
+		};
+
+		tf.textProperty().addListener(textChangeListener);
+	}
+
+	// Método para eliminar el listener
+	public void removeListener(TextField tf, Tooltip tp) {
+		tf.textProperty().removeListener(textChangeListener);
+		Tooltip.uninstall(tf, tp);
+	}
 
 	public enum EnumTipoOperacion {
 		Imprimir(1), Enviar(2), GenerarZip(3), GenerarHuellas(4), EncriptarTodo(5);
@@ -306,7 +340,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 			public void run() {
 
 				pendienteGuardar = false;
-				primeraVez = true;
 
 				getParentController().getStagePrincipal().getScene().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
 					if (event.getCode() == KeyCode.TAB) {
@@ -315,46 +348,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 					}
 				});
 
-				getParentController().getStagePrincipal().getScene().widthProperty()
-						.addListener((observable, oldValue, newValue) -> {
-							double width = newValue.doubleValue();
-							String cssFile = "";
-							ancho = width;
-
-							try {
-
-								if (width > 1680) {
-									cssFile = "/estilos/Grande.css";
-
-								}
-
-								if (width > 1280 && width <= 1680) {
-									cssFile = "/estilos/Mediano3.css";
-
-								}
-								if (width > 1152 && width <= 1280) {
-									cssFile = "/estilos/Mediano2.css";
-
-								}
-								if (width > 1024 && width <= 1152) {
-									cssFile = "/estilos/Mediano1.css";
-
-								}
-								if (width > 801 && width <= 1024) {
-									cssFile = "/estilos/Pequeño2.css";
-								}
-								if (width <= 801) {
-									cssFile = "/estilos/Pequeño.css";
-								}
-
-								frmEntradaDatos.getStylesheets().clear();
-								frmEntradaDatos.getStylesheets().add(getClass().getResource(cssFile).toExternalForm());
-								frmEntradaDatos.getStylesheets()
-										.add(getClass().getResource("/estilos/ToolBar.css").toExternalForm());
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						});
 			}
 		});
 
@@ -712,6 +705,7 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 				objJPAControllerProduct.eliminarProducto(selectedProducts.get(0));
 				cargarProductos();
+				DeshabilitarHabilitarBotonesCreacionProducto(false);
 			}
 		}
 	}
@@ -721,21 +715,115 @@ public class ProductosController implements Initializable, NavigableControllerHe
 		cargarProductos();
 	}
 
+	Tooltip tooltip = new Tooltip("Casilla obligatoria");
+
+	@FXML
+	public void CrearProducto(ActionEvent e) throws Exception {
+		DeshabilitarHabilitarBotonesCreacionProducto(true);
+
+		// Configurar un Tooltip para idCodigoProducto
+		validacionestextfieldsobligatorias(true);
+		// Añadir listener a la propiedad del textoaddListener
+
+	}
+
+	private void validacionestextfieldsobligatorias(boolean aux) {
+		if (aux == true) {
+			idCodigoProducto.setStyle("-fx-border-color: red; -fx-border-width: 1px;");
+			Tooltip.install(idCodigoProducto, tooltip);
+			idNombreProducto.setStyle("-fx-border-color: red; -fx-border-width: 1px;");
+			Tooltip.install(idNombreProducto, tooltip);
+			addListener(idCodigoProducto, tooltip);
+			addListener(idNombreProducto, tooltip);
+		} else {
+			idCodigoProducto.setStyle("");
+			Tooltip.uninstall(idCodigoProducto, tooltip);
+			idNombreProducto.setStyle("");
+			Tooltip.uninstall(idNombreProducto, tooltip);
+			removeListener(idCodigoProducto, tooltip);
+			removeListener(idNombreProducto, tooltip);
+		}
+	}
+
+	@FXML
+	public void DeshacerProducto(ActionEvent e) throws Exception {
+		DeshabilitarHabilitarBotonesCreacionProducto(false);
+		validacionestextfieldsobligatorias(false);
+	}
+
+	@FXML
+	public void AniadirProducto(ActionEvent e) {
+		try {
+
+			if (!idCodigoProducto.getText().isEmpty()) {
+				if (!idNombreProducto.getText().isEmpty()) {
+					Product objProduct = new Product();
+					objProduct.setCode(idCodigoProducto.getText());
+					objProduct.setName(idNombreProducto.getText());
+					objProduct.setDescription(idDescProducto.getText());
+					objProduct.setSalesPriceWithTax(new BigDecimal(idPrecioVenta.getText()));
+					objProduct.setDefaultUom(idUM.getValue());
+					objProduct.setEan(idEanProducto.getText());
+					objJPAControllerProduct.crearProducto(objProduct);
+					cargarProductos();
+					DeshabilitarHabilitarBotonesCreacionProducto(false);
+					validacionestextfieldsobligatorias(false);
+				} else {
+					IdiomaC.MostrarMensaje(EnumMensajes.CampoObligatorio, "Nombre Producto", "", "");
+				}
+			} else {
+				IdiomaC.MostrarMensaje(EnumMensajes.CampoObligatorio, "Codigo Producto", "", "");
+			}
+		} catch (Exception ex) {
+			IdiomaC.MostrarMensaje(EnumMensajes.Excepcion, ex.toString(), "", "");
+		}
+	}
+
+	private void DeshabilitarHabilitarBotonesCreacionProducto(boolean aux) {
+		idCrearProducto.setVisible(aux);
+
+		if (aux) {
+			idGuardarProductoButton.setVisible(!aux);
+		} else {
+			idGuardarProductoButton.setVisible(!aux);
+			idGuardarProductoButton.setDisable(!aux);
+		}
+
+		idTableViewProductos.setDisable(aux);
+		idaniadirProducto.setDisable(aux);
+		idActualizarProducto.setDisable(aux);
+		idEliminarProducto.setDisable(aux);
+		idDeshacerCreacionProducto.setDisable(!aux);
+		idBuscarProducto.setDisable(aux);
+		idCodigoProducto.setText("");
+		idNombreProducto.setText("");
+		idDescProducto.setText("");
+		idPrecioVenta.setText("");
+		idUM.setValue("");
+		idEanProducto.setText("");
+		if (aux) {
+			idCodigoProducto.requestFocus();
+		} else {
+			idTableViewProductos.requestFocus();
+		}
+	}
+
 	@FXML
 	public void GuardarProductos(ActionEvent e) throws Exception {
-		
-		Product objProduct=new Product();
+
+		Product objProduct = new Product();
 		objProduct.setTb_product_id(selectedProducts.get(0).getTb_product_id());
 		objProduct.setCode(idCodigoProducto.getText());
 		objProduct.setName(idNombreProducto.getText());
 		objProduct.setDescription(idDescProducto.getText());
-		objProduct.setSalesPriceWithTax(new BigDecimal( idPrecioVenta.getText()));
+		objProduct.setSalesPriceWithTax(new BigDecimal(idPrecioVenta.getText()));
 		objProduct.setDefaultUom(idUM.getValue());
 		objProduct.setEan(idEanProducto.getText());
 		objJPAControllerProduct.actualizarProducto(objProduct);
 		cargarProductos();
+		idGuardarProductoButton.setDisable(true);
 	}
-	
+
 	private void iniciarValidaciones() {
 		idTableViewProductos.getSelectionModel().selectedItemProperty()
 				.addListener((obs, oldSelection, newSelection) -> {
@@ -747,7 +835,17 @@ public class ProductosController implements Initializable, NavigableControllerHe
 						validarTextChangesGuardar(true);
 					}
 				});
+		idBuscarProducto.textProperty().addListener((observable, oldValue, newValue) -> {
+			buscarProductos(newValue);
+		});
+	}
 
+	private void buscarProductos(String searchText) {
+		JPAControllerProduct controller = new JPAControllerProduct();
+		List<Product> productos = controller.buscarProductoPorNombre(searchText);
+
+		ObservableList<Product> productList = FXCollections.observableArrayList(productos);
+		idTableViewProductos.setItems(productList);
 	}
 
 	private void rellenarCampos() {
@@ -1056,62 +1154,7 @@ public class ProductosController implements Initializable, NavigableControllerHe
 	}
 
 	public void validar(boolean msjValidar) {
-		try {
-			if (MGeneral.mlform == null)
-				return;
 
-			if (!guardar(true, msjValidar))
-				return;
-
-			if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.Normal
-					|| MGeneral.mlform.getModo() == LegalizacionService.EnumModo.SoloLectura
-					|| MGeneral.mlform.getModo() == LegalizacionService.EnumModo.SoloReenviar) {
-
-				if (!validarTodosLosControles(frmEntradaDatos, false, true)) {
-					return;
-				}
-
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ComprobarReglas.fxml"));
-				Parent comprobarReglas = loader.load();
-
-				ComprobarReglasController comprobarReglasController = loader.getController();
-				comprobarReglasController.setParentController(getParentController());
-
-				Stage stage = new Stage();
-				Scene scene = new Scene(comprobarReglas);
-
-				// quitando el maximizar y minimizar
-				stage.initModality(Modality.APPLICATION_MODAL);
-				// bloquea la interacción con otras ventanas de la aplicación
-				stage.initStyle(StageStyle.UTILITY);
-				// quitando iconos
-				stage.getIcons().clear();
-				stage.setScene(scene);
-				MGeneral.Idioma.cargarIdiomaControles(stage, null);
-				stage.showAndWait();
-
-				irACampoFoco();
-			}
-
-			if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.Recepcion) {
-				// Mostrar formulario para estado de legalización
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/EstadoLegalizacion.fxml"));
-				Parent estadoLegalizacion = loader.load();
-
-				stage = new Stage();
-				scene = new Scene(estadoLegalizacion);
-				stage.initModality(Modality.APPLICATION_MODAL);
-				stage.initStyle(StageStyle.UTILITY);
-				stage.getIcons().clear();
-				stage.setScene(scene);
-				MGeneral.Idioma.cargarIdiomaControles(stage, null);
-				stage.showAndWait();
-				// aniadirListener();
-			}
-		} catch (Exception ex) {
-			// Mostrar mensaje de error
-			ex.printStackTrace();
-		}
 	}
 
 	public String dameTextoLabelAsociadaAlControl(Control control) {
@@ -1216,119 +1259,11 @@ public class ProductosController implements Initializable, NavigableControllerHe
 			getParentController().establecerTitulo();
 
 			activacionIconosBarra(EnumActivacionIconos.HayLegalizacionCargada);
-			cargaLibros();
 
 		} catch (Exception ex) {
 			// Mostrar mensaje de error
 			// MGeneral.Idioma.MostrarMensaje(IdiomaC.EnumMensajes.Excepcion,
 			// ex.getMessage(), "", "");
-		}
-	}
-
-	public void cargaLibros() {
-		try {
-
-			if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.Normal) {
-				if (!guardar(true, true))
-					return;
-
-				if (!MGeneral.mlform.isValidaCargaDeLibros()) {
-					// Si la carga de libros no se puede realizar, se muestra el formulario de
-					// validación
-					validar(true);
-				} else {
-					// Mostrar formulario para especificar libros
-
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/EspecificarLibros.fxml"));
-					Parent root = fxmlLoader.load();
-
-					EspecificarLibrosController especificarLibrosController = fxmlLoader.getController();
-					especificarLibrosController.setParentController(getParentController());
-
-					Stage stage = new Stage();
-
-					Scene scene = new Scene(root);
-					// scene.getStylesheets().add(getClass().getResource("/estilos/Grande.css").toExternalForm());
-
-					// quitando el maximizar y minimizar
-					stage.initStyle(StageStyle.UTILITY);
-					// quitando iconos
-					stage.getIcons().clear();
-					// bloquea la interacción con otras ventanas de la aplicación
-					stage.initModality(Modality.APPLICATION_MODAL);
-
-					stage.setScene(scene);
-					MGeneral.Idioma.cargarIdiomaControles(stage, null);
-
-					stage.showAndWait();
-
-				}
-			}
-
-			if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.Recepcion) {
-				// Mostrar formulario para especificar huellas
-
-				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/EspecificarHuellas.fxml"));
-				Parent root = fxmlLoader.load();
-
-				EspecificarHuellasController especificarhuellasController = fxmlLoader.getController();
-				especificarhuellasController.setParentController(getParentController());
-
-				Stage stage = new Stage();
-
-				Scene scene = new Scene(root);
-				// scene.getStylesheets().add(getClass().getResource("/estilos/Grande.css").toExternalForm());
-
-				// quitando el maximizar y minimizar
-				stage.initStyle(StageStyle.UTILITY);
-				// quitando iconos
-				stage.getIcons().clear();
-				// bloquea la interacción con otras ventanas de la aplicación
-				stage.initModality(Modality.APPLICATION_MODAL);
-
-				stage.setScene(scene);
-				MGeneral.Idioma.cargarIdiomaControles(stage, null);
-
-				stage.showAndWait();
-
-			}
-
-			if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.SoloLectura
-					|| MGeneral.mlform.getModo() == LegalizacionService.EnumModo.SoloReenviar) {
-				if (!MGeneral.mlform.isValidaCargaDeLibros()) {
-					// Si la carga de libros no se puede realizar, se muestra el formulario de
-					// validación
-					validar(true);
-				} else {
-
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/EspecificarLibros.fxml"));
-					Parent root = fxmlLoader.load();
-
-					EspecificarLibrosController especificarLibrosController = fxmlLoader.getController();
-					especificarLibrosController.setParentController(getParentController());
-
-					Stage stage = new Stage();
-
-					Scene scene = new Scene(root);
-
-					// quitando el maximizar y minimizar
-					stage.initStyle(StageStyle.UTILITY);
-					// quitando iconos
-					stage.getIcons().clear();
-					stage.initModality(Modality.APPLICATION_MODAL);
-
-					stage.setScene(scene);
-					MGeneral.Idioma.cargarIdiomaControles(stage, null);
-
-					stage.showAndWait();
-
-				}
-			}
-		} catch (Exception ex) {
-
-			MGeneral.Idioma.MostrarMensaje(IdiomaC.EnumMensajes.Excepcion, ex.getMessage(), "", "");
-
-			ex.printStackTrace();
 		}
 	}
 
@@ -1340,7 +1275,7 @@ public class ProductosController implements Initializable, NavigableControllerHe
 				return;
 
 			if (campoPonerFoco.equals("LIBROS")) {
-				cargaLibros();
+
 			} else {
 
 				switch (campoPonerFoco) {

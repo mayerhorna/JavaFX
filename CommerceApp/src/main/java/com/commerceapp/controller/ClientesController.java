@@ -1074,23 +1074,7 @@ public class ClientesController implements Initializable, NavigableControllerHel
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ComprobarReglas.fxml"));
 				Parent comprobarReglas = loader.load();
 
-				ComprobarReglasController comprobarReglasController = loader.getController();
-				comprobarReglasController.setParentController(getParentController());
-
-				Stage stage = new Stage();
-				Scene scene = new Scene(comprobarReglas);
-
-				// quitando el maximizar y minimizar
-				stage.initModality(Modality.APPLICATION_MODAL);
-				// bloquea la interacción con otras ventanas de la aplicación
-				stage.initStyle(StageStyle.UTILITY);
-				// quitando iconos
-				stage.getIcons().clear();
-				stage.setScene(scene);
-				MGeneral.Idioma.cargarIdiomaControles(stage, null);
-				stage.showAndWait();
-
-				irACampoFoco();
+			
 			}
 
 			if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.Recepcion) {
@@ -1265,34 +1249,7 @@ public class ClientesController implements Initializable, NavigableControllerHel
 				}
 			}
 
-			if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.Recepcion) {
-				// Mostrar formulario para especificar huellas
-
-				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/EspecificarHuellas.fxml"));
-				Parent root = fxmlLoader.load();
-
-				EspecificarHuellasController especificarhuellasController = fxmlLoader.getController();
-				especificarhuellasController.setParentController(getParentController());
-
-				Stage stage = new Stage();
-
-				Scene scene = new Scene(root);
-				// scene.getStylesheets().add(getClass().getResource("/estilos/Grande.css").toExternalForm());
-
-				// quitando el maximizar y minimizar
-				stage.initStyle(StageStyle.UTILITY);
-				// quitando iconos
-				stage.getIcons().clear();
-				// bloquea la interacción con otras ventanas de la aplicación
-				stage.initModality(Modality.APPLICATION_MODAL);
-
-				stage.setScene(scene);
-				MGeneral.Idioma.cargarIdiomaControles(stage, null);
-
-				stage.showAndWait();
-
-			}
-
+			
 			if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.SoloLectura
 					|| MGeneral.mlform.getModo() == LegalizacionService.EnumModo.SoloReenviar) {
 				if (!MGeneral.mlform.isValidaCargaDeLibros()) {

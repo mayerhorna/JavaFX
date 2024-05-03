@@ -47,8 +47,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
 
-import com.commerceapp.controller.EntradaDatosController.EnumActivacionIconos;
-import com.commerceapp.controller.EntradaDatosController.EnumTipoOperacion;
 import com.commerceapp.domain.ConfiguracionC;
 import com.commerceapp.domain.IdiomaC;
 import com.commerceapp.domain.MGeneral;
@@ -362,10 +360,7 @@ public class MenuPrincipalController implements Initializable {
 		}
 	}
 
-	@FXML
-	private void cargaLibros() {
-		form.cargaLibros();
-	}
+	
 
 	@FXML
 	private void guardar(ActionEvent event) {

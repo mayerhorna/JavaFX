@@ -110,7 +110,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 
-@Component
 public class ProductosController implements Initializable, NavigableControllerHelper {
 	private MenuPrincipalController parentController;
 	public double ancho;
@@ -118,9 +117,10 @@ public class ProductosController implements Initializable, NavigableControllerHe
 	public String campoPonerFoco = "";
 
 	private boolean pendienteGuardar = false;
+	Tooltip tooltip = new Tooltip("Casilla obligatoria");
 
 	Utilidades objTimeline = new Utilidades();
-	// Utilizada en la función irACampoFoco
+	
 	@FXML
 	private GridPane GridSoli;
 
@@ -714,8 +714,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 	public void ActualizarProductos(ActionEvent e) throws Exception {
 		cargarProductos();
 	}
-
-	Tooltip tooltip = new Tooltip("Casilla obligatoria");
 
 	@FXML
 	public void CrearProducto(ActionEvent e) throws Exception {
@@ -1362,7 +1360,7 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 	public void abrir(String path) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

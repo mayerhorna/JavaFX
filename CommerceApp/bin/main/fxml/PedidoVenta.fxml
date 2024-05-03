@@ -15,8 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox spacing="30.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="com.commerceapp.controller.PedidoVentaController">
+<VBox style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.commerceapp.controller.PedidoVentaController">
    <children>
       <HBox alignment="CENTER_LEFT" style="-fx-background-color: lightgrey;">
          <children>
@@ -36,6 +35,9 @@
             </MenuBar>
             <Label fx:id="lblPuntoVenta" alignment="CENTER" prefHeight="20.0" prefWidth="350.0" text="Punto Venta demo" />
          </children>
+         <VBox.margin>
+            <Insets bottom="20.0" />
+         </VBox.margin>
       </HBox>
       <TableView fx:id="tblVenta" prefHeight="393.0" prefWidth="1080.0">
         <columns>

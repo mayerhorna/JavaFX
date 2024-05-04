@@ -111,7 +111,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 
 @Component
-public class ClientesController implements Initializable, NavigableControllerHelper {
+public class CrearClientesController implements Initializable, NavigableControllerHelper {
 	private MenuPrincipalController parentController;
 	public double ancho;
 

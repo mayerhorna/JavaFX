@@ -766,6 +766,7 @@ Inclusión del saltos de línea en los textos
           <Mensaje codigo="97" titulo="Información">Fichero ZIP ya existe</Mensaje>
           <Mensaje codigo="98" titulo="Información">Usuario o contraseña incorrectos</Mensaje>
           <Mensaje codigo="99" titulo="Aviso">Desea eliminar el producto?</Mensaje>
+           <Mensaje codigo="100" titulo="Información">Producto Inexistente</Mensaje>
     </Mensajes>    
     <MensajesReglas version="1.0.0"> <!--Cada vez que se haga un cambio en este bloque, se cambia la versión ya que se comparte con la DLL-->
                 

@@ -198,8 +198,6 @@ public class UsuariosCommerceController implements Initializable, NavigableContr
 	@FXML
 	private Button idGuardarUsuarioButton;
 
-
-
 	@FXML
 	private Button idaniadirUser;
 	@FXML
@@ -215,8 +213,6 @@ public class UsuariosCommerceController implements Initializable, NavigableContr
 
 	@FXML
 	private Button idCrearUsuario;
-
-
 
 	private ArrayList<BaUser> selectedUsers = new ArrayList<>();
 
@@ -307,8 +303,7 @@ public class UsuariosCommerceController implements Initializable, NavigableContr
 		logo.setImage(image);
 		initializeControlsInOrderToNavigate();
 		registerKeyPressENTERInControlsToNavigate();
-		controlsInOrderToNavigate = new Control[] { idCodigoUser, idNombreUser, idPassUser, idLoginUser
-			 };
+		controlsInOrderToNavigate = new Control[] { idCodigoUser, idNombreUser, idPassUser, idLoginUser };
 
 		columnId.setCellValueFactory(new PropertyValueFactory<>("ba_user_id"));
 		columnCode.setCellValueFactory(new PropertyValueFactory<>("code"));
@@ -319,9 +314,7 @@ public class UsuariosCommerceController implements Initializable, NavigableContr
 		columnPass.setCellValueFactory(new PropertyValueFactory<>("password_user"));
 
 		cargarUsuarios();
-	
 
-		
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
@@ -641,7 +634,7 @@ public class UsuariosCommerceController implements Initializable, NavigableContr
 	}
 
 	private void cargarUsuarios() {
-		JPAControllerBa_user objAux=new JPAControllerBa_user();
+		JPAControllerBa_user objAux = new JPAControllerBa_user();
 		List<BaUser> usuarios = objAux.obtenerTodosUsuarios();
 
 		// Crea una ObservableList de productos y añádela al TableView
@@ -731,7 +724,7 @@ public class UsuariosCommerceController implements Initializable, NavigableContr
 
 			if (!idCodigoUser.getText().isEmpty()) {
 				if (!idNombreUser.getText().isEmpty()) {
-					
+
 					BaUser objUser = new BaUser();
 					objUser.setCode(idCodigoUser.getText());
 					objUser.setName(idNombreUser.getText());
@@ -772,8 +765,7 @@ public class UsuariosCommerceController implements Initializable, NavigableContr
 		idNombreUser.setText("");
 		idPassUser.setText("");
 		idLoginUser.setText("");
-		
-	
+
 		if (aux) {
 			idCodigoUser.requestFocus();
 		} else {
@@ -796,24 +788,23 @@ public class UsuariosCommerceController implements Initializable, NavigableContr
 	}
 
 	private void iniciarValidaciones() {
-		idTableViewUsers.getSelectionModel().selectedItemProperty()
-				.addListener((obs, oldSelection, newSelection) -> {
-					if (newSelection != null) {
+		idTableViewUsers.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+			if (newSelection != null) {
 
-						selectedUsers.clear();
-						selectedUsers.add(newSelection);
-						rellenarCampos();
-						validarTextChangesGuardar(true);
-					}
-				});
+				selectedUsers.clear();
+				selectedUsers.add(newSelection);
+				rellenarCampos();
+				validarTextChangesGuardar(true);
+			}
+		});
 		idBuscarUsuario.textProperty().addListener((observable, oldValue, newValue) -> {
 			buscarUsuarios(newValue);
 		});
 	}
 
 	private void buscarUsuarios(String searchText) {
-		
-		List<BaUser> productos = objJPAControllerUser.buscarUsuarioPorNombre(searchText);
+		JPAControllerBa_user controller = new JPAControllerBa_user();
+		List<BaUser> productos = controller.buscarUsuarioPorNombre(searchText);
 
 		ObservableList<BaUser> productList = FXCollections.observableArrayList(productos);
 		idTableViewUsers.setItems(productList);
@@ -828,10 +819,7 @@ public class UsuariosCommerceController implements Initializable, NavigableContr
 
 		idLoginUser.setText(String.valueOf(selectedUsers.get(0).getLogin_user()));
 
-	
-
 	}
-
 
 	private void evValidarInput(Control control, CustomImageView cview, Pane iconPane) {
 

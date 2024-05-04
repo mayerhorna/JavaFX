@@ -1,15 +1,23 @@
 package com.commerceapp.controller;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.commerceapp.app.JPAControllerBa_user;
+import com.commerceapp.app.JPAControllerProduct;
 import com.commerceapp.controller.BusquedaProductosController.VentaModelo;
 import com.commerceapp.domain.IdiomaC;
 import com.commerceapp.domain.MGeneral;
 import com.commerceapp.model.BaUser;
+import com.commerceapp.model.Product;
+import com.commerceapp.util.Utilidades;
+import com.commerceapp.domain.IdiomaC.AyudaUtils;
 import com.commerceapp.domain.IdiomaC.EnumMensajes;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +32,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -173,6 +183,22 @@ public class PedidoVentaController implements Initializable {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 
+		}
+	}
+
+	@FXML
+	public void PressedEnterProducto(KeyEvent event) throws IOException {
+		if (event.getCode() == KeyCode.ENTER) {
+
+			JPAControllerProduct controller = new JPAControllerProduct();
+			Product objproducto = controller.buscarProductoPorCodigo(txtProducto.getText());
+			if (objproducto != null) {
+				tblVenta.getItems().add(new VentaModelo("1", objproducto.getCode().toString(),
+						objproducto.getTb_product_id().toString(), objproducto.getSalesPriceWithTax().toString(),
+						objproducto.getName(), objproducto.getSalesPriceWithTax().toString()));
+			} else {
+				IdiomaC.MostrarMensaje(EnumMensajes.NoexisteProducto, null, null, null);
+			}
 		}
 	}
 

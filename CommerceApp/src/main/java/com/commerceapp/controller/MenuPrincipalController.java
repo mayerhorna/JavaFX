@@ -2,6 +2,8 @@ package com.commerceapp.controller;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 
@@ -39,6 +41,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
@@ -47,6 +50,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
 
+import com.commerceapp.app.JPAControllerProduct;
 import com.commerceapp.domain.ConfiguracionC;
 import com.commerceapp.domain.IdiomaC;
 import com.commerceapp.domain.MGeneral;
@@ -54,6 +58,7 @@ import com.commerceapp.domain.IdiomaC.AyudaUtils;
 import com.commerceapp.domain.IdiomaC.EnumMensajes;
 import com.commerceapp.domain.idioma.ElementosIdiomaC;
 import com.commerceapp.domain.idioma.ObjetosIdioma;
+import com.commerceapp.model.Product;
 import com.commerceapp.reporting.instancia.ReportingPreviewService;
 import com.commerceapp.service.LegalizacionService;
 import com.commerceapp.util.Utilidades;
@@ -297,16 +302,6 @@ public class MenuPrincipalController implements Initializable {
 		}
 	}
 
-	@FXML
-	public void keyPressed(KeyEvent event) throws IOException {
-		if (event.isControlDown() && event.getCode() == KeyCode.F1) {
-
-			String ayudaPdf = MGeneral.Idioma.new AyudaUtils().obtenerFicheroAyuda();
-
-			Utilidades.ProccessStarURL(ayudaPdf);
-
-		}
-	}
 
 	@FXML
 	public void AcercaDe() {

@@ -120,7 +120,7 @@ public class ProductosController implements Initializable, NavigableControllerHe
 	Tooltip tooltip = new Tooltip("Casilla obligatoria");
 
 	Utilidades objTimeline = new Utilidades();
-	
+
 	@FXML
 	private GridPane GridSoli;
 
@@ -682,8 +682,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 			return false;
 		}
 
-		guardarDatosLegalizacion();
-
 		String cad = null;
 		MGeneral.mlform = null;
 
@@ -917,40 +915,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 		return fecha;
 	}
 
-	private void cargaDatosPresentacion() {
-
-		// Comboboxes
-		String codigo = MGeneral.mlform.Presentacion.getProvinciaCodigo();
-
-		MaestroCodigoDescripcion provincia = new MaestroCodigoDescripcion("Provincias");
-
-		String codigo2 = MGeneral.mlform.Presentacion.getPresentante().get_ProvinciaCodigo();
-		MaestroCodigoDescripcion provinciados = new MaestroCodigoDescripcion("Provincias");
-
-		String codigo3 = MGeneral.mlform.Presentacion.getRegistroMercantilDestinoCodigo();
-
-		MaestroCodigoDescripcion registros = new MaestroCodigoDescripcion("Registros");
-
-		if (registros.existeCodigo(codigo3)) {
-			registros.setCodigo(codigo3);
-			registros.setDescripcion(registros.obtenerDescripcion(codigo3));
-
-		}
-
-		MaestroCodigoDescripcion retencion = new MaestroCodigoDescripcion("SolicitaRetencion");
-		String codigo4 = MGeneral.mlform.Presentacion.getPresentante().get_SolicitaRetencion();
-
-		MaestroCodigoDescripcion tipo = new MaestroCodigoDescripcion("TipoPersona");
-		String codigo5 = MGeneral.mlform.Datos.get_TipoPersona();
-
-		// DatePicker
-		// Convertir el String a LocalDate
-		LocalDate fecha = convertirAFecha(MGeneral.mlform.Presentacion.getFechaSolicitud());
-
-		// //Covertir a localdate
-
-	}
-
 //Activado en menu principal
 	public boolean guardar(boolean preguntarguardado, boolean msjValidar) {
 //Verificando
@@ -970,8 +934,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 			validarTodosLosControles(frmEntradaDatos, msjValidar, false);
 
-			guardarDatosLegalizacion();
-
 		} catch (Exception ex) {
 
 			MGeneral.Idioma.MostrarMensaje(IdiomaC.EnumMensajes.Excepcion, ex.getMessage(), "", "");
@@ -979,43 +941,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 		}
 
 		return true;
-	}
-
-	public void guardarDatosLegalizacion() {
-		// nota: Solo falta ajustar lo del tipo persona visualizacion de las combos y
-		// eso (juridica y fisica)
-//Verificando
-		try {
-			if (MGeneral.mlform == null) {
-
-				return;
-			}
-			if (pendienteGuardar == false) {
-
-				return;
-			}
-//Registro Mercantil			
-//Aca creo que con un get codigo y get descripcion funca igual
-			String registroMercantilDestinoCodigo;
-
-//CodigoP
-
-//ProvinciaSoli
-			String provinciaCodigo;
-
-//FaxSoli
-
-			MGeneral.mlform.guarda();
-
-			pendienteGuardar = false;
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			// MGeneral.Idioma.MostrarMensaje(IdiomaC.EnumMensajes.Excepcion,
-			// ex.getMessage(), "", "");
-		} finally {
-			setPendienteGuardar(false);
-		}
 	}
 
 	public void recargaMuniSoli(ActionEvent event) {
@@ -1251,7 +1176,7 @@ public class ProductosController implements Initializable, NavigableControllerHe
 			}
 
 			// Cargar datos de presentación
-			cargaDatosPresentacion();
+
 			pendienteGuardar = false;
 			// Establecer el título
 			getParentController().establecerTitulo();
@@ -1265,46 +1190,8 @@ public class ProductosController implements Initializable, NavigableControllerHe
 		}
 	}
 
-	public void irACampoFoco() {
-		try {
-			Control controlAux;
+	
 
-			if (campoPonerFoco == null || campoPonerFoco.isEmpty())
-				return;
-
-			if (campoPonerFoco.equals("LIBROS")) {
-
-			} else {
-
-				switch (campoPonerFoco) {
-				case "txtNombreODenominacion":
-
-					break;
-				default:
-					break;
-				}
-
-				controlAux = Utilidades.buscaControlPorNombre(frmEntradaDatos, campoPonerFoco);
-
-				if (controlAux != null) {
-					controlAux.requestFocus();
-				}
-
-			}
-
-			campoPonerFoco = "";
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
-
-	private void evValidarRegistroPublico(Control control) {
-		if (((TextField) control).getText().isEmpty()) {
-			((TextField) control).setText(MGeneral.Idioma.obtenerValor(ObjetosIdioma.FORMULARIOS,
-					frmEntradaDatos.getId().toString(), ElementosIdiomaC.TEXT_CONTROLES, control.getId(), ""));
-		}
-	}
 
 	public void aniadirTimelines() {
 

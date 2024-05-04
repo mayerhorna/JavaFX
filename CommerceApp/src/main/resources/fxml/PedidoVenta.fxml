@@ -119,11 +119,18 @@
                                        </image>
                                     </ImageView>
                                  </graphic></Button>
-                              <Button fx:id="btnCaja" mnemonicParsing="false" text="Abrir Cajon" GridPane.rowIndex="6" />
-                              <Button fx:id="btnImprimir" mnemonicParsing="false" text="Imprimir" GridPane.rowIndex="7" />
+                              <Button fx:id="btnCaja" mnemonicParsing="false" text="Abrir Cajon" visible="false" GridPane.rowIndex="6" />
+                              <Button fx:id="btnImprimir" mnemonicParsing="false" text="Imprimir" GridPane.rowIndex="7">
+                                 <graphic>
+                                    <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../imagenes/imprimir.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic></Button>
                               <TextField fx:id="txtPedidoVenta" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <TextField fx:id="txtCliente" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField fx:id="txtProducto" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="txtProducto" onKeyPressed="#PressedEnterProducto" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <TextField fx:id="TxtObservaciones" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5" />
                               <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="8">
                                  <children>

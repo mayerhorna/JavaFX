@@ -138,7 +138,7 @@ public class BusquedaProductosController implements Initializable {
 		}
 	}
 
-	public class VentaModelo {
+	public static class VentaModelo {
 		private final StringProperty id;
 		private final StringProperty codigo;
 		private final StringProperty producto;

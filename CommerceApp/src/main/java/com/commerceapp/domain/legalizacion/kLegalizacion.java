@@ -3,7 +3,6 @@ package com.commerceapp.domain.legalizacion;
 import java.util.List;
 import java.util.logging.Logger;
 
-import com.commerceapp.controller.EspecificarLibrosController;
 import com.commerceapp.domain.IdiomaC;
 import com.commerceapp.domain.MGeneral;
 import com.commerceapp.maestros.FormatoFichero;

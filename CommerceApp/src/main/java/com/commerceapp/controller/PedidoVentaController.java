@@ -3,9 +3,11 @@ package com.commerceapp.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.commerceapp.app.JPAControllerBa_user;
 import com.commerceapp.controller.BusquedaProductosController.VentaModelo;
 import com.commerceapp.domain.IdiomaC;
 import com.commerceapp.domain.MGeneral;
+import com.commerceapp.model.BaUser;
 import com.commerceapp.domain.IdiomaC.EnumMensajes;
 
 import javafx.event.ActionEvent;
@@ -113,17 +115,25 @@ public class PedidoVentaController implements Initializable {
 	private VBox idVOBXprueba;
 	@FXML
 	private ScrollPane idpruebascroll;
+	@FXML
+	private Label idLabelUser;
+
+	JPAControllerBa_user objBauser;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		scroolPane();
 		colCantidad.setCellValueFactory(data -> data.getValue().cantidadProperty());
-        colCodigo.setCellValueFactory(data -> data.getValue().codigoProperty());
-        colNumero.setCellValueFactory(data -> data.getValue().numeroProperty());
-        colPrecio.setCellValueFactory(data -> data.getValue().precioProperty());
-        colProducto.setCellValueFactory(data -> data.getValue().productoProperty());
-        colTotal.setCellValueFactory(data -> data.getValue().totalProperty());
+		colCodigo.setCellValueFactory(data -> data.getValue().codigoProperty());
+		colNumero.setCellValueFactory(data -> data.getValue().numeroProperty());
+		colPrecio.setCellValueFactory(data -> data.getValue().precioProperty());
+		colProducto.setCellValueFactory(data -> data.getValue().productoProperty());
+		colTotal.setCellValueFactory(data -> data.getValue().totalProperty());
+		objBauser = new JPAControllerBa_user();
+
+		BaUser objbus = objBauser.leerUsuario(MGeneral.Configuracion.objBaUser.getBa_user_id());
+		idLabelUser.setText("Usuario: " + objbus.getName());
 	}
 
 	private void scroolPane() {

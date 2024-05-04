@@ -60,7 +60,6 @@ import org.springframework.stereotype.Component;
 
 import org.springframework.stereotype.Service;
 
-import com.commerceapp.controller.EncriptacionController;
 import com.commerceapp.controller.MenuPrincipalController;
 import com.commerceapp.domain.ConfiguracionC;
 import com.commerceapp.domain.Errores;
@@ -3624,13 +3623,6 @@ public class LegalizacionService {
 
 			Parent abrirEncriptacion = loader.load();
 
-			EncriptacionController encriptacionController = loader.getController();
-
-			encriptacionController
-
-					.set_ModoApertura(EncriptacionController.EModoApertura.DESENCRYPTAR_FICHERO_EN_LA_LEGALIZACION);
-
-			encriptacionController.initialize(null, null);
 
 			Stage stage = new Stage();
 
@@ -6186,16 +6178,7 @@ public class LegalizacionService {
 
 				Parent abrirEncriptacion = loader.load();
 
-				EncriptacionController encriptacionController = loader.getController();
-
-				encriptacionController.set_ModoApertura(
-
-						EncriptacionController.EModoApertura.DESENCRYPTAR_FICHERO_EN_DIRECTORIO_AUXILIAR);
-
-				encriptacionController.set_Ficheroentrada(fichero);
-
-				encriptacionController.initialize(null, null);
-
+				
 				stage = new Stage();
 
 				scene = new Scene(abrirEncriptacion);

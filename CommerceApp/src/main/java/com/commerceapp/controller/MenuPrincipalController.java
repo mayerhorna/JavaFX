@@ -69,6 +69,7 @@ public class MenuPrincipalController implements Initializable {
 	LegalizacionService legalizacion = new LegalizacionService();
 	ProductosController form;
 	PedidoVentaController venta;
+	UsuariosCommerceController user;
 	private boolean esPrimeraCargaMDI = true;
 
 	private Stage stage;
@@ -86,6 +87,9 @@ public class MenuPrincipalController implements Initializable {
 	private static final Logger logger = Logger.getLogger(MenuPrincipalController.class.getName());
 	@FXML
 	HBox frmProductos;
+
+	@FXML
+	HBox frmUsuarios;
 
 	@FXML
 	HBox frmVenta;
@@ -250,14 +254,13 @@ public class MenuPrincipalController implements Initializable {
 
 	}
 
-
 	@FXML
 	private void Ayuda(ActionEvent event) throws IOException {
 
 		try {
-		
+
 			ayuda();
-			
+
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -305,15 +308,11 @@ public class MenuPrincipalController implements Initializable {
 		}
 	}
 
-	
-
-
-
 	@FXML
 	public void AcercaDe() {
 
 		try {
-			
+
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AcercaDe.fxml"));
 			Parent abrirAcercaDe = loader.load();
 			AcercaDeController objAcerController = loader.getController();
@@ -331,8 +330,6 @@ public class MenuPrincipalController implements Initializable {
 			objAcerController.initialize(null, null);
 			stage.showAndWait();
 
-			
-
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -348,22 +345,22 @@ public class MenuPrincipalController implements Initializable {
 			frmVenta = loader.load();
 			venta = loader.getController();
 			venta.setParentController(this);
-			//form.abrir(path);
+			// form.abrir(path);
 			AnchorPane3.getChildren().add(frmVenta);
-			
+
 			AnchorPane.setTopAnchor(frmVenta, 0.0);
 			AnchorPane.setBottomAnchor(frmVenta, 0.0);
 			AnchorPane.setLeftAnchor(frmVenta, 0.0);
 			AnchorPane.setRightAnchor(frmVenta, 0.0);
 
-			//MGeneral.Idioma.cargarIdiomaControles(null, frmVenta);
+			// MGeneral.Idioma.cargarIdiomaControles(null, frmVenta);
 
 			establecerTitulo();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@FXML
 	public void Productos() {
 
@@ -386,7 +383,27 @@ public class MenuPrincipalController implements Initializable {
 		}
 	}
 
-	
+	@FXML
+	public void Usuarios() {
+
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UsuariosCommerce.fxml"));
+
+		try {
+			frmUsuarios = loader.load();
+			user = loader.getController();
+			user.setParentController(this);
+
+			AnchorPane3.getChildren().add(frmUsuarios);
+			AnchorPane.setTopAnchor(frmUsuarios, 0.0);
+			AnchorPane.setBottomAnchor(frmUsuarios, 0.0);
+			AnchorPane.setLeftAnchor(frmUsuarios, 0.0);
+			AnchorPane.setRightAnchor(frmUsuarios, 0.0);
+
+			establecerTitulo();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@FXML
 	private void guardar(ActionEvent event) {
@@ -464,7 +481,7 @@ public class MenuPrincipalController implements Initializable {
 
 	@FXML
 	public void validar() {
-		
+
 		form.validar(true);
 	}
 

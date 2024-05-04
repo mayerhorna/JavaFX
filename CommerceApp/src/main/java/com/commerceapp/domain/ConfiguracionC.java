@@ -110,11 +110,11 @@ import org.xml.sax.SAXException;
 
 import com.commerceapp.Main;
 import com.commerceapp.controller.ConfiguracionController;
-import com.commerceapp.controller.EncriptacionController;
 import com.commerceapp.controller.MensajeController;
 import com.commerceapp.controller.PoliticaPrivacidadController;
 import com.commerceapp.controller.VersionesController;
 import com.commerceapp.domain.MiVersion;
+import com.commerceapp.model.BaUser;
 import com.commerceapp.domain.IdiomaC.EnumMensajes;
 import com.commerceapp.util.Ficheros;
 import com.commerceapp.util.Formato;
@@ -294,6 +294,8 @@ public class ConfiguracionC {
 	private static final String AssemblyCopyrightAttribute = "© 2024";
 
 	private static final String OperatingSystem = "os.name";
+	
+	public BaUser objBaUser = new BaUser();
 
 	private static boolean InicioSesion = false;
 	public static ArrayList<String[]> ProductoPedido = new ArrayList<>();

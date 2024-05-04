@@ -20,7 +20,7 @@
 							<menus>
 								<Menu fx:id="FormularioMenu" mnemonicParsing="false">
 									<items>
-										<MenuItem fx:id="SubItemUsuarios" mnemonicParsing="false">
+										<MenuItem fx:id="SubItemUsuarios" mnemonicParsing="false" onAction="#Usuarios">
 											<graphic>
 												<ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true">
 													<image>

@@ -1,11 +1,15 @@
 package com.commerceapp.app;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import com.commerceapp.model.BaUser;
+import com.commerceapp.model.Product;
 
 public class JPAControllerBa_user {
 	EntityManager entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
@@ -71,8 +75,20 @@ public class JPAControllerBa_user {
 		return entityManager != null && entityManager.isOpen();
 	}
 
+	public List<BaUser> obtenerTodosUsuarios() {
+		TypedQuery<BaUser> query = entityManager.createQuery("SELECT u FROM BaUser u", BaUser.class);
+		return query.getResultList();
+	}
+	
+	public List<BaUser> buscarUsuarioPorNombre(String nombre) {
+	    TypedQuery<BaUser> query = entityManager.createQuery("SELECT u FROM BaUser u WHERE u.name LIKE :namePattern",
+	            BaUser.class);
+	    query.setParameter("namePattern", "%" + nombre + "%"); 
+	    return query.getResultList();
+	}
+
 	// Método para buscar un usuario por su login y contraseña
-	public boolean buscarUsuarioPorCredenciales(String login, String password) throws Exception {
+	public BaUser buscarUsuarioPorCredenciales(String login, String password) throws Exception {
 		if (validarConexion()) {
 			BaUser usuario = null;
 			try {
@@ -82,17 +98,13 @@ public class JPAControllerBa_user {
 				query.setParameter("password", password);
 				usuario = (BaUser) query.getSingleResult();
 			} catch (NoResultException e) {
-			
+
 			} catch (Exception e) {
-				
+
 			}
-			if (usuario != null) {
-				return true;
-			} else {
-				return false;
-			}
+			return usuario;
 		}
-		return false;
+		return null;
 
 	}
 

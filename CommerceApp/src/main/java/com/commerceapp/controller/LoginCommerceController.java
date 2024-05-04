@@ -51,7 +51,10 @@ public class LoginCommerceController implements Initializable {
 
 	@FXML
 	public void btnLogin_Click(ActionEvent e) throws Exception {
-		if (objControllerBa_user.buscarUsuarioPorCredenciales(loginCommerce.getText(), passCommerce.getText())) {
+
+		MGeneral.Configuracion.objBaUser = objControllerBa_user.buscarUsuarioPorCredenciales(loginCommerce.getText(),
+				passCommerce.getText());
+		if (MGeneral.Configuracion.objBaUser != null) {
 
 			close(e);
 

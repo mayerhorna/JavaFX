@@ -1200,7 +1200,7 @@ public class ClientesController implements Initializable, NavigableControllerHel
 			getParentController().establecerTitulo();
 
 			activacionIconosBarra(EnumActivacionIconos.HayLegalizacionCargada);
-			cargaLibros();
+			
 
 		} catch (Exception ex) {
 			// Mostrar mensaje de error
@@ -1209,85 +1209,7 @@ public class ClientesController implements Initializable, NavigableControllerHel
 		}
 	}
 
-	public void cargaLibros() {
-		try {
 
-			if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.Normal) {
-				if (!guardar(true, true))
-					return;
-
-				if (!MGeneral.mlform.isValidaCargaDeLibros()) {
-					// Si la carga de libros no se puede realizar, se muestra el formulario de
-					// validación
-					validar(true);
-				} else {
-					// Mostrar formulario para especificar libros
-
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/EspecificarLibros.fxml"));
-					Parent root = fxmlLoader.load();
-
-					EspecificarLibrosController especificarLibrosController = fxmlLoader.getController();
-					especificarLibrosController.setParentController(getParentController());
-
-					Stage stage = new Stage();
-
-					Scene scene = new Scene(root);
-					// scene.getStylesheets().add(getClass().getResource("/estilos/Grande.css").toExternalForm());
-
-					// quitando el maximizar y minimizar
-					stage.initStyle(StageStyle.UTILITY);
-					// quitando iconos
-					stage.getIcons().clear();
-					// bloquea la interacción con otras ventanas de la aplicación
-					stage.initModality(Modality.APPLICATION_MODAL);
-
-					stage.setScene(scene);
-					MGeneral.Idioma.cargarIdiomaControles(stage, null);
-
-					stage.showAndWait();
-
-				}
-			}
-
-			
-			if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.SoloLectura
-					|| MGeneral.mlform.getModo() == LegalizacionService.EnumModo.SoloReenviar) {
-				if (!MGeneral.mlform.isValidaCargaDeLibros()) {
-					// Si la carga de libros no se puede realizar, se muestra el formulario de
-					// validación
-					validar(true);
-				} else {
-
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/EspecificarLibros.fxml"));
-					Parent root = fxmlLoader.load();
-
-					EspecificarLibrosController especificarLibrosController = fxmlLoader.getController();
-					especificarLibrosController.setParentController(getParentController());
-
-					Stage stage = new Stage();
-
-					Scene scene = new Scene(root);
-
-					// quitando el maximizar y minimizar
-					stage.initStyle(StageStyle.UTILITY);
-					// quitando iconos
-					stage.getIcons().clear();
-					stage.initModality(Modality.APPLICATION_MODAL);
-
-					stage.setScene(scene);
-					MGeneral.Idioma.cargarIdiomaControles(stage, null);
-
-					stage.showAndWait();
-
-				}
-			}
-		} catch (Exception ex) {
-
-			MGeneral.Idioma.MostrarMensaje(IdiomaC.EnumMensajes.Excepcion, ex.getMessage(), "", "");
-
-			ex.printStackTrace();
-		}
-	}
 
 	public void irACampoFoco() {
 		try {
@@ -1297,7 +1219,7 @@ public class ClientesController implements Initializable, NavigableControllerHel
 				return;
 
 			if (campoPonerFoco.equals("LIBROS")) {
-				cargaLibros();
+				
 			} else {
 
 				switch (campoPonerFoco) {

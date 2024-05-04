@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.commerceapp.LegaliaApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-05-03T21:42:14" hostname="DESKTOP-OLFNEP9" time="1.913">
+<testsuite name="com.commerceapp.LegaliaApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-05-04T17:03:58" hostname="DESKTOP-OLFNEP9" time="1.975">
   <properties/>
-  <testcase name="contextLoads()" classname="com.commerceapp.LegaliaApplicationTests" time="1.913"/>
+  <testcase name="contextLoads()" classname="com.commerceapp.LegaliaApplicationTests" time="1.975"/>
   <system-out><![CDATA[Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
-16:42:10.803 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.commerceapp.LegaliaApplicationTests]: LegaliaApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-16:42:11.128 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.commerceapp.CommerceApp for test class com.commerceapp.LegaliaApplicationTests
+12:03:54.530 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.commerceapp.LegaliaApplicationTests]: LegaliaApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:03:54.847 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.commerceapp.CommerceApp for test class com.commerceapp.LegaliaApplicationTests
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -14,9 +14,9 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.2.1)
 
-2024-05-03T16:42:12.446-05:00  INFO 15208 --- [    Test worker] c.commerceapp.LegaliaApplicationTests    : Starting LegaliaApplicationTests using Java 17.0.9 with PID 15208 (started by monda in C:\workspace\JavaFX\CommerceApp)
-2024-05-03T16:42:12.449-05:00  INFO 15208 --- [    Test worker] c.commerceapp.LegaliaApplicationTests    : No active profile set, falling back to 1 default profile: "default"
-2024-05-03T16:42:14.324-05:00  INFO 15208 --- [    Test worker] c.commerceapp.LegaliaApplicationTests    : Started LegaliaApplicationTests in 2.593 seconds (process running for 6.097)
+2024-05-04T12:03:56.196-05:00  INFO 5064 --- [    Test worker] c.commerceapp.LegaliaApplicationTests    : Starting LegaliaApplicationTests using Java 17.0.9 with PID 5064 (started by monda in C:\workspace\JavaFX\CommerceApp)
+2024-05-04T12:03:56.201-05:00  INFO 5064 --- [    Test worker] c.commerceapp.LegaliaApplicationTests    : No active profile set, falling back to 1 default profile: "default"
+2024-05-04T12:03:58.635-05:00  INFO 5064 --- [    Test worker] c.commerceapp.LegaliaApplicationTests    : Started LegaliaApplicationTests in 3.283 seconds (process running for 6.992)
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

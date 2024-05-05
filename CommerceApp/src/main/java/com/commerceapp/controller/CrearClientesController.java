@@ -243,7 +243,6 @@ public class CrearClientesController implements Initializable, NavigableControll
 	}
 
 
-
 	
 
 	
@@ -378,7 +377,6 @@ public class CrearClientesController implements Initializable, NavigableControll
 	}
 
 	
-
 
 	@Override
 	public void initializeControlsInOrderToNavigate() {

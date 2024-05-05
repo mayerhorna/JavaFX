@@ -69,7 +69,7 @@ public class BusquedaProductosController implements Initializable {
 
 		columName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-		columnSale.setCellValueFactory(new PropertyValueFactory<>("salesPriceWithTax"));
+		columnSale.setCellValueFactory(new PropertyValueFactory<>("discountProduct"));
 		cargarProductos();
 		iniciarValidaciones();
 	}

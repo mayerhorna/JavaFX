@@ -206,13 +206,13 @@ public class ClientesCommerceController implements Initializable,NavigableContro
 		registerKeyPressENTERInControlsToNavigate();
 		controlsInOrderToNavigate = new Control[] {idBuscarCliente,idCodigoCliente,idNombreCliente,idNombreComercialCliente};
 
-		columnId.setCellValueFactory(new PropertyValueFactory<>("ba_user_id"));
+		columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		columnCode.setCellValueFactory(new PropertyValueFactory<>("code"));
 
 		columName.setCellValueFactory(new PropertyValueFactory<>("name"));
-		columnNombreComercial.setCellValueFactory(new PropertyValueFactory<>("login_user"));
+		columnNombreComercial.setCellValueFactory(new PropertyValueFactory<>("commercialName"));
 
-		columnDescuento.setCellValueFactory(new PropertyValueFactory<>("password_user"));
+		columnDescuento.setCellValueFactory(new PropertyValueFactory<>("discountProduct"));
 
 		cargarClientes();
 

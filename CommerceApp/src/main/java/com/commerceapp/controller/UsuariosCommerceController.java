@@ -1063,24 +1063,7 @@ public class UsuariosCommerceController implements Initializable, NavigableContr
 				// false, Duration.ZERO);
 
 				// getParentController().StatusProgressBar;
-				if (resulZip == LegalizacionService.EnumResultadoZip.Correcto) {
-
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ZipGenerado.fxml"));
-					Parent ZipGenerado = loader.load();
-
-					ZipGeneradoController zipGeneradoController = loader.getController();
-					Stage stage = new Stage();
-					Scene scene = new Scene(ZipGenerado);
-
-					stage.initModality(Modality.APPLICATION_MODAL);
-					stage.initStyle(StageStyle.UTILITY);
-
-					stage.getIcons().clear();
-					stage.setScene(scene);
-
-					stage.showAndWait();
-
-				}
+			
 
 				activacionIconosBarra(EnumActivacionIconos.DesactivarTodo);
 

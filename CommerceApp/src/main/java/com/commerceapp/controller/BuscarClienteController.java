@@ -91,4 +91,9 @@ public class BuscarClienteController implements Initializable, NavigableControll
 		return controlsInOrderToNavigate;
 	}
 
+	public void setPvc(PedidoVentaController pedidoVentaController) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

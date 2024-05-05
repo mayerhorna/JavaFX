@@ -675,25 +675,11 @@ public class ProductosController implements Initializable, NavigableControllerHe
 		idTableViewProductos.setItems(productList);
 	}
 
-	public boolean cerrar() {
-		boolean cerrar = true;
-		if (cancelaGuardar()) {
+	@SuppressWarnings("unlikely-arg-type")
+	public void cerrar(MenuPrincipalController m, ProductosController p) {
 
-			return false;
-		}
+		m.AnchorPane3.getChildren().remove(p);
 
-		String cad = null;
-		MGeneral.mlform = null;
-
-		cad = MGeneral.Idioma.obtenerValor(ObjetosIdioma.FORMULARIOS,
-				getParentController().getStagePrincipal().getScene().getRoot().getId().toString(),
-				ElementosIdiomaC.TEXT_FORMULARIO, "", "");
-
-		getParentController().getStagePrincipal().setTitle(cad);
-
-		activacionIconosBarra(EnumActivacionIconos.NoHayLegalizacionCargada);
-		parentController.AnchorPane3.getChildren().remove(frmEntradaDatos);
-		return cerrar;
 	}
 
 	@FXML
@@ -753,6 +739,9 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 			if (!idCodigoProducto.getText().isEmpty()) {
 				if (!idNombreProducto.getText().isEmpty()) {
+					if (idPrecioVenta.getText().isEmpty()) {
+						idPrecioVenta.setText("0");
+					}
 					Product objProduct = new Product();
 					objProduct.setCode(idCodigoProducto.getText());
 					objProduct.setName(idNombreProducto.getText());
@@ -834,6 +823,7 @@ public class ProductosController implements Initializable, NavigableControllerHe
 		idBuscarProducto.textProperty().addListener((observable, oldValue, newValue) -> {
 			buscarProductos(newValue);
 		});
+
 	}
 
 	private void buscarProductos(String searchText) {
@@ -864,34 +854,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 	private void cargarComboUM() {
 		idUM.getItems().addAll("Bien", "Servicio");
 
-	}
-
-	private void evValidarInput(Control control, CustomImageView cview, Pane iconPane) {
-
-		if (!((TextField) control).getText().isEmpty()) {
-			ErrorProvider(MGeneral.Idioma.obtenerLiteral(IdiomaC.EnumLiterales.CampoObligatorio).toString(), iconPane,
-					cview, false, control);
-
-		}
-
-	}
-
-	private void evValidarInputCombobox(CustomCombobox control, CustomImageView cview, Pane iconPane) {
-
-		if (!control.getEditor().getText().isEmpty()) {
-			ErrorProvider(MGeneral.Idioma.obtenerLiteral(IdiomaC.EnumLiterales.CampoObligatorio).toString(), iconPane,
-					cview, false, control);
-
-		}
-	}
-
-	private void evValidarInputComboboxSegundavalidacion(CustomCombobox control, CustomImageView cview, Pane iconPane) {
-
-		if (control.getEditor().getText().isEmpty()) {
-			ErrorProvider(MGeneral.Idioma.obtenerLiteral(IdiomaC.EnumLiterales.CampoObligatorio).toString(), iconPane,
-					cview, false, control);
-
-		}
 	}
 
 	public LocalDate convertirAFecha(String fechaString) {
@@ -941,15 +903,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 		}
 
 		return true;
-	}
-
-	public void recargaMuniSoli(ActionEvent event) {
-		try {
-
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
 	}
 
 	public void operacion(EnumTipoOperacion tipoOperacion) {
@@ -1035,24 +988,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 				// false, Duration.ZERO);
 
 				// getParentController().StatusProgressBar;
-				if (resulZip == LegalizacionService.EnumResultadoZip.Correcto) {
-
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ZipGenerado.fxml"));
-					Parent ZipGenerado = loader.load();
-
-					ZipGeneradoController zipGeneradoController = loader.getController();
-					Stage stage = new Stage();
-					Scene scene = new Scene(ZipGenerado);
-
-					stage.initModality(Modality.APPLICATION_MODAL);
-					stage.initStyle(StageStyle.UTILITY);
-
-					stage.getIcons().clear();
-					stage.setScene(scene);
-
-					stage.showAndWait();
-
-				}
 
 				activacionIconosBarra(EnumActivacionIconos.DesactivarTodo);
 
@@ -1139,19 +1074,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 	}
 
-	private void ErrorProvider(String error, Pane paneIconImageView, CustomImageView cbImageView,
-			boolean validarParpadeoImagen, Control c) {
-		Tooltip tooltip = new Tooltip(error);
-		if (validarParpadeoImagen) {
-			Tooltip.install(paneIconImageView, tooltip);
-			imagenParpadeo(validarParpadeoImagen, cbImageView, c);
-		} else {
-			Tooltip.uninstall(paneIconImageView, tooltip);
-			imagenParpadeo(validarParpadeoImagen, cbImageView, c);
-		}
-
-	}
-
 	public void evSoloNumerosInterfaz(KeyEvent event) {
 		Utilidades.evSoloNumeros(null, event);
 	}
@@ -1190,48 +1112,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 		}
 	}
 
-	
-
-
-	public void aniadirTimelines() {
-
-		for (int i = 0; i < controlsInOrderToNavigate.length; i++) {
-			objTimeline.arrayListTimeline.add(new TimeLineClass(new Timeline(), controlsInOrderToNavigate[i]));
-		}
-	}
-
-	public int obtenerindex(Control c) {
-		for (int i = 0; i < objTimeline.arrayListTimeline.size(); i++) {
-			if (objTimeline.arrayListTimeline.get(i).ctrl == c) {
-				return i;
-			}
-		}
-		return 0;
-	}
-
-	private void imagenParpadeo(boolean validarImagenParpadeo, CustomImageView cbImageView, Control c) {
-		aniadirTimelines();
-		int index = obtenerindex(c);
-		objTimeline.arrayListTimeline.get(index).timeline.getKeyFrames().addAll(
-				new KeyFrame(Duration.ZERO, event -> cbImageView.setVisible(true)),
-				new KeyFrame(Duration.seconds(0.5), event -> cbImageView.setVisible(false)),
-				new KeyFrame(Duration.seconds(1), event -> cbImageView.setVisible(true)),
-				new KeyFrame(Duration.seconds(1.5), event -> cbImageView.setVisible(false)),
-				new KeyFrame(Duration.seconds(2), event -> cbImageView.setVisible(true)),
-				new KeyFrame(Duration.seconds(2.5), event -> cbImageView.setVisible(false)),
-				new KeyFrame(Duration.seconds(3), event -> cbImageView.setVisible(true)));
-
-		if (validarImagenParpadeo) {
-			objTimeline.arrayListTimeline.get(index).timeline.setCycleCount(1);
-			objTimeline.arrayListTimeline.get(index).timeline.play();
-		} else {
-			objTimeline.arrayListTimeline.get(index).timeline.stop();
-			objTimeline.arrayListTimeline.get(index).timeline.getKeyFrames().clear();
-			cbImageView.setVisible(false);
-			cbImageView.setManaged(false);
-		}
-	}
-
 	@Override
 	public void initializeControlsInOrderToNavigate() {
 		controlsInOrderToNavigate = new Control[] {}; // TODO Auto-generated method
@@ -1243,11 +1123,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 	public Control[] getControlsInOrderToNavigate() {
 		// TODO Auto-generated method stub
 		return controlsInOrderToNavigate;
-	}
-
-	public void abrir(String path) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

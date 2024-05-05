@@ -1,10 +1,14 @@
 package com.commerceapp.app;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
+import com.commerceapp.model.BaUser;
 import com.commerceapp.model.Customer;
 
 
@@ -96,5 +100,17 @@ public class JPAControllerCustomer {
 		}
 		return false;
 
+	}
+
+	public List<Customer> obtenerTodosClientes() {
+		TypedQuery<Customer> query = entityManager.createQuery("SELECT u FROM Customer u", Customer.class);
+		return query.getResultList();
+	}
+
+	public List<Customer> buscarClientePorNombre(String nombre) {
+		TypedQuery<Customer> query = entityManager.createQuery("SELECT u FROM Customer u WHERE u.name LIKE :namePattern",
+				Customer.class);
+	    query.setParameter("namePattern", "%" + nombre + "%"); 
+	    return query.getResultList();
 	}
 }

@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<VBox prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21">
+<VBox prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="com.commerceapp.controller.BuscarClienteController">
    <children>
       <TextField fx:id="txtBusquedaCliente" alignment="CENTER">
          <VBox.margin>

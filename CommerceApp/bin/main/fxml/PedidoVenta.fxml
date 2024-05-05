@@ -60,14 +60,14 @@
                               <RowConstraints minHeight="10.0" percentHeight="100.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <TableView fx:id="tblVenta" prefHeight="267.0" prefWidth="1405.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                              <TableView fx:id="tblVenta" editable="true" prefHeight="267.0" prefWidth="1405.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
                                 <columns>
                                   <TableColumn fx:id="colNumero" prefWidth="133.0" text="N" />
                                   <TableColumn fx:id="colCodigo" prefWidth="126.0" text="Codigo" />
                                     <TableColumn fx:id="colProducto" prefWidth="400.0" text="Producto" />
                                     <TableColumn fx:id="colCantidad" prefWidth="144.0" text="Cantidad" />
-                                    <TableColumn fx:id="colPrecio" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Precio" />
-                                    <TableColumn fx:id="colTotal" prefWidth="600.0" text="Total" />
+                                    <TableColumn fx:id="colPrecio" maxWidth="283.0" minWidth="-1.0" prefWidth="283.0" text="Precio" />
+                                    <TableColumn fx:id="colTotal" prefWidth="317.0" text="Total" />
                                 </columns>
                               </TableView>
                               <ImageView fitHeight="79.0" fitWidth="131.0" pickOnBounds="true" preserveRatio="true">
@@ -103,7 +103,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button fx:id="btnCliente" mnemonicParsing="false" text="Cliente" GridPane.rowIndex="2">
+                              <Button fx:id="btnCliente" mnemonicParsing="false" onAction="#buscarCliente" text="Cliente" GridPane.rowIndex="2">
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -130,7 +130,7 @@
                                  </graphic></Button>
                               <TextField fx:id="txtPedidoVenta" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <TextField fx:id="txtCliente" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField fx:id="txtProducto" onKeyPressed="#PressedEnterProducto" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="txtProducto" onKeyPressed="#PressedEnterProducto" promptText="Ingrese el codigo del producto y dea ENTER..." GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <TextField fx:id="TxtObservaciones" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5" />
                               <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="8">
                                  <children>
@@ -144,8 +144,17 @@
                               <TextField GridPane.columnIndex="2" GridPane.rowIndex="3" />
                               <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                                  <children>
-                                    <Label fx:id="lblTotal" text="Total" />
-                                    <TextField fx:id="txtTotal" />
+                                    <Label fx:id="lblTotal" text="Total">
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font></Label>
+                                    <TextField fx:id="txtTotal" disable="true">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font></TextField>
                                  </children>
                               </HBox>
                               <Label text="Pedido de Venta" GridPane.rowIndex="1">
@@ -153,7 +162,7 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="idLabelUser" text="Usuario: ..." GridPane.rowIndex="4">
+                              <Label fx:id="idLabelUser" text="Usuario: ..." wrapText="true" GridPane.rowIndex="4">
                                  <font>
                                     <Font name="System Bold Italic" size="16.0" />
                                  </font>
@@ -165,7 +174,7 @@
                                     <Font name="Arial Black" size="12.0" />
                                  </font>
                               </Label>
-                              <Button mnemonicParsing="false" prefHeight="25.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                              <Button fx:id="crearCliente" mnemonicParsing="false" onAction="#crearCliente" prefHeight="25.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                  <graphic>
                                     <ImageView fitHeight="26.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                        <image>

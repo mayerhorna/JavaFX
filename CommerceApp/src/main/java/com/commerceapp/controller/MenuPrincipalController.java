@@ -75,6 +75,7 @@ public class MenuPrincipalController implements Initializable {
 	ProductosController form;
 	PedidoVentaController venta;
 	UsuariosCommerceController user;
+	ClientesCommerceController cliente;
 	private boolean esPrimeraCargaMDI = true;
 
 	private Stage stage;
@@ -95,6 +96,9 @@ public class MenuPrincipalController implements Initializable {
 
 	@FXML
 	HBox frmUsuarios;
+
+	@FXML
+	HBox frmClientes;
 
 	@FXML
 	HBox frmVenta;
@@ -302,7 +306,6 @@ public class MenuPrincipalController implements Initializable {
 		}
 	}
 
-
 	@FXML
 	public void AcercaDe() {
 
@@ -358,7 +361,9 @@ public class MenuPrincipalController implements Initializable {
 
 	@FXML
 	public void Productos() {
-
+		if (form != null) {
+			form.cerrar(this, form);
+		}
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ProductosCommerce.fxml"));
 
 		try {
@@ -401,21 +406,33 @@ public class MenuPrincipalController implements Initializable {
 	}
 
 	@FXML
+	public void cliente() {
+
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ClientesCommerce.fxml"));
+
+		try {
+			frmClientes = loader.load();
+			cliente = loader.getController();
+			cliente.setParentController(this);
+
+			AnchorPane3.getChildren().add(frmClientes);
+			AnchorPane.setTopAnchor(frmClientes, 0.0);
+			AnchorPane.setBottomAnchor(frmClientes, 0.0);
+			AnchorPane.setLeftAnchor(frmClientes, 0.0);
+			AnchorPane.setRightAnchor(frmClientes, 0.0);
+
+			establecerTitulo();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
 	private void guardar(ActionEvent event) {
 
 		form.guardar(false, true);
 	}
 
-	@FXML
-	public void cerrar(ActionEvent event) {
-		// activacionIconosBarra(EnumActivacionIconos.NoHayLegalizacionCargada);
-		// activacionIconosGuardado(true);
-
-		if (form != null) {
-			form.cerrar();
-		}
-
-	}
 
 	public void ayuda() throws IOException, SAXException, ParserConfigurationException {
 

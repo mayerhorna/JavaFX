@@ -109,7 +109,6 @@ import org.w3c.dom.xpath.XPathExpression;
 import org.xml.sax.SAXException;
 
 import com.commerceapp.Main;
-import com.commerceapp.controller.ConfiguracionController;
 import com.commerceapp.controller.MensajeController;
 import com.commerceapp.controller.PoliticaPrivacidadController;
 import com.commerceapp.controller.VersionesController;

@@ -134,6 +134,7 @@ public class BusquedaProductosController implements Initializable {
 							selectedProducts.get(0).getTb_product_id().toString(),
 							selectedProducts.get(0).getSalesPriceWithTax().toString(),
 							selectedProducts.get(0).getName(), idtotalprecio.getText()));
+			
 
 		}
 	}

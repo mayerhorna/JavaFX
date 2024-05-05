@@ -17,7 +17,6 @@ import java.util.Iterator;
 import java.util.logging.Logger;
 
 import com.commerceapp.Main;
-import com.commerceapp.controller.ConfiguracionController;
 import com.commerceapp.domain.IdiomaC;
 import com.commerceapp.domain.MGeneral;
 import com.commerceapp.domain.IdiomaC.EnumLiterales;

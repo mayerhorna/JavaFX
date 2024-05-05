@@ -1,16 +1,24 @@
 package com.commerceapp.controller;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import com.commerceapp.app.JPAControllerCustomer;
 import com.commerceapp.app.JPAControllerProduct;
 import com.commerceapp.controller.helpers.NavigableControllerHelper;
+import com.commerceapp.model.Customer;
+import com.commerceapp.model.Product;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -19,6 +27,9 @@ import javafx.scene.input.KeyEvent;
 
 public class BuscarClienteController implements Initializable, NavigableControllerHelper {
 	public Control[] controlsInOrderToNavigate;
+	
+	private ArrayList<Customer> selectedCustomers = new ArrayList<>();
+	
 	@FXML
 	private Button btnNext;
 
@@ -26,52 +37,74 @@ public class BuscarClienteController implements Initializable, NavigableControll
 	private Button btnPrevio;
 
 	@FXML
-	private TableView<?> tblClientes;
+	private TableView<Customer> tblClientes;
+	
+	  @FXML
+	private TableColumn<Customer, String> colCodigo;
+
+		@FXML
+	private TableColumn<Customer, String> colDescuento;
+
+	@FXML
+	private TableColumn<Customer, String> colNombre;
 
 	@FXML
 	private TextField txtBusquedaCliente;
+	
+	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		/*
-		 * initializeControlsInOrderToNavigate();
-		 * registerKeyPressENTERInControlsToNavigate(); controlsInOrderToNavigate = new
-		 * Control[] { idCodigoProducto, idNombreProducto, idDescProducto,
-		 * idPrecioVenta, idUM, idEanProducto };
-		 * 
-		 * columnId.setCellValueFactory(new PropertyValueFactory<>("tb_product_id"));
-		 * columnCode.setCellValueFactory(new PropertyValueFactory<>("code"));
-		 * 
-		 * columName.setCellValueFactory(new PropertyValueFactory<>("name"));
-		 * columnDescription.setCellValueFactory(new
-		 * PropertyValueFactory<>("description"));
-		 * 
-		 * columnSale.setCellValueFactory(new
-		 * PropertyValueFactory<>("salesPriceWithTax"));
-		 * columnUM.setCellValueFactory(new PropertyValueFactory<>("defaultUom"));
-		 * columnEAN.setCellValueFactory(new PropertyValueFactory<>("ean"));
-		 * 
-		 * cargarProductos(); cargarComboUM();
-		 * 
-		 * objJPAControllerProduct = new JPAControllerProduct(); Platform.runLater(new
-		 * Runnable() {
-		 * 
-		 * @Override public void run() {
-		 * 
-		 * pendienteGuardar = false;
-		 * 
-		 * getParentController().getStagePrincipal().getScene().addEventFilter(KeyEvent.
-		 * KEY_PRESSED, event -> { if (event.getCode() == KeyCode.TAB) {
-		 * event.consume(); // Consumir el evento de teclado para evitar la navegación
-		 * por TAB en todo el // form } });
-		 * 
-		 * } });
-		 * 
-		 * iniciarValidaciones();
-		 * 
-		 * iniciarImageIcon(); scroolPane(); idBuscarProducto.requestFocus();
-		 * 
-		 */
+		colCodigo.setCellValueFactory(new PropertyValueFactory<>("code"));
+
+		colNombre.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+		colDescuento.setCellValueFactory(new PropertyValueFactory<>("salesPriceWithTax"));
+		cargarClientes();
+		iniciarValidaciones();
+	}
+
+	private void iniciarValidaciones() {
+		tblClientes.setOnKeyPressed(event -> {
+			if (event.getCode() == KeyCode.ENTER) {
+				Object selectedItem = tblClientes.getSelectionModel().getSelectedItem();
+				if (selectedItem != null) {
+					selectedCustomers.clear();
+					selectedCustomers.add((Customer) selectedItem);
+					txtBusquedaCliente.setText(selectedCustomers.get(0).getName());
+					
+					
+					
+					
+
+				}
+			}
+		});
+		txtBusquedaCliente.textProperty().addListener((observable, oldValue, newValue) -> {
+			buscarClientes(newValue);
+		});
+		
+
+		
+	}
+
+	private void buscarClientes(String searchText) {
+		JPAControllerCustomer controller = new JPAControllerCustomer();
+		List<Customer> clientes = controller.buscarClientePorNombre(searchText);
+
+		ObservableList<Customer> clientesList = FXCollections.observableArrayList(clientes);
+		tblClientes.setItems(clientesList);
+		
+	}
+
+	private void cargarClientes() {
+		JPAControllerCustomer controller = new JPAControllerCustomer();
+		List<Customer> clientes = controller.obtenerTodosClientes();
+		System.out.println(clientes);
+		// Crea una ObservableList de productos y añádela al TableView
+		ObservableList<Customer> clientesList = FXCollections.observableArrayList(clientes);
+		tblClientes.setItems(clientesList);
+		
 	}
 
 	private String busqueda() {

@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="com.commerceapp.controller.BuscarClienteController">
+<VBox prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.commerceapp.controller.BuscarClienteController">
    <children>
       <TextField fx:id="txtBusquedaCliente" alignment="CENTER">
          <VBox.margin>
@@ -24,9 +23,9 @@
          <children>
             <TableView fx:id="tblClientes" prefHeight="400.0" prefWidth="737.0">
               <columns>
-                <TableColumn prefWidth="209.0" text="Código" />
-                <TableColumn prefWidth="297.0" text="Nombre" />
-                  <TableColumn prefWidth="191.0" text="RUC, DNI ó CE" />
+                <TableColumn fx:id="colCodigo" prefWidth="209.0" text="Código" />
+                <TableColumn fx:id="colNombre" prefWidth="297.0" text="Nombre" />
+                  <TableColumn fx:id="colDescuento" prefWidth="191.0" text="Descuento" />
               </columns>
                <HBox.margin>
                   <Insets left="20.0" />

@@ -26,6 +26,7 @@ import java.util.logging.Logger;
 import org.springframework.stereotype.Component;
 
 import com.commerceapp.Main;
+import com.commerceapp.app.JPAControllerCustomer;
 import com.commerceapp.app.JPAControllerProduct;
 import com.commerceapp.controller.helpers.NavigableControllerHelper;
 import com.commerceapp.domain.IdiomaC;
@@ -42,6 +43,7 @@ import com.commerceapp.gui.custom.datePicker.CustomDatePicker;
 import com.commerceapp.gui.custom.imageview.CustomImageView;
 import com.commerceapp.maestros.MaestroCodigoDescripcion;
 import com.commerceapp.maestros.MaestroCodigoDescripcionConverter;
+import com.commerceapp.model.Customer;
 import com.commerceapp.model.Product;
 import com.commerceapp.reporting.instancia.ReportingPreviewService;
 import com.commerceapp.service.LegalizacionService;
@@ -130,130 +132,62 @@ public class CrearClientesController implements Initializable, NavigableControll
 
 	Utilidades objTimeline = new Utilidades();
 	// Utilizada en la función irACampoFoco
-	@FXML
-	private GridPane GridSoli;
+	
 
-	@FXML
-	private AnchorPane anchorpaneEntradaDatos;
-
-	@FXML
-	private AnchorPane anchorpaneScroll;
-
-	@FXML
-	private HBox frmEntradaDatos;
-
-	@FXML
-	private Label gbxDatosRegistrales;
-
-	@FXML
-	private Label gbxEntidadEmpresario;
-
-	@FXML
-	private Label gbxPresentante;
-
-	@FXML
-	private GridPane EntidadEmpresarioGB;
-	@FXML
-	private GridPane PresentanteGB;
-
-	@FXML
-	private VBox idVOBXprueba;
-
-	@FXML
-	private ScrollPane idpruebascroll;
-
-	@FXML
-	private Pane lblPaneTitulo;
-
-	@FXML
-	private ImageView logo;
-
-	@FXML
-	private Tooltip tpGuardar;
-
-	@FXML
-	private TextField idBuscarProducto;
-
-	@FXML
-	private TableView<Product> idTableViewProductos;
-
-	@FXML
-	private TableColumn<Product, Number> columnId;
-	@FXML
-	private TableColumn<Product, String> columnCode;
-
-	@FXML
-	private TableColumn<Product, Number> columName;
-	@FXML
-	private TableColumn<Product, String> columnDescription;
-
-	@FXML
-	private TableColumn<Product, Number> columnSale;
-	@FXML
-	private TableColumn<Product, String> columnUM;
-	@FXML
-	private TableColumn<Product, Number> columnEAN;
-
-	@FXML
-	private TextField idCodigoProducto;
-
-	@FXML
-	private TextField idNombreProducto;
-
-	@FXML
-	private TextArea idDescProducto;
-
-	@FXML
-	private TextField idPrecioVenta;
-
-	@FXML
-	private Button idGuardarProductoButton;
-
-	@FXML
-	private CustomCombobox<String> idFamiliaProducto;
-
-	@FXML
-	private CustomCombobox<String> idUM;
-
-	@FXML
-	private TextField idEanProducto;
-
-	@FXML
-	private RowConstraints idRowFamilia;
-
-	private ArrayList<Product> selectedProducts = new ArrayList<>();
+	private ArrayList<Customer> selectedClientes = new ArrayList<>();
 
 	public Control[] controlsInOrderToNavigate;
 
-	JPAControllerProduct objJPAControllerProduct;
+	JPAControllerCustomer objJPAControllerCliente;
 
-	public enum EnumTipoOperacion {
-		Imprimir(1), Enviar(2), GenerarZip(3), GenerarHuellas(4), EncriptarTodo(5);
+	 @FXML
+	    private GridPane PresentanteGB;
 
-		private final int value;
+	    @FXML
+	    private AnchorPane anchorpaneEntradaDatos;
 
-		EnumTipoOperacion(int value) {
-			this.value = value;
-		}
+	    @FXML
+	    private Button btnBuscar;
 
-		public int getValue() {
-			return value;
-		}
-	}
+	    @FXML
+	    private Button btnNuevo;
 
-	public enum EnumActivacionIconos {
-		HayLegalizacionCargada(1), NoHayLegalizacionCargada(2), DesactivarTodo(3);
+	    @FXML
+	    private HBox frmCrearClientes;
 
-		private final int value;
+	    @FXML
+	    private Label gbxPresentante;
 
-		EnumActivacionIconos(int value) {
-			this.value = value;
-		}
+	    @FXML
+	    private TextField idCodigoCliente;
 
-		public int getValue() {
-			return value;
-		}
-	}
+	    @FXML
+	    private TextField idDescuentoCliente;
+
+	    @FXML
+	    private Button idGuardarCliente;
+
+	    @FXML
+	    private TextField idNombreCliente;
+
+	    @FXML
+	    private TextField idNombreComercialCliente;
+
+	    @FXML
+	    private VBox idVOBXprueba;
+
+	    @FXML
+	    private ScrollPane idpruebascroll;
+
+	    @FXML
+	    void buscarCliente(ActionEvent event) {
+
+	    }
+
+	    @FXML
+	    void guardaCliente(ActionEvent event) {
+
+	    }
 
 	public void setParentController(MenuPrincipalController parentController) {
 		this.parentController = parentController;
@@ -270,7 +204,7 @@ public class CrearClientesController implements Initializable, NavigableControll
 
 	private void setPendienteGuardar(boolean value) {
 		pendienteGuardar = value;
-		idGuardarProductoButton.setDisable(!value);
+		idGuardarCliente.setDisable(!value);
 
 	}
 
@@ -280,8 +214,7 @@ public class CrearClientesController implements Initializable, NavigableControll
 		
 		initializeControlsInOrderToNavigate();
 		registerKeyPressENTERInControlsToNavigate();
-		controlsInOrderToNavigate = new Control[] { idCodigoProducto, idNombreProducto, idDescProducto, idPrecioVenta,
-				idUM, idEanProducto };
+		controlsInOrderToNavigate = new Control[] { };
 
 		
 
@@ -310,390 +243,14 @@ public class CrearClientesController implements Initializable, NavigableControll
 
 	}
 
-	public void activacionIconosBarra(EnumActivacionIconos activacion) {
-		switch (activacion) {
 
-		case HayLegalizacionCargada:
 
-			// Iconos no dependientes de que una legalizacion esté cargada
-			parentController.NuevoToolStrip.setDisable(false);
-			parentController.SubItemNuevo.setDisable(false);
-			parentController.OpenToolStripButton.setDisable(false);
-			parentController.SubItemAbrir.setDisable(false);
-			parentController.ImportarToolStripButton.setDisable(false);
-			parentController.SubItemImportar.setDisable(false);
-			parentController.EncriptarOtrosFicherosToolStripMenuItem.setDisable(false);
-			parentController.ConfiguracionToolStripMenuItem.setDisable(false);
-
-			try {
-				switch (MGeneral.mlform.getModo()) {
-
-				case Normal:
-
-					parentController.EspecificarLibrosToolStripButton.setDisable(false);
-					parentController.EspecificarLibrosToolStripMenuItem.setDisable(false);
-					parentController.SubItemCerrar.setDisable(false);
-					parentController.SubItemComprobarReglas.setDisable(false);
-					parentController.ComprobarReglasToolStrip.setDisable(false);
-					parentController.SubItemImprimir.setDisable(false);
-					parentController.ToolStripButtonImprimir.setDisable(false);
-					parentController.GenerarZipToolStrip.setDisable(false);
-					parentController.SubItemGenerarZip.setDisable(false);
-					parentController.EnviarToolStrip.setDisable(false);
-					parentController.SubItemEnviar.setDisable(false);
-
-					parentController.DatosLegalizacionStripMenuItem.setDisable(false);
-					parentController.VerHuellasDeLosLibrosToolStripMenuItem.setDisable(false);
-					// parentController.EncriptarTodosLosLibrosToolStripMenuItem.setDisable(false);
-					parentController.MenuPrincipal.setDisable(false);
-
-					/*
-					 * gbxEntidadEmpresario.setDisable(false); gbxPresentante.setDisable(false);
-					 * cboRegistroMercantil.setDisable(false);
-					 */
-					break;
-
-				case Recepcion:
-
-					parentController.EspecificarLibrosToolStripButton.setDisable(false);
-					parentController.EspecificarLibrosToolStripMenuItem.setDisable(false);
-					parentController.SubItemCerrar.setDisable(false);
-					parentController.SubItemComprobarReglas.setDisable(false);
-					parentController.ComprobarReglasToolStrip.setDisable(false);
-					parentController.SubItemImprimir.setDisable(true);
-					parentController.ToolStripButtonImprimir.setDisable(true);
-					parentController.GenerarZipToolStrip.setDisable(true);
-					parentController.SubItemGenerarZip.setDisable(true);
-					parentController.EnviarToolStrip.setDisable(true);
-					parentController.SubItemEnviar.setDisable(true);
-					parentController.DatosLegalizacionStripMenuItem.setDisable(true);
-					parentController.VerHuellasDeLosLibrosToolStripMenuItem.setDisable(true);
-					// EncriptarTodosLosLibrosToolStripMenuItem.setDisable(true);
-					parentController.MenuPrincipal.setDisable(false);
-
-					EntidadEmpresarioGB.setDisable(true);
-					PresentanteGB.setDisable(true);
-
-					gbxEntidadEmpresario.setDisable(true);
-					gbxPresentante.setDisable(true);
-
-					break;
-
-				case SoloLectura, SoloReenviar:
-
-					parentController.EspecificarLibrosToolStripButton.setDisable(false);
-					parentController.EspecificarLibrosToolStripMenuItem.setDisable(false);
-					parentController.SubItemCerrar.setDisable(false);
-					parentController.SubItemComprobarReglas.setDisable(false);
-					parentController.ComprobarReglasToolStrip.setDisable(false);
-					parentController.SubItemImprimir.setDisable(false);
-
-					parentController.ToolStripButtonImprimir.setDisable(false);
-					parentController.GenerarZipToolStrip.setDisable(true);
-					parentController.SubItemGenerarZip.setDisable(true);
-
-					switch (MGeneral.mlform.getModo()) {
-					case SoloLectura:
-						parentController.EnviarToolStrip.setDisable(true);
-						parentController.SubItemEnviar.setDisable(true);
-
-						break;
-					case SoloReenviar:
-						parentController.EnviarToolStrip.setDisable(false);
-						parentController.SubItemEnviar.setDisable(false);
-						break;
-					}
-
-					parentController.DatosLegalizacionStripMenuItem.setDisable(false);
-					parentController.VerHuellasDeLosLibrosToolStripMenuItem.setDisable(false);
-					// parentController.EncriptarTodosLosLibrosToolStripMenuItem.setDisable(true);
-					parentController.MenuPrincipal.setDisable(false);
-
-					EntidadEmpresarioGB.setDisable(true);
-					PresentanteGB.setDisable(true);
-					gbxEntidadEmpresario.setDisable(true);
-					gbxPresentante.setDisable(true);
-
-					break;
-
-				default:
-					break;
-				}
-				break;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		case NoHayLegalizacionCargada:
-
-			// Iconos dependientes de que una legalizacion o una recepcion esté cargada
-			parentController.EspecificarLibrosToolStripButton.setDisable(true);
-			parentController.EspecificarLibrosToolStripMenuItem.setDisable(true);
-			parentController.SubItemCerrar.setDisable(true);
-			parentController.SubItemComprobarReglas.setDisable(true);
-			parentController.ComprobarReglasToolStrip.setDisable(true);
-			parentController.SubItemImprimir.setDisable(true);
-			parentController.ToolStripButtonImprimir.setDisable(true);
-			parentController.GenerarZipToolStrip.setDisable(true);
-			parentController.SubItemGenerarZip.setDisable(true);
-			parentController.EnviarToolStrip.setDisable(true);
-
-			// Iconos no dependientes de que una legalizacion esté cargada
-			parentController.SubItemEnviar.setDisable(true);
-			parentController.DatosLegalizacionStripMenuItem.setDisable(true);
-
-			parentController.VerHuellasDeLosLibrosToolStripMenuItem.setDisable(true);
-			// EncriptarTodosLosLibrosToolStripMenuItem.setDisable(true);
-			parentController.NuevoToolStrip.setDisable(false);
-			parentController.SubItemNuevo.setDisable(false);
-
-			parentController.OpenToolStripButton.setDisable(false);
-			parentController.SubItemAbrir.setDisable(false);
-			parentController.ImportarToolStripButton.setDisable(false);
-			parentController.SubItemImportar.setDisable(false);
-			parentController.EncriptarOtrosFicherosToolStripMenuItem.setDisable(false);
-			parentController.ConfiguracionToolStripMenuItem.setDisable(false);
-			parentController.MenuPrincipal.setDisable(false);
-
-			/*
-			 * gbxEntidadEmpresario.setDisable(true); gbxPresentante.setDisable(true);
-			 * cboRegistroMercantil.setDisable(true);
-			 */
-
-			break;
-
-		case DesactivarTodo:
-
-			// Iconos dependientes de que una legalizacion esté cargada
-			parentController.EspecificarLibrosToolStripButton.setDisable(true);
-			parentController.EspecificarLibrosToolStripMenuItem.setDisable(true);
-			parentController.SubItemCerrar.setDisable(true);
-			parentController.SubItemComprobarReglas.setDisable(true);
-			parentController.ComprobarReglasToolStrip.setDisable(true);
-			parentController.SubItemImprimir.setDisable(true);
-			parentController.ToolStripButtonImprimir.setDisable(true);
-			parentController.GenerarZipToolStrip.setDisable(true);
-			parentController.SubItemGenerarZip.setDisable(true);
-			parentController.EnviarToolStrip.setDisable(true);
-
-			// Iconos no dependientes de que una legalizacion esté cargada
-			parentController.SubItemEnviar.setDisable(true);
-			parentController.DatosLegalizacionStripMenuItem.setDisable(true);
-			parentController.VerHuellasDeLosLibrosToolStripMenuItem.setDisable(true);
-			// EncriptarTodosLosLibrosToolStripMenuItem.setDisable(true);
-			parentController.NuevoToolStrip.setDisable(true);
-
-			parentController.SubItemNuevo.setDisable(true);
-			parentController.OpenToolStripButton.setDisable(true);
-			parentController.SubItemAbrir.setDisable(true);
-			parentController.ImportarToolStripButton.setDisable(true);
-			parentController.SubItemImportar.setDisable(true);
-			parentController.EncriptarOtrosFicherosToolStripMenuItem.setDisable(true);
-			parentController.ConfiguracionToolStripMenuItem.setDisable(true);
-			parentController.MenuPrincipal.setDisable(true);
-			/*
-			 * gbxEntidadEmpresario.setDisable(true); gbxPresentante.setDisable(true);
-			 * cboRegistroMercantil.setDisable(true);
-			 */
-			break;
-		}
-	}
-
-	public void validarTextChangesGuardar(boolean aux) {
-		// Crear un AtomicBoolean para rastrear si se han realizado cambios
-		AtomicBoolean cambiosRealizados = new AtomicBoolean(false);
-
-		for (int i = 0; i < controlsInOrderToNavigate.length; i++) {
-			if (controlsInOrderToNavigate[i] instanceof TextField) {
-				TextField controlfinal = (TextField) controlsInOrderToNavigate[i];
-				String originalValue = selectedProducts.get(0).getCode(); // Guardar valor original
-				controlfinal.textProperty().addListener((observable, oldValue, newValue) -> {
-					// Verificar si hay un cambio en el campo
-					if (!newValue.equalsIgnoreCase(originalValue)) {
-						cambiosRealizados.set(true);
-						// Establecer el botón de guardar en consecuencia
-						setPendienteGuardar(aux);
-					}
-				});
-			} else if (controlsInOrderToNavigate[i] instanceof ComboBox) {
-				ComboBox controlfinal = (ComboBox) controlsInOrderToNavigate[i];
-				if (controlsInOrderToNavigate[i].getId().equalsIgnoreCase("idUM")) {
-					String originalValue = selectedProducts.get(0).getDefaultUom(); // Guardar valor original
-					controlfinal.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-						// Verificar si hay un cambio en el campo
-						if (!newValue.equalsIgnoreCase(originalValue)) {
-							cambiosRealizados.set(true);
-							// Establecer el botón de guardar en consecuencia
-							setPendienteGuardar(aux);
-						}
-					});
-				}
-			}
-		}
-
-		// Después de iterar sobre todos los campos, establecer el estado del botón de
-		// guardar
-		if (!cambiosRealizados.get()) {
-			// No se han realizado cambios, deshabilitar el botón de guardar
-			setPendienteGuardar(!aux);
-		}
-	}
-
-	private void iniciarImageIcon() {
-
-	}
-
-	private boolean validarTodosLosControles(Node control, boolean MensajeSN, boolean MostrarMensajePrimerControl) {
-		Control primerControlNoValido = null;
-		try {
-			for (int i = 0; i < controlsInOrderToNavigate.length; i++) {
-
-				if (!validaControl(controlsInOrderToNavigate[i], MensajeSN)) {
-					if (primerControlNoValido == null) {
-						primerControlNoValido = controlsInOrderToNavigate[i];
-					}
-				}
-
-			}
-			if (MostrarMensajePrimerControl) {
-				if (primerControlNoValido != null) {
-
-					String cadenaMensaje = "";
-					String textoLabel = dameTextoLabelAsociadaAlControl(primerControlNoValido);
-					if (!textoLabel.equals("")) {
-						cadenaMensaje = textoLabel;
-						if (!textoLabel.endsWith(":")) {
-							cadenaMensaje += " :";
-						}
-						cadenaMensaje += " ";
-					}
-
-					MGeneral.Idioma.MostrarMensaje(EnumMensajes.CampoObligatorio,
-							primerControlNoValido.getId().replaceAll("txt", ""), cadenaMensaje, textoLabel);
-					primerControlNoValido.requestFocus();
-
-				}
-			}
-
-			if (primerControlNoValido != null) {
-				return false;
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return false;
-		}
-		return true;
-	}
-
-	private void scroolPane() {
-		idpruebascroll.setContent(idVOBXprueba);
-		idpruebascroll.setFitToWidth(true);
-		idpruebascroll.setFitToHeight(true);
-
-	}
-
-	public boolean cancelarPendienteGuardar() {
-		boolean cancelar = false;
-		if (isPendienteGuardar()) {
-			MGeneral.Idioma.MostrarMensaje(IdiomaC.EnumMensajes.ConfirmacionGuardar, "", "", "");
-
-		}
-		return cancelar;
-	}
-
-	public boolean cancelaGuardar() {
-		boolean cancelar = false;
-
-		if (pendienteGuardar) {
-			// aqui va un mostrarMen sajes
-			// Mostrar un Alert de confirmación
-
-			boolean result = MGeneral.Idioma.MostrarMensaje(IdiomaC.EnumMensajes.ConfirmacionGuardar, "", "", "");
-
-			// Manejar la respuesta del usuario
-			if (result == false) {
-				cancelar = true;
-			}
-		}
-		return cancelar;
-	}
-
-	private void cargarProductos() {
-		JPAControllerProduct controller = new JPAControllerProduct();
-		List<Product> productos = controller.obtenerTodosProductos();
-
-		// Crea una ObservableList de productos y añádela al TableView
-		ObservableList<Product> productList = FXCollections.observableArrayList(productos);
-		idTableViewProductos.setItems(productList);
-	}
-
-	public boolean cerrar() {
-		boolean cerrar = true;
-		if (cancelaGuardar()) {
-
-			return false;
-		}
-
-		guardarDatosLegalizacion();
-
-		String cad = null;
-		MGeneral.mlform = null;
-
-		cad = MGeneral.Idioma.obtenerValor(ObjetosIdioma.FORMULARIOS,
-				getParentController().getStagePrincipal().getScene().getRoot().getId().toString(),
-				ElementosIdiomaC.TEXT_FORMULARIO, "", "");
-
-		getParentController().getStagePrincipal().setTitle(cad);
-
-		activacionIconosBarra(EnumActivacionIconos.NoHayLegalizacionCargada);
-		parentController.AnchorPane3.getChildren().remove(frmEntradaDatos);
-		return cerrar;
-	}
-
-	@FXML
-	public void EliminarProducto(ActionEvent e) throws Exception {
-		if (selectedProducts.size() != 0) {
-			if (IdiomaC.MostrarMensaje(EnumMensajes.EliminarProducto, "", "", "")) {
-
-				objJPAControllerProduct.eliminarProducto(selectedProducts.get(0));
-				cargarProductos();
-			}
-		}
-	}
-
-	@FXML
-	public void ActualizarProductos(ActionEvent e) throws Exception {
-		cargarProductos();
-	}
-
-	@FXML
-	public void GuardarProductos(ActionEvent e) throws Exception {
-		
-		Product objProduct=new Product();
-		objProduct.setTb_product_id(selectedProducts.get(0).getTb_product_id());
-		objProduct.setCode(idCodigoProducto.getText());
-		objProduct.setName(idNombreProducto.getText());
-		objProduct.setDescription(idDescProducto.getText());
-		objProduct.setSalesPriceWithTax(new BigDecimal( idPrecioVenta.getText()));
-		objProduct.setDefaultUom(idUM.getValue());
-		objProduct.setEan(idEanProducto.getText());
-		objJPAControllerProduct.actualizarProducto(objProduct);
-		cargarProductos();
-	}
 	
-	private void iniciarValidaciones() {
-		idTableViewProductos.getSelectionModel().selectedItemProperty()
-				.addListener((obs, oldSelection, newSelection) -> {
-					if (newSelection != null) {
 
-						selectedProducts.clear();
-						selectedProducts.add(newSelection);
-						rellenarCampos();
-						validarTextChangesGuardar(true);
-					}
-				});
+	
 
-	}
 
+<<<<<<< HEAD
 	private void rellenarCampos() {
 		idCodigoProducto.setText(selectedProducts.get(0).getCode());
 
@@ -1220,6 +777,9 @@ public class CrearClientesController implements Initializable, NavigableControll
 			cbImageView.setManaged(false);
 		}
 	}
+=======
+	
+>>>>>>> a246b8b48f8eb9122e52f7345bc1defa1f9d0a5a
 
 	@Override
 	public void initializeControlsInOrderToNavigate() {

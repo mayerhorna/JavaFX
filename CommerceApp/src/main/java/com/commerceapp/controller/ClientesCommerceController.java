@@ -1,10 +1,21 @@
 package com.commerceapp.controller;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import com.commerceapp.app.JPAControllerBa_user;
+import com.commerceapp.app.JPAControllerCustomer;
 import com.commerceapp.controller.helpers.NavigableControllerHelper;
+import com.commerceapp.model.BaUser;
+import com.commerceapp.model.Customer;
+import com.commerceapp.util.Utilidades;
 
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,13 +26,46 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class ClientesCommerceController implements Initializable,NavigableControllerHelper{
+	
+	private MenuPrincipalController parentController;
+	
+	public void setParentController(MenuPrincipalController parentController) {
+		this.parentController = parentController;
+
+	}
+
+	public MenuPrincipalController getParentController() {
+		return parentController;
+	}
+	
+	public double ancho;
+
+	public String campoPonerFoco = "";
+
+	private boolean pendienteGuardar = false;
+	Tooltip tooltip = new Tooltip("Casilla obligatoria");
+
+	Utilidades objTimeline = new Utilidades();
+
+	private ArrayList<Customer> selectedCustomers= new ArrayList<>();
+
+	public Control[] controlsInOrderToNavigate;
+
+	JPAControllerCustomer objJPAControllerCustomer ;
+
+	private ChangeListener<String> textChangeListener;
 
     @FXML
     private GridPane EntidadEmpresarioGB;
@@ -33,19 +77,19 @@ public class ClientesCommerceController implements Initializable,NavigableContro
     private AnchorPane anchorpaneEntradaDatos;
 
     @FXML
-    private TableColumn<?, ?> columName;
+    private TableColumn<Customer, String> columName;
 
     @FXML
-    private TableColumn<?, ?> columnCode;
+    private TableColumn<Customer, String>columnCode;
 
     @FXML
-    private TableColumn<?, ?> columnDescuento;
+    private TableColumn<Customer, String>columnDescuento;
 
     @FXML
-    private TableColumn<?, ?> columnId;
+    private TableColumn<Customer, String>columnId;
 
     @FXML
-    private TableColumn<?, ?> columnNombreComercial;
+    private TableColumn<Customer, String> columnNombreComercial;
 
     @FXML
     private HBox frmClientes;
@@ -64,12 +108,20 @@ public class ClientesCommerceController implements Initializable,NavigableContro
 
     @FXML
     private TextField idCodigoCliente;
+    
+    @FXML
+    private TextField idNombreCliente;
+
+    @FXML
+    private TextField idNombreComercialCliente;
+    
+    @FXML
+    private TextField idDescuentoCliente;
 
     @FXML
     private Button idCrearCliente;
 
-    @FXML
-    private TextField idDescuentoCliente;
+  
 
     @FXML
     private Button idDeshacerCreacionCliente;
@@ -80,14 +132,9 @@ public class ClientesCommerceController implements Initializable,NavigableContro
     @FXML
     private Button idGuardarCliente;
 
+ 
     @FXML
-    private TextField idNombreCliente;
-
-    @FXML
-    private TextField idNombreComercialCliente;
-
-    @FXML
-    private TableView<?> idTableViewClientes;
+    private TableView<Customer> idTableViewClientes;
 
     @FXML
     private VBox idVOBXprueba;
@@ -134,21 +181,87 @@ public class ClientesCommerceController implements Initializable,NavigableContro
 
     }
 
-	@Override
+    @Override
 	public void initializeControlsInOrderToNavigate() {
-		// TODO Auto-generated method stub
-		
+		controlsInOrderToNavigate = new Control[] {}; // TODO Auto-generated method
+														// stub
+
 	}
 
 	@Override
 	public Control[] getControlsInOrderToNavigate() {
 		// TODO Auto-generated method stub
-		return null;
+		return controlsInOrderToNavigate;
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		objJPAControllerCustomer = new JPAControllerCustomer();
+		Image image = new Image(getClass().getResourceAsStream("/imagenes/LogoECommerce.png"));
+
+		logo.setFitWidth(150);
+		logo.setFitHeight(70);
+		logo.setImage(image);
+		initializeControlsInOrderToNavigate();
+		registerKeyPressENTERInControlsToNavigate();
+		controlsInOrderToNavigate = new Control[] {idBuscarCliente,idCodigoCliente,idNombreCliente,idNombreComercialCliente};
+
+		columnId.setCellValueFactory(new PropertyValueFactory<>("ba_user_id"));
+		columnCode.setCellValueFactory(new PropertyValueFactory<>("code"));
+
+		columName.setCellValueFactory(new PropertyValueFactory<>("name"));
+		columnNombreComercial.setCellValueFactory(new PropertyValueFactory<>("login_user"));
+
+		columnDescuento.setCellValueFactory(new PropertyValueFactory<>("password_user"));
+
+		cargarClientes();
+
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+
+				pendienteGuardar = false;
+
+				getParentController().getStagePrincipal().getScene().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+					if (event.getCode() == KeyCode.TAB) {
+						event.consume(); // Consumir el evento de teclado para evitar la navegación por TAB en todo el
+											// form
+					}
+				});
+
+			}
+		});
+
+		iniciarValidaciones();
+
+		iniciarImageIcon();
+		scroolPane();
+		idBuscarCliente.requestFocus();
+		
+	}
+
+	private void scroolPane() {
 		// TODO Auto-generated method stub
+		
+	}
+
+	private void iniciarImageIcon() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void iniciarValidaciones() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void cargarClientes() {
+		JPAControllerCustomer objAux = new JPAControllerCustomer();
+		List<Customer> usuarios = objAux.obtenerTodosClientes();
+
+		// Crea una ObservableList de productos y añádela al TableView
+		ObservableList<Customer> usuarioso = FXCollections.observableArrayList(usuarios);
+		idTableViewClientes.setItems(usuarioso);
 		
 	}
 

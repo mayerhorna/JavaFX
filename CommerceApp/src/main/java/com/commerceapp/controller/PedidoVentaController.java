@@ -297,6 +297,9 @@ public class PedidoVentaController implements Initializable {
 		}
 
 	}
+	void ponerClienteDesdeVentana(String nombre) {
+		txtCliente.setText(nombre);
+	}
 
 	@FXML
 	public void PressedEnterProducto(KeyEvent event) throws IOException {

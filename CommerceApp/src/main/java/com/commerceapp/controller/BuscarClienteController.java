@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+
+
 import com.commerceapp.app.JPAControllerCustomer;
 import com.commerceapp.app.JPAControllerProduct;
 import com.commerceapp.controller.helpers.NavigableControllerHelper;
@@ -16,16 +18,29 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
 public class BuscarClienteController implements Initializable, NavigableControllerHelper {
+	PedidoVentaController pvc;
+
+	public PedidoVentaController getPvc() {
+		return pvc;
+	}
+
+	public void setPvc(PedidoVentaController pvc) {
+		this.pvc = pvc;
+	}
+	
 	public Control[] controlsInOrderToNavigate;
 	
 	private ArrayList<Customer> selectedCustomers = new ArrayList<>();
@@ -59,7 +74,48 @@ public class BuscarClienteController implements Initializable, NavigableControll
 
 		colNombre.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-		colDescuento.setCellValueFactory(new PropertyValueFactory<>("salesPriceWithTax"));
+		colDescuento.setCellValueFactory(new PropertyValueFactory<>("discountProduct"));
+		
+		tblClientes.setRowFactory(tv -> {
+
+			TableRow<Customer> row = new TableRow<>();
+
+			row.setOnKeyPressed(event -> {
+
+				logger.info("test");
+
+			});
+
+			row.setOnMouseClicked(event -> {
+				
+
+				if (event.getClickCount() == 2 && !row.isEmpty()) {
+
+					Customer rowData = row.getItem();
+
+					try {
+						
+						pvc.ponerClienteDesdeVentana(rowData.getName());
+
+						Node source = (Node) event.getSource();
+
+						Stage stage = (Stage) source.getScene().getWindow();
+
+						stage.close();
+
+					} catch (Exception e) {
+
+						e.printStackTrace();
+
+					}
+
+				}
+
+			});
+
+			return row;
+
+		});
 		cargarClientes();
 		iniciarValidaciones();
 	}
@@ -124,9 +180,6 @@ public class BuscarClienteController implements Initializable, NavigableControll
 		return controlsInOrderToNavigate;
 	}
 
-	public void setPvc(PedidoVentaController pedidoVentaController) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }

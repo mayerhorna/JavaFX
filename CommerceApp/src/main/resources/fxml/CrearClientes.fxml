@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="frmProductos" maxWidth="8000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.commerceapp.controller.ProductosController">
+<HBox fx:id="frmCrearClientes" maxWidth="8000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.commerceapp.controller.CrearClientesController">
    <children>
       <AnchorPane fx:id="anchorpaneEntradaDatos" maxWidth="8000.0" style="-fx-background-color: black;" HBox.hgrow="ALWAYS">
          <children>

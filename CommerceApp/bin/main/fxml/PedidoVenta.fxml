@@ -103,7 +103,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button fx:id="btnCliente" mnemonicParsing="false" text="Cliente" GridPane.rowIndex="2">
+                              <Button fx:id="btnCliente" mnemonicParsing="false" onAction="#buscarCliente" text="Cliente" GridPane.rowIndex="2">
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -130,7 +130,7 @@
                                  </graphic></Button>
                               <TextField fx:id="txtPedidoVenta" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <TextField fx:id="txtCliente" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField fx:id="txtProducto" onKeyPressed="#PressedEnterProducto" onKeyReleased="#PressedEnterProducto" onKeyTyped="#PressedEnterProducto" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="txtProducto" onKeyPressed="#PressedEnterProducto" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <TextField fx:id="TxtObservaciones" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5" />
                               <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="8">
                                  <children>
@@ -165,7 +165,7 @@
                                     <Font name="Arial Black" size="12.0" />
                                  </font>
                               </Label>
-                              <Button mnemonicParsing="false" prefHeight="25.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                              <Button fx:id="crearCliente" mnemonicParsing="false" onAction="#crearCliente" prefHeight="25.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                  <graphic>
                                     <ImageView fitHeight="26.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                        <image>

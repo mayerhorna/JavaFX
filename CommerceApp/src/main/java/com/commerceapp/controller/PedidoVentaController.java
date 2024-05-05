@@ -185,7 +185,62 @@ public class PedidoVentaController implements Initializable {
 
 		}
 	}
+	@FXML
+	public void buscarCliente(ActionEvent e) throws Exception {
+		try {
 
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BuscarCliente.fxml"));
+			Parent abrir = loader.load();
+			BuscarClienteController objController = loader.getController();
+			objController.setPvc(this);
+			Stage stage = new Stage();
+			Scene scene = new Scene(abrir);
+
+			// quitando el maximizar y minimizar
+			stage.initModality(Modality.APPLICATION_MODAL);
+			// bloquea la interacción con otras ventanas de la aplicación
+			stage.initStyle(StageStyle.UTILITY);
+			// quitando iconos
+			stage.getIcons().clear();
+			stage.setScene(scene);
+			// MGeneral.Idioma.cargarIdiomaControles(stage, null);
+			// objAcerController.initialize(null, null);
+			stage.showAndWait();
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+
+		}
+	}
+	@FXML
+	private void crearCliente() {
+		try {
+
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CrearClientes.fxml"));
+			Parent abrir = loader.load();
+			CrearClientesController objController = loader.getController();
+			objController.setPvc(this);
+			Stage stage = new Stage();
+			Scene scene = new Scene(abrir);
+
+			// quitando el maximizar y minimizar
+			stage.initModality(Modality.APPLICATION_MODAL);
+			// bloquea la interacción con otras ventanas de la aplicación
+			stage.initStyle(StageStyle.UTILITY);
+			// quitando iconos
+			stage.getIcons().clear();
+			stage.setScene(scene);
+			// MGeneral.Idioma.cargarIdiomaControles(stage, null);
+			// objAcerController.initialize(null, null);
+			stage.showAndWait();
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+
+		}
+
+	}
+	
 	@FXML
 	public void PressedEnterProducto(KeyEvent event) throws IOException {
 		if (event.getCode() == KeyCode.ENTER) {

@@ -277,30 +277,16 @@ public class CrearClientesController implements Initializable, NavigableControll
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		Image image = new Image(getClass().getResourceAsStream("/imagenes/LogoECommerce.png"));
-
-		logo.setFitWidth(150);
-		logo.setFitHeight(70);
-		logo.setImage(image);
+		
 		initializeControlsInOrderToNavigate();
 		registerKeyPressENTERInControlsToNavigate();
 		controlsInOrderToNavigate = new Control[] { idCodigoProducto, idNombreProducto, idDescProducto, idPrecioVenta,
 				idUM, idEanProducto };
 
-		columnId.setCellValueFactory(new PropertyValueFactory<>("tb_product_id"));
-		columnCode.setCellValueFactory(new PropertyValueFactory<>("code"));
+		
 
-		columName.setCellValueFactory(new PropertyValueFactory<>("name"));
-		columnDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-
-		columnSale.setCellValueFactory(new PropertyValueFactory<>("salesPriceWithTax"));
-		columnUM.setCellValueFactory(new PropertyValueFactory<>("defaultUom"));
-		columnEAN.setCellValueFactory(new PropertyValueFactory<>("ean"));
-
-		cargarProductos();
-		cargarComboUM();
-
-		objJPAControllerProduct = new JPAControllerProduct();
+		
+	
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
@@ -315,54 +301,12 @@ public class CrearClientesController implements Initializable, NavigableControll
 					}
 				});
 
-				getParentController().getStagePrincipal().getScene().widthProperty()
-						.addListener((observable, oldValue, newValue) -> {
-							double width = newValue.doubleValue();
-							String cssFile = "";
-							ancho = width;
-
-							try {
-
-								if (width > 1680) {
-									cssFile = "/estilos/Grande.css";
-
-								}
-
-								if (width > 1280 && width <= 1680) {
-									cssFile = "/estilos/Mediano3.css";
-
-								}
-								if (width > 1152 && width <= 1280) {
-									cssFile = "/estilos/Mediano2.css";
-
-								}
-								if (width > 1024 && width <= 1152) {
-									cssFile = "/estilos/Mediano1.css";
-
-								}
-								if (width > 801 && width <= 1024) {
-									cssFile = "/estilos/Pequeño2.css";
-								}
-								if (width <= 801) {
-									cssFile = "/estilos/Pequeño.css";
-								}
-
-								frmEntradaDatos.getStylesheets().clear();
-								frmEntradaDatos.getStylesheets().add(getClass().getResource(cssFile).toExternalForm());
-								frmEntradaDatos.getStylesheets()
-										.add(getClass().getResource("/estilos/ToolBar.css").toExternalForm());
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						});
+				
+						
 			}
 		});
 
-		iniciarValidaciones();
-
-		iniciarImageIcon();
-		scroolPane();
-		idBuscarProducto.requestFocus();
+		
 
 	}
 
@@ -1302,6 +1246,11 @@ public class CrearClientesController implements Initializable, NavigableControll
 	public Control[] getControlsInOrderToNavigate() {
 		// TODO Auto-generated method stub
 		return controlsInOrderToNavigate;
+	}
+
+	public void setPvc(PedidoVentaController pedidoVentaController) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

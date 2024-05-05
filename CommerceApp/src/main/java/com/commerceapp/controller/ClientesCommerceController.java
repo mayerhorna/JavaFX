@@ -1,19 +1,24 @@
 package com.commerceapp.controller;
 
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.commerceapp.app.JPAControllerBa_user;
 import com.commerceapp.app.JPAControllerCustomer;
 import com.commerceapp.controller.helpers.NavigableControllerHelper;
+import com.commerceapp.domain.IdiomaC;
+import com.commerceapp.domain.IdiomaC.EnumMensajes;
 import com.commerceapp.model.BaUser;
 import com.commerceapp.model.Customer;
 import com.commerceapp.util.Utilidades;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -55,6 +60,13 @@ public class ClientesCommerceController implements Initializable,NavigableContro
 	public String campoPonerFoco = "";
 
 	private boolean pendienteGuardar = false;
+	
+	private void setPendienteGuardar(boolean value) {
+		pendienteGuardar = value;
+		idGuardarCliente.setDisable(!value);
+
+	}
+	
 	Tooltip tooltip = new Tooltip("Casilla obligatoria");
 
 	Utilidades objTimeline = new Utilidades();
@@ -153,32 +165,149 @@ public class ClientesCommerceController implements Initializable,NavigableContro
 
     @FXML
     void actualizarCliente(ActionEvent event) {
-
+    	cargarClientes();
     }
 
     @FXML
     void aniadirCliente(ActionEvent event) {
+    	try {
 
+			if (!idCodigoCliente.getText().isEmpty()) {
+				if (!idNombreCliente.getText().isEmpty()) {
+
+					Customer objCliente = new Customer();
+					objCliente.setCode(idCodigoCliente.getText());
+					objCliente.setName(idNombreCliente.getText());
+					objCliente.setCommercialName(idNombreComercialCliente.getText());
+					
+					BigDecimal decimal = new BigDecimal(idDescuentoCliente.getText());
+					objCliente.setDiscountProduct(decimal);
+					
+					objJPAControllerCustomer.crearCliente(objCliente);
+					cargarClientes();
+					deshabilitarHabilitarBotonesCreacionCliente(false);
+					validacionesTextfieldsObligatorias(false);
+				} else {
+					IdiomaC.MostrarMensaje(EnumMensajes.CampoObligatorio, "Nombre Usuario", "", "");
+				}
+			} else {
+				IdiomaC.MostrarMensaje(EnumMensajes.CampoObligatorio, "Codigo Usuario", "", "");
+			}
+		} catch (Exception ex) {
+			IdiomaC.MostrarMensaje(EnumMensajes.Excepcion, ex.toString(), "", "");
+		}
     }
 
-    @FXML
-    void crearCliente(ActionEvent event) {
+    private void validacionesTextfieldsObligatorias(boolean aux) {
+    	if (aux == true) {
+			idCodigoCliente.setStyle("-fx-border-color: red; -fx-border-width: 1px;");
+			Tooltip.install(idCodigoCliente, tooltip);
+			idNombreCliente.setStyle("-fx-border-color: red; -fx-border-width: 1px;");
+			Tooltip.install(idNombreCliente, tooltip);
+			addListener(idCodigoCliente, tooltip);
+			addListener(idNombreCliente, tooltip);
+		} else {
+			idCodigoCliente.setStyle("");
+			Tooltip.uninstall(idCodigoCliente, tooltip);
+			idNombreCliente.setStyle("");
+			Tooltip.uninstall(idNombreCliente, tooltip);
+			removeListener(idCodigoCliente, tooltip);
+			removeListener(idNombreCliente, tooltip);
+		}
+		
+	}
+    
+    public void addListener(TextField tf, Tooltip tp) {
+		textChangeListener = (ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+			if (newValue.isEmpty()) {
+				// Cambiar el borde a rojo y mostrar el tooltip
+				tf.setStyle("-fx-border-color: red; -fx-border-width: 1px;");
+				Tooltip.install(tf, tp);
+			} else {
+				System.out.println("casilla no está vacía");
+				// Cambiar el borde a azul y ocultar el tooltip
+				tf.setStyle("");
+				Tooltip.uninstall(tf, tp);
+			}
+		};
 
+		tf.textProperty().addListener(textChangeListener);
+	}
+    
+    public void removeListener(TextField tf, Tooltip tp) {
+		tf.textProperty().removeListener(textChangeListener);
+		Tooltip.uninstall(tf, tp);
+	}
+
+	private void deshabilitarHabilitarBotonesCreacionCliente(boolean aux) {
+		idCrearCliente.setVisible(aux);
+
+		if (aux) {
+			idGuardarCliente.setVisible(!aux);
+		} else {
+			idGuardarCliente.setVisible(!aux);
+			idGuardarCliente.setDisable(!aux);
+		}
+
+		idTableViewClientes.setDisable(aux);
+		idaniadirCliente.setDisable(aux);
+		idActualizarCliente.setDisable(aux);
+		idEliminarCliente.setDisable(aux);
+		idDeshacerCreacionCliente.setDisable(!aux);
+		idBuscarCliente.setDisable(aux);
+		idCodigoCliente.setText("");
+		idNombreCliente.setText("");
+		idNombreComercialCliente.setText("");
+		idDescuentoCliente.setText("");
+
+		if (aux) {
+			idCodigoCliente.requestFocus();
+		} else {
+			idTableViewClientes.requestFocus();
+		}
+		
+	}
+
+	@FXML
+    void crearCliente(ActionEvent event) {
+		deshabilitarHabilitarBotonesCreacionCliente(true);
+
+		// Configurar un Tooltip para idCodigoUser
+		validacionesTextfieldsObligatorias(true);
     }
 
     @FXML
     void deshacerCliente(ActionEvent event) {
-
+    	deshabilitarHabilitarBotonesCreacionCliente(false);
+		validacionesTextfieldsObligatorias(false);
     }
 
     @FXML
     void eliminarCliente(ActionEvent event) {
+    	if (selectedCustomers.size() != 0) {
+			if (IdiomaC.MostrarMensaje(EnumMensajes.EliminarProducto, "", "", "")) {
 
+				objJPAControllerCustomer.eliminarCliente(selectedCustomers.get(0));
+				cargarClientes();
+				deshabilitarHabilitarBotonesCreacionCliente(false);
+				validacionesTextfieldsObligatorias(false);
+				idGuardarCliente.setDisable(true);
+			}
+		}
     }
 
     @FXML
     void guardarCliente(ActionEvent event) {
-
+    	Customer objCliente = new Customer();
+    	objCliente.setId(selectedCustomers.get(0).getId());
+    	objCliente.setCode(idCodigoCliente.getText());
+    	objCliente.setName(idNombreCliente.getText());
+    	objCliente.setCommercialName(idNombreComercialCliente.getText());
+    	BigDecimal decimal=new BigDecimal(idDescuentoCliente.getText());
+    	objCliente.setDiscountProduct(decimal);
+		objJPAControllerCustomer.actualizarCliente(objCliente);
+		cargarClientes();
+		idGuardarCliente.setDisable(true);
     }
 
     @Override
@@ -234,24 +363,81 @@ public class ClientesCommerceController implements Initializable,NavigableContro
 
 		iniciarValidaciones();
 
-		iniciarImageIcon();
+		
 		scroolPane();
 		idBuscarCliente.requestFocus();
 		
 	}
 
 	private void scroolPane() {
-		// TODO Auto-generated method stub
+		idpruebascroll.setContent(idVOBXprueba);
+		idpruebascroll.setFitToWidth(true);
+		idpruebascroll.setFitToHeight(true);
 		
 	}
 
-	private void iniciarImageIcon() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	private void iniciarValidaciones() {
-		// TODO Auto-generated method stub
+		idTableViewClientes.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+			if (newSelection != null) {
+
+				selectedCustomers.clear();
+				selectedCustomers.add(newSelection);
+				rellenarCampos();
+				validarTextChangesGuardar(true);
+			}
+		});
+		idBuscarCliente.textProperty().addListener((observable, oldValue, newValue) -> {
+			buscarClientes(newValue);
+		});
+		
+	}
+
+	private void buscarClientes(String searchText) {
+		JPAControllerCustomer controller = new JPAControllerCustomer();
+		List<Customer> productos = controller.buscarClientePorNombre(searchText);
+
+		ObservableList<Customer> productList = FXCollections.observableArrayList(productos);
+		idTableViewClientes.setItems(productList);
+		
+	}
+
+	private void validarTextChangesGuardar(boolean aux) {
+		AtomicBoolean cambiosRealizados = new AtomicBoolean(false);
+
+		for (int i = 0; i < controlsInOrderToNavigate.length; i++) {
+			if (controlsInOrderToNavigate[i] instanceof TextField) {
+				TextField controlfinal = (TextField) controlsInOrderToNavigate[i];
+				String originalValue = selectedCustomers.get(0).getCode(); // Guardar valor original
+				controlfinal.textProperty().addListener((observable, oldValue, newValue) -> {
+					// Verificar si hay un cambio en el campo
+					if (!newValue.equalsIgnoreCase(originalValue)) {
+						cambiosRealizados.set(true);
+						// Establecer el botón de guardar en consecuencia
+						setPendienteGuardar(aux);
+					}
+				});
+			}
+		}
+
+		// Después de iterar sobre todos los campos, establecer el estado del botón de
+		// guardar
+		if (!cambiosRealizados.get()) {
+			// No se han realizado cambios, deshabilitar el botón de guardar
+			setPendienteGuardar(!aux);
+		}
+		
+	}
+
+	private void rellenarCampos() {
+		idCodigoCliente.setText(selectedCustomers.get(0).getCode());
+
+		idNombreCliente.setText(selectedCustomers.get(0).getName());
+
+		idNombreComercialCliente.setText(selectedCustomers.get(0).getCommercialName());
+
+		idDescuentoCliente.setText(String.valueOf(selectedCustomers.get(0).getDiscountProduct()));
 		
 	}
 

@@ -106,4 +106,11 @@ public class JPAControllerCustomer {
 		TypedQuery<Customer> query = entityManager.createQuery("SELECT u FROM Customer u", Customer.class);
 		return query.getResultList();
 	}
+
+	public List<Customer> buscarClientePorNombre(String nombre) {
+		TypedQuery<Customer> query = entityManager.createQuery("SELECT u FROM Customer u WHERE u.name LIKE :namePattern",
+				Customer.class);
+	    query.setParameter("namePattern", "%" + nombre + "%"); 
+	    return query.getResultList();
+	}
 }

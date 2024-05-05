@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox fx:id="frmProductos" maxWidth="8000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.commerceapp.controller.UsuariosCommerceController">
+   <children>
+      <AnchorPane fx:id="anchorpaneEntradaDatos" maxWidth="8000.0" style="-fx-background-color: black;" HBox.hgrow="ALWAYS">
+         <children>
+            <ScrollPane fx:id="idpruebascroll" fitToHeight="true" fitToWidth="true" maxWidth="8000.0" style="-fx-background-color: green;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <content>
+                  <VBox fx:id="idVOBXprueba" centerShape="false">
+                     <children>
+                        <GridPane VBox.vgrow="ALWAYS">
+                          <columnConstraints>
+                              <ColumnConstraints maxWidth="4000.0" minWidth="10.0" percentWidth="10.0" />
+                              <ColumnConstraints maxWidth="4000.0" minWidth="10.0" percentWidth="100.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>                              
+                              <Label id="titulo" fx:id="lblTitulo" prefHeight="35.0" prefWidth="489.0" text="GESTION DE CLIENTES COMMERCEAPP" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fx:id="logo" fitHeight="44.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../imagenes/LogoECommerce.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="15.0" left="30.0" right="30.0" top="30.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="20.0" top="20.0" />
+                           </padding>
+                        </GridPane>
+                        <GridPane fx:id="EntidadEmpresarioGB" prefHeight="196.0" style="-fx-border-color: Silver;" vgap="5.0" VBox.vgrow="ALWAYS">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="ALWAYS" />
+                              <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="ALWAYS" />
+                            <RowConstraints minHeight="10.0" percentHeight="100.0" vgrow="ALWAYS" />
+                          </rowConstraints>
+                           <VBox.margin>
+                              <Insets left="30.0" right="30.0" />
+                           </VBox.margin>
+                           <children>
+                              <TableView fx:id="idTableViewUsers" prefHeight="232.0" prefWidth="1980.0" GridPane.columnSpan="5" GridPane.rowIndex="2">
+                                <columns>
+                                  <TableColumn fx:id="columnId" prefWidth="79.0" text="ID" />
+                                  <TableColumn fx:id="columnCode" minWidth="0.0" prefWidth="111.0" text="CODE" />
+                                    <TableColumn fx:id="columName" prefWidth="645.0" text="NOMBRE" />
+                                    <TableColumn fx:id="columnNombreComercial" prefWidth="492.0" text="NOMBRE COMERCIAL" />
+                                    <TableColumn fx:id="columnDescuento" prefWidth="652.0" text="PASSWORD" />
+                                </columns>
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </GridPane.margin>
+                              </TableView>
+                              <Button fx:id="idaniadirCliente" mnemonicParsing="false" onAction="#CrearCliente" text="Añadir" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets left="10.0" />
+                                 </GridPane.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" smooth="false">
+                                       <image>
+                                          <Image url="@../imagenes/AñadirProducto.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="idActualizarCliente" mnemonicParsing="false" onAction="#ActualizarCliente" text="Actualizar" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="19.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../imagenes/ActualizarProducto.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="idEliminarCliente" mnemonicParsing="false" onAction="#EliminarCliente" text="Eliminar" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="21.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../imagenes/EliminarProducto.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <TextField fx:id="idBuscarCliente" promptText="Buscar por apellido..." GridPane.columnIndex="4" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets right="10.0" />
+                                 </GridPane.margin></TextField>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets left="15.0" />
+                                 </GridPane.margin>
+                                 <image>
+                                    <Image url="@../imagenes/BuscarProducto.png" />
+                                 </image>
+                              </ImageView>
+                              <Label id="entidadEmpresario" fx:id="gbxEntidadEmpresario" text="Mantenimiento de clientes" GridPane.columnSpan="4">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                           </padding>
+                        </GridPane>
+                        <GridPane fx:id="PresentanteGB" prefHeight="324.0" prefWidth="1332.0" style="-fx-border-color: SILVER;" vgap="10.0" VBox.vgrow="ALWAYS">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="14.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="ALWAYS" percentWidth="60.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints minHeight="20.0" percentHeight="40.0" prefHeight="30.0" vgrow="ALWAYS" />
+                              <RowConstraints minHeight="20.0" percentHeight="25.0" prefHeight="30.0" vgrow="ALWAYS" />
+                            <RowConstraints minHeight="20.0" percentHeight="25.0" vgrow="ALWAYS" />
+                            <RowConstraints minHeight="20.0" percentHeight="25.0" vgrow="ALWAYS" />
+                            <RowConstraints minHeight="20.0" percentHeight="25.0" vgrow="ALWAYS" />
+                              <RowConstraints minHeight="20.0" percentHeight="25.0" prefHeight="30.0" vgrow="ALWAYS" />
+                          </rowConstraints>
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="30.0" right="30.0" top="5.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+                           </padding>
+                           <children>
+                              <Label prefHeight="17.0" prefWidth="61.0" text="Codigo:" GridPane.rowIndex="2" />
+                              <Label text="Nombre:" GridPane.rowIndex="3" />
+                              <Label text="Nombre Comercial" GridPane.rowIndex="4" />
+                              <TextField fx:id="idCodigoCliente" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="idNombreCliente" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label text="Descuento" GridPane.rowIndex="5" />
+                              <TextField fx:id="idDescuentoCliente" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Label id="presentante" fx:id="gbxPresentante" text="Detalle cliente" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="10.0" top="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="idGuardarCliente" disable="true" mnemonicParsing="false" onAction="#GuardarUser" text="Guardar">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../imagenes/Toolbar-guardar.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="idDeshacerCreacionCliente" disable="true" mnemonicParsing="false" onAction="#DeshacerUsuario" text="Deshacer" GridPane.columnIndex="1">
+                                 <graphic>
+                                    <ImageView fitHeight="27.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../imagenes/Deshacer.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="idCrearCliente" mnemonicParsing="false" onAction="#AniadirCliente" text="Crear" visible="false">
+                                 <graphic>
+                                    <ImageView fitHeight="21.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../imagenes/AgregarProducto.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <TextField fx:id="idNombreComercialCliente" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </VBox>
+              </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>

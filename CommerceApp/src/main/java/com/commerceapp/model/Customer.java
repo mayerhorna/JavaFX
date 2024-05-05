@@ -34,5 +34,6 @@ public class Customer {
     private LocalDateTime updatedAt;
 
     // Constructor, getters, and setters
+    
 }
 

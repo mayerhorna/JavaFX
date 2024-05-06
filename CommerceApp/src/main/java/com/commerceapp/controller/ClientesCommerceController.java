@@ -2,6 +2,7 @@ package com.commerceapp.controller;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -180,8 +181,15 @@ public class ClientesCommerceController implements Initializable,NavigableContro
 					objCliente.setName(idNombreCliente.getText());
 					objCliente.setCommercialName(idNombreComercialCliente.getText());
 					
+			       
+					objCliente.setFiscalNumber(idCodigoCliente.getText()+"-"+idNombreCliente.getText());
+			        
 					BigDecimal decimal = new BigDecimal(idDescuentoCliente.getText());
 					objCliente.setDiscountProduct(decimal);
+					
+					objCliente.setCreatedAt(LocalDateTime.now()); // Fecha y hora actual
+					objCliente.setUpdatedAt(LocalDateTime.now()); // 
+					
 					
 					objJPAControllerCustomer.crearCliente(objCliente);
 					cargarClientes();

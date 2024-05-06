@@ -75,7 +75,7 @@
                                   <TableColumn fx:id="columnCode" minWidth="0.0" prefWidth="111.0" text="CODE" />
                                     <TableColumn fx:id="columName" prefWidth="645.0" text="NOMBRE" />
                                     <TableColumn fx:id="columnNombreComercial" prefWidth="492.0" text="NOMBRE COMERCIAL" />
-                                    <TableColumn fx:id="columnDescuento" prefWidth="652.0" text="PASSWORD" />
+                                    <TableColumn fx:id="columnDescuento" prefWidth="652.0" text="DESCUENTO" />
                                 </columns>
                                  <GridPane.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" />

@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -137,7 +138,7 @@ public class CrearClientesController implements Initializable, NavigableControll
 
 	public Control[] controlsInOrderToNavigate;
 
-	JPAControllerCustomer objJPAControllerCliente;
+	JPAControllerCustomer objJPAControllerCustomer;
 
 	 @FXML
 	    private GridPane PresentanteGB;
@@ -210,7 +211,7 @@ public class CrearClientesController implements Initializable, NavigableControll
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		
+		objJPAControllerCustomer = new JPAControllerCustomer();
 		initializeControlsInOrderToNavigate();
 		registerKeyPressENTERInControlsToNavigate();
 		controlsInOrderToNavigate = new Control[] { };
@@ -226,12 +227,12 @@ public class CrearClientesController implements Initializable, NavigableControll
 				pendienteGuardar = false;
 				primeraVez = true;
 
-				getParentController().getStagePrincipal().getScene().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+				/*getParentController().getStagePrincipal().getScene().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
 					if (event.getCode() == KeyCode.TAB) {
 						event.consume(); // Consumir el evento de teclado para evitar la navegación por TAB en todo el
 											// form
 					}
-				});
+				});*/
 
 				
 						
@@ -242,7 +243,47 @@ public class CrearClientesController implements Initializable, NavigableControll
 
 	}
 
+	@FXML
+    void aniadirCliente(ActionEvent event) {
+    	try {
 
+			if (!idCodigoCliente.getText().isEmpty()) {
+				if (!idNombreCliente.getText().isEmpty()) {
+
+					Customer objCliente = new Customer();
+					objCliente.setCode(idCodigoCliente.getText());
+					objCliente.setName(idNombreCliente.getText());
+					objCliente.setCommercialName(idNombreComercialCliente.getText());
+					
+			       
+					objCliente.setFiscalNumber(idCodigoCliente.getText()+"-"+idNombreCliente.getText());
+			        
+					BigDecimal decimal = new BigDecimal(idDescuentoCliente.getText());
+					objCliente.setDiscountProduct(decimal);
+					
+					objCliente.setCreatedAt(LocalDateTime.now()); // Fecha y hora actual
+					objCliente.setUpdatedAt(LocalDateTime.now()); // 
+					
+					
+					objJPAControllerCustomer.crearCliente(objCliente);
+					
+					idCodigoCliente.setText("");
+					idNombreCliente.setText("");
+					idNombreComercialCliente.setText("");
+					idDescuentoCliente.setText("");
+					//cargarClientes();
+					//deshabilitarHabilitarBotonesCreacionCliente(false);
+					//validacionesTextfieldsObligatorias(false);
+				} else {
+					IdiomaC.MostrarMensaje(EnumMensajes.CampoObligatorio, "Nombre Usuario", "", "");
+				}
+			} else {
+				IdiomaC.MostrarMensaje(EnumMensajes.CampoObligatorio, "Codigo Usuario", "", "");
+			}
+		} catch (Exception ex) {
+			IdiomaC.MostrarMensaje(EnumMensajes.Excepcion, ex.toString(), "", "");
+		}
+    }
 	
 
 	

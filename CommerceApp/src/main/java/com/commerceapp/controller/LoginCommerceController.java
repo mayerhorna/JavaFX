@@ -8,13 +8,17 @@ import com.commerceapp.app.JPAControllerBa_user;
 import com.commerceapp.domain.IdiomaC.EnumMensajes;
 import com.commerceapp.domain.MGeneral;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class LoginCommerceController implements Initializable {
 
@@ -23,6 +27,9 @@ public class LoginCommerceController implements Initializable {
 
 	@FXML
 	TextField passCommerce;
+
+	@FXML
+	AnchorPane frmLogin;
 	private Stage stagePrincipal;
 
 	JPAControllerBa_user objControllerBa_user;
@@ -40,6 +47,18 @@ public class LoginCommerceController implements Initializable {
 		// TODO Auto-generated method stub
 		objControllerBa_user = new JPAControllerBa_user();
 		loginCommerce.requestFocus();
+		Platform.runLater(() -> {
+
+			Stage stage = (Stage) frmLogin.getScene().getWindow();
+
+			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				@Override
+				public void handle(WindowEvent event) {
+					System.exit(0);
+				}
+			});
+
+		});
 	}
 
 	@FXML

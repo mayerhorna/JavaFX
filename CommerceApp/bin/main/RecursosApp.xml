@@ -768,6 +768,7 @@ Inclusión del saltos de línea en los textos
           <Mensaje codigo="99" titulo="Aviso">Desea eliminar el producto?</Mensaje>
            <Mensaje codigo="100" titulo="Información">Producto Inexistente</Mensaje>
             <Mensaje codigo="101" titulo="Aviso">Confirmar pedido?</Mensaje>
+             <Mensaje codigo="102" titulo="Aviso">Eliminar pedido?</Mensaje>
     </Mensajes>    
     <MensajesReglas version="1.0.0"> <!--Cada vez que se haga un cambio en este bloque, se cambia la versión ya que se comparte con la DLL-->
                 

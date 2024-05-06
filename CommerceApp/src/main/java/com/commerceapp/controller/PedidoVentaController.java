@@ -43,6 +43,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -139,6 +141,10 @@ public class PedidoVentaController implements Initializable {
 	@FXML
 	private Button idConfirmarPedido;
 
+	@FXML
+	HBox frmVenta;
+	PedidoVentaController venta;
+
 	JPAControllerTsSaleOrder objTsSaleOrder;
 
 	JPAControllerBa_user objBauser;
@@ -149,10 +155,21 @@ public class PedidoVentaController implements Initializable {
 
 	public long idobjBauser;
 
+	MenuPrincipalController mpc;
+
+	public MenuPrincipalController getMpc() {
+		return mpc;
+	}
+
+	public void setMpc(MenuPrincipalController mpc) {
+		this.mpc = mpc;
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		scroolPane();
+
 		colCantidad.setCellValueFactory(data -> data.getValue().cantidadProperty());
 		colCantidad.setCellFactory(TextFieldTableCell.forTableColumn());
 		colCantidad.setOnEditCommit(event -> {
@@ -178,7 +195,9 @@ public class PedidoVentaController implements Initializable {
 		objProduct = new JPAControllerProduct();
 		BaUser objbus = objBauser.leerUsuario(MGeneral.Configuracion.objBaUser.getBa_user_id());
 		idLabelUser.setText("Usuario: " + objbus.getName());
+		txtProducto.requestFocus();
 		iniciarValidaciones();
+
 	}
 
 	private void updateTotal(VentaModelo item) {
@@ -189,20 +208,24 @@ public class PedidoVentaController implements Initializable {
 
 		// Actualizar el total en el modelo
 		item.setTotal(String.valueOf(nuevoTotal));
-
+		recalcularTotal();
 		// Actualizar la celda en la tabla
 		tblVenta.refresh();
 	}
 
 	private void iniciarValidaciones() {
-		// Listener para detectar cambios en la lista de elementos de la tabla
+		txtPedidoVenta.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (!newValue.isEmpty()) {
+				btnImprimir.setDisable(newValue.isEmpty());
+			} else {
+				btnImprimir.setDisable(!newValue.isEmpty());
+			}
+		});
 		tblVenta.getItems()
 				.addListener((ListChangeListener.Change<? extends BusquedaProductosController.VentaModelo> c) -> {
 					recalcularTotal();
 				});
 
-		// Listener para detectar cambios en la propiedad 'totalProperty' de cada
-		// elemento
 		tblVenta.getItems().forEach(item -> {
 			item.totalProperty()
 					.addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
@@ -214,19 +237,18 @@ public class PedidoVentaController implements Initializable {
 			validarCamposConfirmacionPedido();
 		});
 
-		// Listener para detectar cambios en la lista de elementos de la tabla
 		tblVenta.getItems().addListener((ListChangeListener.Change<? extends VentaModelo> c) -> {
 			validarCamposConfirmacionPedido();
 		});
 	}
 
 	private void validarCamposConfirmacionPedido() {
-	    // Verificar si ambos campos tienen información
-	    if (!txtCliente.getText().isEmpty() && !tblVenta.getItems().isEmpty()) {
-	        idConfirmarPedido.setDisable(false); // Habilitar el botón si ambos campos tienen información
-	    } else {
-	        idConfirmarPedido.setDisable(true); // Deshabilitar el botón si algún campo está vacío
-	    }
+		// Verificar si ambos campos tienen información
+		if (!txtCliente.getText().isEmpty() && !tblVenta.getItems().isEmpty()) {
+			idConfirmarPedido.setDisable(false); // Habilitar el botón si ambos campos tienen información
+		} else {
+			idConfirmarPedido.setDisable(true); // Deshabilitar el botón si algún campo está vacío
+		}
 	}
 
 	private void recalcularTotal() {
@@ -275,6 +297,46 @@ public class PedidoVentaController implements Initializable {
 			ex.printStackTrace();
 
 		}
+	}
+
+	@FXML
+	public void eliminarPedido(ActionEvent e) throws Exception {
+		if (IdiomaC.MostrarMensaje(EnumMensajes.AvisoEliminarPedido, null, null, null)) {
+			int idOrder = objTsSaleOrder.obtenerIdOrdenVentaPorCodigo(txtPedidoVenta.getText());
+			objTsSaleOrderLine.eliminarLineasOrdenVentaPorId(idOrder);
+			objTsSaleOrder.eliminarOrdenVentaPorCodigo(txtPedidoVenta.getText());
+			generarNuevoPedido();
+		}
+	}
+
+	@FXML
+	public void nuevoPedido(ActionEvent e) throws Exception {
+		generarNuevoPedido();
+
+	}
+
+	private void generarNuevoPedido() {
+		try {
+			if (venta != null) {
+				getMpc().AnchorPane3.getChildren().remove(frmVenta);
+			}
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PedidoVenta.fxml"));
+
+			frmVenta = loader.load();
+			venta = loader.getController();
+			venta.setMpc(getMpc());
+			// form.abrir(path);
+			getMpc().AnchorPane3.getChildren().add(frmVenta);
+
+			AnchorPane.setTopAnchor(frmVenta, 0.0);
+			AnchorPane.setBottomAnchor(frmVenta, 0.0);
+			AnchorPane.setLeftAnchor(frmVenta, 0.0);
+			AnchorPane.setRightAnchor(frmVenta, 0.0);
+
+		} catch (IOException ex1) {
+			ex1.printStackTrace();
+		}
+
 	}
 
 	@FXML

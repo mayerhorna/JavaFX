@@ -342,7 +342,7 @@ public class MenuPrincipalController implements Initializable {
 		try {
 			frmVenta = loader.load();
 			venta = loader.getController();
-			venta.setParentController(this);
+			venta.setMpc(this);
 			// form.abrir(path);
 			AnchorPane3.getChildren().add(frmVenta);
 

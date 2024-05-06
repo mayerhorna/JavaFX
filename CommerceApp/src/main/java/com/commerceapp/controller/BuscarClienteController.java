@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
-
 import com.commerceapp.app.JPAControllerCustomer;
 import com.commerceapp.app.JPAControllerProduct;
 import com.commerceapp.controller.helpers.NavigableControllerHelper;
@@ -40,11 +38,11 @@ public class BuscarClienteController implements Initializable, NavigableControll
 	public void setPvc(PedidoVentaController pvc) {
 		this.pvc = pvc;
 	}
-	
+
 	public Control[] controlsInOrderToNavigate;
-	
+
 	private ArrayList<Customer> selectedCustomers = new ArrayList<>();
-	
+
 	@FXML
 	private Button btnNext;
 
@@ -53,11 +51,11 @@ public class BuscarClienteController implements Initializable, NavigableControll
 
 	@FXML
 	private TableView<Customer> tblClientes;
-	
-	  @FXML
+
+	@FXML
 	private TableColumn<Customer, String> colCodigo;
 
-		@FXML
+	@FXML
 	private TableColumn<Customer, String> colDescuento;
 
 	@FXML
@@ -65,8 +63,6 @@ public class BuscarClienteController implements Initializable, NavigableControll
 
 	@FXML
 	private TextField txtBusquedaCliente;
-	
-	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -75,7 +71,7 @@ public class BuscarClienteController implements Initializable, NavigableControll
 		colNombre.setCellValueFactory(new PropertyValueFactory<>("name"));
 
 		colDescuento.setCellValueFactory(new PropertyValueFactory<>("discountProduct"));
-		
+
 		tblClientes.setRowFactory(tv -> {
 
 			TableRow<Customer> row = new TableRow<>();
@@ -87,16 +83,15 @@ public class BuscarClienteController implements Initializable, NavigableControll
 			});
 
 			row.setOnMouseClicked(event -> {
-				
 
 				if (event.getClickCount() == 2 && !row.isEmpty()) {
 
 					Customer rowData = row.getItem();
 
 					try {
-						
-						pvc.ponerClienteDesdeVentana(rowData.getName());
 
+						pvc.ponerClienteDesdeVentana(rowData.getName());
+						pvc.idobjBauser = rowData.getId();
 						Node source = (Node) event.getSource();
 
 						Stage stage = (Stage) source.getScene().getWindow();
@@ -128,10 +123,6 @@ public class BuscarClienteController implements Initializable, NavigableControll
 					selectedCustomers.clear();
 					selectedCustomers.add((Customer) selectedItem);
 					txtBusquedaCliente.setText(selectedCustomers.get(0).getName());
-					
-					
-					
-					
 
 				}
 			}
@@ -139,9 +130,7 @@ public class BuscarClienteController implements Initializable, NavigableControll
 		txtBusquedaCliente.textProperty().addListener((observable, oldValue, newValue) -> {
 			buscarClientes(newValue);
 		});
-		
 
-		
 	}
 
 	private void buscarClientes(String searchText) {
@@ -150,7 +139,7 @@ public class BuscarClienteController implements Initializable, NavigableControll
 
 		ObservableList<Customer> clientesList = FXCollections.observableArrayList(clientes);
 		tblClientes.setItems(clientesList);
-		
+
 	}
 
 	private void cargarClientes() {
@@ -160,7 +149,7 @@ public class BuscarClienteController implements Initializable, NavigableControll
 		// Crea una ObservableList de productos y añádela al TableView
 		ObservableList<Customer> clientesList = FXCollections.observableArrayList(clientes);
 		tblClientes.setItems(clientesList);
-		
+
 	}
 
 	private String busqueda() {
@@ -179,7 +168,5 @@ public class BuscarClienteController implements Initializable, NavigableControll
 		// TODO Auto-generated method stub
 		return controlsInOrderToNavigate;
 	}
-
-
 
 }

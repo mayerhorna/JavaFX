@@ -10,6 +10,8 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     <class>com.commerceapp.model.BaUser</class>
     <class>com.commerceapp.model.Product</class>
     <class>com.commerceapp.model.Customer</class>
+     <class>com.commerceapp.model.TsSaleOrder</class>
+      <class>com.commerceapp.model.TsSaleOrderLine</class>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/bdcommerceapp" />

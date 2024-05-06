@@ -94,6 +94,21 @@ public class JPAControllerProduct {
 		query.setParameter("namePattern", "%" + nombre + "%");
 		return query.getResultList();
 	}
+	
+	public Long obtenerIdProductoPorCodigo(String codigo) {
+	    Long idProducto = null;
+	    try {
+	        TypedQuery<Long> query = entityManager.createQuery("SELECT p.id FROM Product p WHERE p.code = :codigo", Long.class);
+	        query.setParameter("codigo", codigo);
+	        idProducto = query.getSingleResult();
+	    } catch (NoResultException e) {
+	        // Si no se encuentra ningún producto con ese código, devolvemos null
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return idProducto;
+	}
+
 
 	// Método para validar la conexión con el main
 	public boolean validarConexion() {

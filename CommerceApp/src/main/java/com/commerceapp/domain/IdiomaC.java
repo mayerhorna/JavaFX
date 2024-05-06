@@ -104,7 +104,7 @@ public class IdiomaC {
 		FicheroAEncriptarPerteneceALegalizacion, EnvioServicioHojaNoValida, EnvioServicioCorrecto,
 		EnvioServicioYaRealizado, MemoriaInsuficienteFirma, ErrorAlEnviarTramite, ContenidoCampoCaracterNoPermitido,
 		ContenidoCampoSoloNumeros, ContendioCamposSoloLetrasYNumeros, EnvioCorrectoSinObtenerNE, ZIPYaExiste,
-		UserPassIncorrectos, EliminarProducto,NoexisteProducto
+		UserPassIncorrectos, EliminarProducto,NoexisteProducto,ConfirmPedido
 	}
 
 	public enum EnumLiterales {

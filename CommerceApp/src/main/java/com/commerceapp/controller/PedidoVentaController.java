@@ -2,16 +2,22 @@ package com.commerceapp.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import com.commerceapp.app.JPAControllerBa_user;
 import com.commerceapp.app.JPAControllerProduct;
+import com.commerceapp.app.JPAControllerTsSaleOrder;
+import com.commerceapp.app.JPAControllerTsSaleOrderLine;
 import com.commerceapp.controller.BusquedaProductosController.VentaModelo;
 import com.commerceapp.domain.IdiomaC;
 import com.commerceapp.domain.MGeneral;
 import com.commerceapp.model.BaUser;
 import com.commerceapp.model.Product;
+import com.commerceapp.model.TsSaleOrder;
+import com.commerceapp.model.TsSaleOrderLine;
 import com.commerceapp.util.Utilidades;
 import com.commerceapp.domain.IdiomaC.AyudaUtils;
 import com.commerceapp.domain.IdiomaC.EnumMensajes;
@@ -130,8 +136,18 @@ public class PedidoVentaController implements Initializable {
 	private ScrollPane idpruebascroll;
 	@FXML
 	private Label idLabelUser;
+	@FXML
+	private Button idConfirmarPedido;
+
+	JPAControllerTsSaleOrder objTsSaleOrder;
 
 	JPAControllerBa_user objBauser;
+
+	JPAControllerTsSaleOrderLine objTsSaleOrderLine;
+
+	JPAControllerProduct objProduct;
+
+	public long idobjBauser;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -157,7 +173,9 @@ public class PedidoVentaController implements Initializable {
 		colProducto.setCellValueFactory(data -> data.getValue().productoProperty());
 		colTotal.setCellValueFactory(data -> data.getValue().totalProperty());
 		objBauser = new JPAControllerBa_user();
-
+		objTsSaleOrder = new JPAControllerTsSaleOrder();
+		objTsSaleOrderLine = new JPAControllerTsSaleOrderLine();
+		objProduct = new JPAControllerProduct();
 		BaUser objbus = objBauser.leerUsuario(MGeneral.Configuracion.objBaUser.getBa_user_id());
 		idLabelUser.setText("Usuario: " + objbus.getName());
 		iniciarValidaciones();
@@ -191,6 +209,24 @@ public class PedidoVentaController implements Initializable {
 						recalcularTotal();
 					});
 		});
+
+		txtCliente.textProperty().addListener((observable, oldValue, newValue) -> {
+			validarCamposConfirmacionPedido();
+		});
+
+		// Listener para detectar cambios en la lista de elementos de la tabla
+		tblVenta.getItems().addListener((ListChangeListener.Change<? extends VentaModelo> c) -> {
+			validarCamposConfirmacionPedido();
+		});
+	}
+
+	private void validarCamposConfirmacionPedido() {
+	    // Verificar si ambos campos tienen información
+	    if (!txtCliente.getText().isEmpty() && !tblVenta.getItems().isEmpty()) {
+	        idConfirmarPedido.setDisable(false); // Habilitar el botón si ambos campos tienen información
+	    } else {
+	        idConfirmarPedido.setDisable(true); // Deshabilitar el botón si algún campo está vacío
+	    }
 	}
 
 	private void recalcularTotal() {
@@ -297,6 +333,7 @@ public class PedidoVentaController implements Initializable {
 		}
 
 	}
+
 	void ponerClienteDesdeVentana(String nombre) {
 		txtCliente.setText(nombre);
 	}
@@ -315,6 +352,50 @@ public class PedidoVentaController implements Initializable {
 				IdiomaC.MostrarMensaje(EnumMensajes.NoexisteProducto, null, null, null);
 			}
 		}
+	}
+
+	@FXML
+	public void confirmarPedido(ActionEvent event) throws IOException {
+
+		if (IdiomaC.MostrarMensaje(EnumMensajes.ConfirmPedido, null, null, null)) {
+			TsSaleOrder objts = new TsSaleOrder();
+			objts.setDate_order(new Date());
+			objts.setTotal_amount_with_tax(Double.parseDouble(txtTotal.getText()));
+			objts.setObservation(TxtObservaciones.getText());
+			objts.setBa_customer_id(idobjBauser);
+			String pedidoCode = objTsSaleOrder.crearOrdenVenta(objts);
+			List<TsSaleOrderLine> valoresTabla = obtenerValoresTabla(Integer.parseInt(pedidoCode));
+
+			for (int i = 0; i < valoresTabla.size(); i++) {
+				objTsSaleOrderLine.crearLineaOrdenVenta(valoresTabla.get(i));
+			}
+
+			txtPedidoVenta.setText(pedidoCode);
+		}
+
+	}
+
+	private List<TsSaleOrderLine> obtenerValoresTabla(int idPedido) {
+
+		List<TsSaleOrderLine> valoresTabla = new ArrayList<>();
+
+		for (VentaModelo item : tblVenta.getItems()) {
+			TsSaleOrderLine tsSaleOrderLine = new TsSaleOrderLine();
+			tsSaleOrderLine.setQuantity(Integer.parseInt(item.getCantidad()));
+			tsSaleOrderLine.setName(item.getProducto());
+			tsSaleOrderLine.setPrice_with_tax(Double.parseDouble(item.getPrecio()));
+			tsSaleOrderLine.setTotal_price_with_tax(Double.parseDouble(item.getTotal()));
+
+			int idTsSaleOrder = objTsSaleOrder.obtenerIdOrdenVentaPorCodigo(String.valueOf(idPedido));
+
+			tsSaleOrderLine.setTsSaleOrderId(idTsSaleOrder);
+			long idProducto = objProduct.obtenerIdProductoPorCodigo(item.getCodigo());
+			tsSaleOrderLine.setTbProductId(idProducto);
+
+			valoresTabla.add(tsSaleOrderLine);
+		}
+
+		return valoresTabla;
 	}
 
 }

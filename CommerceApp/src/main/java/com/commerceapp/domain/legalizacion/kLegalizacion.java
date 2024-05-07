@@ -85,6 +85,8 @@ public class kLegalizacion {
 
 	// Nombre del fichero de la instancia
 	public static final String kNombreFicheroInstancia = "Instancia.Pdf";
+	
+	public static final String kNombreFicheroReciboVenta= "factura.Pdf";
 
 	// Constantes relacionadas con el navegador y parámetros para el envío del ZIP
 	// por el portal

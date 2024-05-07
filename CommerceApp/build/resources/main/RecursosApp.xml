@@ -194,6 +194,20 @@ Inclusión del saltos de línea en los textos
         </TextControles>
       </frmNuevaLegalizacion>
 
+      <frmBusquedaProductos>
+        <Text>Busqueda de productos</Text>
+        <TextControles>
+    
+        </TextControles>
+      </frmBusquedaProductos>
+
+       <frmBusquedaClientes>
+        <Text>Busqueda de clientes</Text>
+        <TextControles>
+    
+        </TextControles>
+      </frmBusquedaClientes>
+
       <frmAbrirLegalizacion>
 
         <Text>Selección de la legalización de libros</Text>

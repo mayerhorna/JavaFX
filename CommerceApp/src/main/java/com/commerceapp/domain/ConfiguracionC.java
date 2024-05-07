@@ -39,7 +39,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import java.security.MessageDigest;
-
+import java.security.NoSuchAlgorithmException;
 import java.text.Normalizer;
 
 import java.util.ArrayList;
@@ -109,8 +109,7 @@ import org.w3c.dom.xpath.XPathExpression;
 import org.xml.sax.SAXException;
 
 import com.commerceapp.Main;
-import com.commerceapp.controller.MensajeController;
-import com.commerceapp.controller.PoliticaPrivacidadController;
+
 import com.commerceapp.controller.VersionesController;
 import com.commerceapp.domain.MiVersion;
 import com.commerceapp.model.BaUser;
@@ -3223,9 +3222,9 @@ public class ConfiguracionC {
 
 	}
 
-	public boolean aceptarPoliticaPrivacidad() {
+	public boolean aceptarPoliticaPrivacidad() throws NoSuchAlgorithmException {
 
-		try {
+	
 
 			String cad = getVersion() + obtenerIdMaquina();
 
@@ -3242,70 +3241,9 @@ public class ConfiguracionC {
 				strResult.append(String.format("%02x", b));
 
 			}
-
-			if (!_PoliticaPrivacidadAceptada.equals(strResult.toString())) {
-
-				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/PoliticaPrivacidad.fxml"));
-
-				Parent root = fxmlLoader.load();
-
-				PoliticaPrivacidadController politicaPrivacidad = fxmlLoader.getController();
-
-				// configuracionController.setParentController(this);
-
-				Stage stage = new Stage();
-
-				Scene scene = new Scene(root);
-
-				// quitando el maximizar y minimizar
-
-				stage.initStyle(StageStyle.UTILITY);
-
-				// quitando iconos
-
-				stage.getIcons().clear();
-
-				// bloquea la interacción con otras ventanas de la aplicación
-
-				stage.initModality(Modality.APPLICATION_MODAL);
-
-				stage.setScene(scene);
-
-				MGeneral.Idioma.cargarIdiomaControles(stage, null);
-
-				// stage.setTitle("Configuracion");
-
-				stage.toFront();
-
-				stage.showAndWait();
-
-				if (!MGeneral.RetornoFormulario) {
-
-					cerrarAplicacion();
-
-					return false;
-
-				}
-
-				_PoliticaPrivacidadAceptada = strResult.toString();
-
-				GuardaConfiguracion();
-
-				_EsPrimeraEjecucionDeLaVersion = true;
-
-			}
-
-			return true;
-
-		} catch (Exception ex) {
-
-			MGeneral.Idioma.MostrarMensaje(IdiomaC.EnumMensajes.Excepcion, ex.getMessage(), "", "");
-
-			cerrarAplicacion();
-
-			return false;
-
-		}
+			return _AplicarNuevasReglasAVersionLegalia;
+		
+		
 
 	}
 
@@ -3496,44 +3434,6 @@ public class ConfiguracionC {
 				return;
 
 			obtenerMensajeDeLaVersionActual(mensaje);
-
-			if (!mensaje.isEmpty()) {
-
-				// frmMensaje
-
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Mensaje.fxml"));
-
-				Parent frmMensaje = loader.load();
-
-				MensajeController mensajeController = loader.getController();
-
-				mensajeController.set_mensaje(mensaje.toString());
-
-				Stage stage = new Stage();
-
-				Scene scene = new Scene(frmMensaje);
-
-				mensajeController.initialize(null, null);
-
-				// quitando el maximizar y minimizar
-
-				stage.initModality(Modality.APPLICATION_MODAL);
-
-				// bloquea la interacción con otras ventanas de la aplicación
-
-				stage.initStyle(StageStyle.UTILITY);
-
-				// quitando iconos
-
-				stage.getIcons().clear();
-
-				stage.setScene(scene);
-
-				MGeneral.Idioma.cargarIdiomaControles(stage, null);
-
-				stage.showAndWait();
-
-			}
 
 		} catch (Exception ex) {
 

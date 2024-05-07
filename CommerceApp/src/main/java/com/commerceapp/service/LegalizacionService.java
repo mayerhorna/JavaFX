@@ -62,6 +62,7 @@ import org.springframework.stereotype.Service;
 
 import com.commerceapp.controller.MenuPrincipalController;
 import com.commerceapp.domain.ConfiguracionC;
+import com.commerceapp.domain.DatosReciboVenta;
 import com.commerceapp.domain.Errores;
 import com.commerceapp.domain.IdiomaC;
 import com.commerceapp.domain.MGeneral;
@@ -116,6 +117,7 @@ public class LegalizacionService {
 	private static final Logger logger = Logger.getLogger(LegalizacionService.class.getName());
 
 	public static final String K_COMPILACION = "LEGALIA2";
+	public DatosReciboVenta objDtosRecibo = new DatosReciboVenta();
 
 	public enum EnumModo {
 
@@ -2287,7 +2289,7 @@ public class LegalizacionService {
 
 			pathFormateado += MGeneral.mlform.Adjuntos.cadenaEnvio();
 
-			 // url = MGeneral.Configuracion.getUrlPortal()	+
+			// url = MGeneral.Configuracion.getUrlPortal() +
 
 			// kLegalizacion.kVariablesUrlPortal + pathFormateado;
 
@@ -3622,7 +3624,6 @@ public class LegalizacionService {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Encriptacion.fxml"));
 
 			Parent abrirEncriptacion = loader.load();
-
 
 			Stage stage = new Stage();
 
@@ -6178,7 +6179,6 @@ public class LegalizacionService {
 
 				Parent abrirEncriptacion = loader.load();
 
-				
 				stage = new Stage();
 
 				scene = new Scene(abrirEncriptacion);
@@ -6288,12 +6288,6 @@ public class LegalizacionService {
 				 * if (vProgreso != null) { vProgreso.mostrarProgreso(1); }
 				 * 
 				 */
-
-				if (!ReportingPreviewService.generarReportePresentacionDatos()) {
-
-					resultado = false;
-
-				}
 
 				resultado = true;
 

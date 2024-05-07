@@ -38,7 +38,7 @@ repositories {
 
 //indicar la version de javafx y los modulos a usar
 javafx {
-    version = "17.0.9"
+    version = "22.0.1"
     modules = [ 'javafx.graphics','javafx.base','javafx.controls', 'javafx.fxml' ]
 }
 

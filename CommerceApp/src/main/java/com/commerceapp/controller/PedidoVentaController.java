@@ -18,6 +18,7 @@ import com.commerceapp.model.BaUser;
 import com.commerceapp.model.Product;
 import com.commerceapp.model.TsSaleOrder;
 import com.commerceapp.model.TsSaleOrderLine;
+import com.commerceapp.reporting.instancia.ReportingPreviewService;
 import com.commerceapp.util.Utilidades;
 import com.commerceapp.domain.IdiomaC.AyudaUtils;
 import com.commerceapp.domain.IdiomaC.EnumMensajes;
@@ -75,6 +76,9 @@ public class PedidoVentaController implements Initializable {
 
 	@FXML
 	private Button btnUsuario;
+
+	@FXML
+	private Button idBotonEliminarPedido;
 
 	@FXML
 	public TableColumn<VentaModelo, String> colCantidad;
@@ -213,13 +217,21 @@ public class PedidoVentaController implements Initializable {
 		tblVenta.refresh();
 	}
 
+	private void guardarDatosReciboVenta() {
+		MGeneral.mlform.objDtosRecibo.setNroventa(txtPedidoVenta.getText());
+		MGeneral.mlform.objDtosRecibo.setVendedor(idLabelUser.getText().replaceAll("Usuario:", ""));
+	}
+
 	private void iniciarValidaciones() {
 		txtPedidoVenta.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (!newValue.isEmpty()) {
 				btnImprimir.setDisable(newValue.isEmpty());
+				idBotonEliminarPedido.setDisable(newValue.isEmpty());
 			} else {
 				btnImprimir.setDisable(!newValue.isEmpty());
+				idBotonEliminarPedido.setDisable(!newValue.isEmpty());
 			}
+			guardarDatosReciboVenta();
 		});
 		tblVenta.getItems()
 				.addListener((ListChangeListener.Change<? extends BusquedaProductosController.VentaModelo> c) -> {
@@ -289,7 +301,7 @@ public class PedidoVentaController implements Initializable {
 			// quitando iconos
 			stage.getIcons().clear();
 			stage.setScene(scene);
-			// MGeneral.Idioma.cargarIdiomaControles(stage, null);
+			MGeneral.Idioma.cargarIdiomaControles(stage, null);
 			// objAcerController.initialize(null, null);
 			stage.showAndWait();
 
@@ -312,6 +324,12 @@ public class PedidoVentaController implements Initializable {
 	@FXML
 	public void nuevoPedido(ActionEvent e) throws Exception {
 		generarNuevoPedido();
+
+	}
+
+	@FXML
+	public void imprimirRecibo(ActionEvent e) throws Exception {
+		ReportingPreviewService.generarReporteReciboVenta();
 
 	}
 
@@ -357,7 +375,7 @@ public class PedidoVentaController implements Initializable {
 			// quitando iconos
 			stage.getIcons().clear();
 			stage.setScene(scene);
-			// MGeneral.Idioma.cargarIdiomaControles(stage, null);
+			MGeneral.Idioma.cargarIdiomaControles(stage, null);
 			// objAcerController.initialize(null, null);
 			stage.showAndWait();
 

@@ -69,7 +69,7 @@ public class BusquedaProductosController implements Initializable {
 
 		columName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-		columnSale.setCellValueFactory(new PropertyValueFactory<>("discountProduct"));
+		columnSale.setCellValueFactory(new PropertyValueFactory<>("salesPriceWithTax"));
 		cargarProductos();
 		iniciarValidaciones();
 	}
@@ -77,7 +77,6 @@ public class BusquedaProductosController implements Initializable {
 	private void cargarProductos() {
 		JPAControllerProduct controller = new JPAControllerProduct();
 		List<Product> productos = controller.obtenerTodosProductos();
-		System.out.println(productos);
 		// Crea una ObservableList de productos y añádela al TableView
 		ObservableList<Product> productList = FXCollections.observableArrayList(productos);
 		idTableViewProductos.setItems(productList);
@@ -100,6 +99,7 @@ public class BusquedaProductosController implements Initializable {
 					}
 
 					idCantidadtxt.requestFocus();
+					cargarProductos();
 				}
 			}
 		});
@@ -134,9 +134,16 @@ public class BusquedaProductosController implements Initializable {
 							selectedProducts.get(0).getTb_product_id().toString(),
 							selectedProducts.get(0).getSalesPriceWithTax().toString(),
 							selectedProducts.get(0).getName(), idtotalprecio.getText()));
-			
-
+			limpiarCasillas();
 		}
+	}
+
+	private void limpiarCasillas() {
+		idCantidadtxt.setText("");
+		idPreciotxt.setText("");
+		idtotalprecio.setText("");
+		idBuscarProducto.setText("");
+		idBuscarProducto.requestFocus();
 	}
 
 	public static class VentaModelo {

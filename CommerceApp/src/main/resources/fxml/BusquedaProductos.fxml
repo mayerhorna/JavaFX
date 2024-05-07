@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane hgap="10.0" prefHeight="277.0" prefWidth="746.0" vgap="10.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.commerceapp.controller.BusquedaProductosController">
+<GridPane fx:id="frmBusquedaProductos" hgap="10.0" prefHeight="277.0" prefWidth="746.0" vgap="10.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.commerceapp.controller.BusquedaProductosController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="10.0" prefWidth="243.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="0.0" prefWidth="117.0" />

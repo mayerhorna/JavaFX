@@ -1,8 +1,14 @@
 package com.commerceapp.model;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "ba_customer")
@@ -32,6 +38,15 @@ public class Customer {
 
     @Column(name = "updated_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private LocalDateTime updatedAt;
+
+    // Constructor, getters, and setters
+    
+    @Override
+    public String toString() {
+        return "Customer [id=" + id + ", code=" + code + ", fiscalNumber=" + fiscalNumber + ", name=" + name
+                + ", commercialName=" + commercialName + ", discountProduct=" + discountProduct + ", createdAt="
+                + createdAt + ", updatedAt=" + updatedAt + "]";
+    }
 
 	public Long getId() {
 		return id;
@@ -96,15 +111,4 @@ public class Customer {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
-	@Override
-	public String toString() {
-		return "Customer [id=" + id + ", code=" + code + ", fiscalNumber=" + fiscalNumber + ", name=" + name
-				+ ", commercialName=" + commercialName + ", discountProduct=" + discountProduct + ", createdAt="
-				+ createdAt + ", updatedAt=" + updatedAt + "]";
-	}
-
-    // Constructor, getters, and setters
-    
 }
-

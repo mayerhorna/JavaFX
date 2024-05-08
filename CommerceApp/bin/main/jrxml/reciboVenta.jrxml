@@ -20,14 +20,14 @@
 				<text><![CDATA[DEMO COMMERCEAPP S.A.C]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="80" y="40" width="74" height="20" uuid="c7447a0c-57fc-433b-b06c-67c15495ea63"/>
-				<textElement textAlignment="Right">
+				<reportElement x="10" y="50" width="60" height="20" uuid="c7447a0c-57fc-433b-b06c-67c15495ea63"/>
+				<textElement textAlignment="Left">
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[Pedido de venta:]]></text>
+				<text><![CDATA[Nro de venta:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="155" y="40" width="91" height="20" uuid="0c580499-a5e6-4f19-9119-48cda4a5630d"/>
+				<reportElement x="70" y="50" width="105" height="20" uuid="0c580499-a5e6-4f19-9119-48cda4a5630d"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>

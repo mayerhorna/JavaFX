@@ -106,4 +106,11 @@ public class JPAControllerCustomer {
         query.setParameter("namePattern", "%" + nombre + "%");
         return query.getResultList();
     }
+    
+    public List<Customer> buscarClientePorID(Long Id) {
+        TypedQuery<Customer> query = entityManager.createQuery("SELECT u FROM Customer u WHERE u.id = :Id",
+                Customer.class);
+        query.setParameter("Id", Id);
+        return query.getResultList();
+    }
 }

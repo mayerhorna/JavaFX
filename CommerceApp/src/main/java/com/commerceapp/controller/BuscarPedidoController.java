@@ -14,6 +14,7 @@ import com.commerceapp.model.Product;
 import com.commerceapp.model.TsSaleOrder;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -61,7 +62,7 @@ public class BuscarPedidoController implements Initializable, NavigableControlle
 	private TableColumn<TsSaleOrder, String> colFecha;
 
 	@FXML
-	private TableColumn<Customer, String> colCliente;
+	private TableColumn<TsSaleOrder, String> colCliente;
 
 	@FXML
 	private TextField txtBusquedaCliente;
@@ -73,7 +74,13 @@ public class BuscarPedidoController implements Initializable, NavigableControlle
 
 		colFecha.setCellValueFactory(new PropertyValueFactory<>("date_order"));
 
-		colCliente.setCellValueFactory(new PropertyValueFactory<>("ba_customer_id"));
+		colCliente.setCellValueFactory(cellData -> {
+            Long id = cellData.getValue().getBa_customer_id();
+            JPAControllerCustomer objCliente=new JPAControllerCustomer();
+            List<Customer> lista=objCliente.buscarClientePorID(id);
+            
+            return new SimpleStringProperty(lista.get(0).getName().toString());
+        });
 
 		tblClientes.setRowFactory(tv -> {
 
@@ -94,7 +101,7 @@ public class BuscarPedidoController implements Initializable, NavigableControlle
 					try {
 
 						pvc.ponerDetallePedido(rowData.getTs_sale_order_id());
-						//pvc.idobjBauser = rowData.getId();
+						
 						Node source = (Node) event.getSource();
 
 						Stage stage = (Stage) source.getScene().getWindow();

@@ -481,7 +481,26 @@ public class PedidoVentaController implements Initializable {
 
 	}
 	void ponerDetallePedido(int id) {
-		 
+		JPAControllerTsSaleOrderLine controller = new JPAControllerTsSaleOrderLine();
+		List<TsSaleOrderLine> detalles = controller.buscarDetallePorId(id);
+		
+		List<VentaModelo> ventaViewModels = new ArrayList<>();
+
+        for (TsSaleOrderLine saleOrderLine : detalles) {
+        	String IdProd=String.valueOf(saleOrderLine.getTbProductId());
+        	VentaModelo ventaViewModel = new VentaModelo(
+                    String.valueOf(saleOrderLine.getTbProductId()), // id
+                    objProduct.buscarProductoPorID(IdProd).getCode(), // codigo
+                    saleOrderLine.getName(), // producto
+                    String.valueOf(saleOrderLine.getQuantity()), // cantidad
+                    String.valueOf(saleOrderLine.getPrice_with_tax()), // precio
+                    String.valueOf(saleOrderLine.getTotal_price_with_tax()) // total
+            );
+            ventaViewModels.add(ventaViewModel);
+        }
+		// Crea una ObservableList de productos y añádela al TableView
+		ObservableList<VentaModelo> detallesList = FXCollections.observableArrayList(ventaViewModels);
+		tblVenta.setItems(detallesList);
 	}
 	private List<TsSaleOrderLine> obtenerValoresTabla(int idPedido) {
 

@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import com.commerceapp.app.JPAControllerCustomer;
 import com.commerceapp.app.JPAControllerProduct;
+import com.commerceapp.app.JPAControllerTsSaleOrder;
 import com.commerceapp.controller.helpers.NavigableControllerHelper;
 import com.commerceapp.model.Customer;
 import com.commerceapp.model.Product;
@@ -60,13 +61,14 @@ public class BuscarPedidoController implements Initializable, NavigableControlle
 	private TableColumn<TsSaleOrder, String> colFecha;
 
 	@FXML
-	private TableColumn<TsSaleOrder, String> colCliente;
+	private TableColumn<Customer, String> colCliente;
 
 	@FXML
 	private TextField txtBusquedaCliente;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
 		colID.setCellValueFactory(new PropertyValueFactory<>("ts_sale_order_id"));
 
 		colFecha.setCellValueFactory(new PropertyValueFactory<>("date_order"));
@@ -91,7 +93,7 @@ public class BuscarPedidoController implements Initializable, NavigableControlle
 
 					try {
 
-						//pvc.ponerClienteDesdeVentana(rowData.get());
+						pvc.ponerDetallePedido(rowData.getTs_sale_order_id());
 						//pvc.idobjBauser = rowData.getId();
 						Node source = (Node) event.getSource();
 
@@ -112,8 +114,18 @@ public class BuscarPedidoController implements Initializable, NavigableControlle
 			return row;
 
 		});
-		cargarClientes();
+		cargarPedidos();
 		iniciarValidaciones();
+	}
+
+	private void cargarPedidos() {
+		JPAControllerTsSaleOrder controller = new JPAControllerTsSaleOrder();
+		List<TsSaleOrder> ventas = controller.obtenerTodasOrdenesVenta();
+	
+		// Crea una ObservableList de productos y añádela al TableView
+		ObservableList<TsSaleOrder> ventasList = FXCollections.observableArrayList(ventas);
+		tblClientes.setItems(ventasList);
+		
 	}
 
 	private void iniciarValidaciones() {
@@ -143,20 +155,7 @@ public class BuscarPedidoController implements Initializable, NavigableControlle
 
 	}
 
-	private void cargarClientes() {
-		JPAControllerCustomer controller = new JPAControllerCustomer();
-		List<Customer> clientes = controller.obtenerTodosClientes();
-		System.out.println(clientes);
-		// Crea una ObservableList de productos y añádela al TableView
-		ObservableList<Customer> clientesList = FXCollections.observableArrayList(clientes);
-		//tblClientes.setItems(clientesList);
-
-	}
-
-	private String busqueda() {
-		return null;
-
-	}
+	
 
 	@Override
 	public void initializeControlsInOrderToNavigate() {

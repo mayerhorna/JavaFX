@@ -310,7 +310,33 @@ public class PedidoVentaController implements Initializable {
 
 		}
 	}
+	@FXML
+	public void buscarPedido(ActionEvent e) throws Exception {
+		try {
 
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BuscarPedido.fxml"));
+			Parent abrir = loader.load();
+			BuscarPedidoController objController = loader.getController();
+			objController.setPvc(this);
+			Stage stage = new Stage();
+			Scene scene = new Scene(abrir);
+
+			// quitando el maximizar y minimizar
+			stage.initModality(Modality.APPLICATION_MODAL);
+			// bloquea la interacción con otras ventanas de la aplicación
+			stage.initStyle(StageStyle.UTILITY);
+			// quitando iconos
+			stage.getIcons().clear();
+			stage.setScene(scene);
+			//MGeneral.Idioma.cargarIdiomaControles(stage, null);
+			// objAcerController.initialize(null, null);
+			stage.showAndWait();
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+
+		}
+	}
 	@FXML
 	public void eliminarPedido(ActionEvent e) throws Exception {
 		if (IdiomaC.MostrarMensaje(EnumMensajes.AvisoEliminarPedido, null, null, null)) {
@@ -454,7 +480,9 @@ public class PedidoVentaController implements Initializable {
 		}
 
 	}
-
+	void ponerDetallePedido(int id) {
+		 
+	}
 	private List<TsSaleOrderLine> obtenerValoresTabla(int idPedido) {
 
 		List<TsSaleOrderLine> valoresTabla = new ArrayList<>();

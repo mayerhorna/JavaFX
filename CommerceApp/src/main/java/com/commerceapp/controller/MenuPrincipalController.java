@@ -71,12 +71,10 @@ import javafx.scene.input.KeyEvent;
 @Component
 public class MenuPrincipalController implements Initializable {
 
-	LegalizacionService legalizacion = new LegalizacionService();
 	ProductosController form;
 	PedidoVentaController venta;
 	UsuariosCommerceController user;
 	ClientesCommerceController cliente;
-	private boolean esPrimeraCargaMDI = true;
 
 	private Stage stage;
 	private Scene scene;
@@ -259,8 +257,7 @@ public class MenuPrincipalController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		logger.info("Iniciando menu");
-
+		MGeneral.mlform = new LegalizacionService();
 	}
 
 	@FXML
@@ -433,7 +430,6 @@ public class MenuPrincipalController implements Initializable {
 		form.guardar(false, true);
 	}
 
-
 	public void ayuda() throws IOException, SAXException, ParserConfigurationException {
 
 		String fichero = MGeneral.Idioma.new AyudaUtils().obtenerFicheroAyuda();
@@ -500,24 +496,6 @@ public class MenuPrincipalController implements Initializable {
 	public void activacionIconosGuardado(boolean activacion) {
 		GuardarToolStrip.setDisable(!activacion);
 		SubItemGuardar.setDisable(!activacion);
-	}
-
-	public void pinta() {
-
-		if (esPrimeraCargaMDI) {
-			esPrimeraCargaMDI = false;
-
-			Utilidades.cursorEspera(stagePrincipal, true);
-			MGeneral.Configuracion.actualizarVersion();
-			Utilidades.cursorEspera(stagePrincipal, false);
-
-			if (!MGeneral.Configuracion.aceptarPoliticaPrivacidad()) {
-				return;
-			}
-
-			MGeneral.Configuracion.mostrarMensajeSiEsPrimeraEjecucionDeLaVersion();
-
-		}
 	}
 
 	@FXML

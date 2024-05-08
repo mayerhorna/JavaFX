@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte" pageWidth="298" pageHeight="420" whenNoDataType="AllSectionsNoDetail" columnWidth="298" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="a0f3a722-103e-4134-9281-03f16e37c13a">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Negrita" forecolor="#030303"/>
+	<subDataset name="Dataset1" whenResourceMissingType="Error" uuid="1e0a671c-79fc-488a-b633-ebdf8600e9f9"/>
+	<parameter name="PedidoVenta" class="java.lang.String"/>
+	<parameter name="Vendedor" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<title>
+		<band height="278">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="70" y="10" width="166" height="30" uuid="9bf1d5f2-b03c-40b6-b94c-d13a5618cf4d"/>
+				<textElement textAlignment="Left">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[DEMO COMMERCEAPP S.A.C]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="50" width="60" height="20" uuid="c7447a0c-57fc-433b-b06c-67c15495ea63"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Nro de venta:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="70" y="50" width="105" height="20" uuid="0c580499-a5e6-4f19-9119-48cda4a5630d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PedidoVenta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="43" y="70" width="90" height="20" uuid="5b836c13-70e5-4dd9-99a4-9834d9b2a362"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="70" width="33" height="20" uuid="116380e6-d6f8-4f23-a483-ad36cb05b002"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="90" width="40" height="20" uuid="b3fdb871-9b6d-45d3-9813-1d87ee8cefa1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Vendedor:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="90" width="248" height="20" uuid="a49a9f11-643d-412d-92e2-ef70c7a6606e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Vendedor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="38">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</detail>
+</jasperReport>

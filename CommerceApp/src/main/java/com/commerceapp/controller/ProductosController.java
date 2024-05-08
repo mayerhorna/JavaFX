@@ -199,6 +199,8 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 	@FXML
 	private Button idGuardarProductoButton;
+	
+
 
 	@FXML
 	private CustomCombobox<String> idFamiliaProducto;
@@ -690,6 +692,8 @@ public class ProductosController implements Initializable, NavigableControllerHe
 				objJPAControllerProduct.eliminarProducto(selectedProducts.get(0));
 				cargarProductos();
 				DeshabilitarHabilitarBotonesCreacionProducto(false);
+				validacionestextfieldsobligatorias(false);
+				idGuardarProductoButton.setDisable(true);
 			}
 		}
 	}

@@ -6,7 +6,6 @@ import java.io.OutputStream;
 import java.util.Collection;
 import java.util.logging.Logger;
 
-import com.commerceapp.reporting.instancia.ReportInstanciaParameters;
 import com.commerceapp.reporting.instancia.ReportReciboParameter;
 
 import net.sf.jasperreports.engine.JasperCompileManager;

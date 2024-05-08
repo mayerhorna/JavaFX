@@ -12,98 +12,119 @@ import com.commerceapp.model.BaUser;
 import com.commerceapp.model.Customer;
 
 public class JPAControllerCustomer {
-    EntityManager entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
+	EntityManager entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
 
-    // Método para crear un nuevo usuario
-    public void crearCliente(Customer cliente) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            entityManager.persist(cliente);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
-    }
+	// Método para crear un nuevo usuario
+	public void crearCliente(Customer cliente) {
+		EntityTransaction transaction = entityManager.getTransaction();
+		try {
+			transaction.begin();
+			entityManager.persist(cliente);
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction.isActive()) {
+				transaction.rollback();
+			}
+			e.printStackTrace();
+		}
+	}
 
-    // Método para leer un usuario por su ID
-    public Customer leerCliente(int id) {
-        Customer cliente = null;
-        try {
-            cliente = entityManager.find(Customer.class, id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return cliente;
-    }
+	public Customer buscarClientePorCode(String code) {
+		Customer cliente = null;
+		try {
+			Query query = entityManager.createQuery("SELECT c FROM Customer c WHERE c.code = :code");
+			query.setParameter("code", code);
+			cliente = (Customer) query.getSingleResult();
+		} catch (NoResultException e) {
+			// Manejar la excepción si no se encuentra ningún cliente con el código dado
+		} catch (Exception e) {
+			// Manejar otras excepciones
+		}
+		return cliente;
+	}
 
-    // Método para actualizar un usuario existente
-    public void actualizarCliente(Customer cliente) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            entityManager.merge(cliente);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
-    }
+	// Método para leer un usuario por su ID
+	public Customer leerCliente(int id) {
+		Customer cliente = null;
+		try {
+			cliente = entityManager.find(Customer.class, id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cliente;
+	}
 
-    // Método para eliminar un usuario
-    public void eliminarCliente(Customer cliente) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            entityManager.remove(entityManager.contains(cliente) ? cliente : entityManager.merge(cliente));
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
-    }
+	// Método para actualizar un usuario existente
+	public void actualizarCliente(Customer cliente) {
+		EntityTransaction transaction = entityManager.getTransaction();
+		try {
+			transaction.begin();
+			entityManager.merge(cliente);
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction.isActive()) {
+				transaction.rollback();
+			}
+			e.printStackTrace();
+		}
+	}
 
-    // Método para validar la conexión con el main
-    public boolean validarConexion() {
-        return entityManager != null && entityManager.isOpen();
-    }
+	// Método para eliminar un usuario
+	public void eliminarCliente(Customer cliente) {
+		EntityTransaction transaction = entityManager.getTransaction();
+		try {
+			transaction.begin();
+			entityManager.remove(entityManager.contains(cliente) ? cliente : entityManager.merge(cliente));
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction.isActive()) {
+				transaction.rollback();
+			}
+			e.printStackTrace();
+		}
+	}
 
-    // Método para buscar un usuario por su login y contraseña
-    public boolean buscarClientePorCredenciales(String login, String password) throws Exception {
-        if (validarConexion()) {
-            Customer cliente = null;
-            try {
-                Query query = entityManager.createQuery(
-                        "SELECT u FROM BaUser u WHERE u.login_user = :login AND u.password_user = :password");
-                query.setParameter("login", login);
-                query.setParameter("password", password);
-                cliente = (Customer) query.getSingleResult();
-            } catch (NoResultException e) {
+	// Método para validar la conexión con el main
+	public boolean validarConexion() {
+		return entityManager != null && entityManager.isOpen();
+	}
 
-            } catch (Exception e) {
+	// Método para buscar un usuario por su login y contraseña
+	public boolean buscarClientePorCredenciales(String login, String password) throws Exception {
+		if (validarConexion()) {
+			Customer cliente = null;
+			try {
+				Query query = entityManager.createQuery(
+						"SELECT u FROM BaUser u WHERE u.login_user = :login AND u.password_user = :password");
+				query.setParameter("login", login);
+				query.setParameter("password", password);
+				cliente = (Customer) query.getSingleResult();
+			} catch (NoResultException e) {
 
-            }
-            return cliente != null;
-        }
-        return false;
-    }
+			} catch (Exception e) {
 
-    public List<Customer> obtenerTodosClientes() {
-        TypedQuery<Customer> query = entityManager.createQuery("SELECT u FROM Customer u", Customer.class);
-        return query.getResultList();
-    }
+			}
+			return cliente != null;
+		}
+		return false;
+	}
 
-    public List<Customer> buscarClientePorNombre(String nombre) {
-        TypedQuery<Customer> query = entityManager.createQuery("SELECT u FROM Customer u WHERE u.name LIKE :namePattern",
-                Customer.class);
-        query.setParameter("namePattern", "%" + nombre + "%");
-        return query.getResultList();
-    }
+	public List<Customer> obtenerTodosClientes() {
+		TypedQuery<Customer> query = entityManager.createQuery("SELECT u FROM Customer u", Customer.class);
+		return query.getResultList();
+	}
+
+	public List<Customer> buscarClientePorNombre(String nombre) {
+		TypedQuery<Customer> query = entityManager
+				.createQuery("SELECT u FROM Customer u WHERE u.name LIKE :namePattern", Customer.class);
+		query.setParameter("namePattern", "%" + nombre + "%");
+		return query.getResultList();
+	}
+
+	public List<Customer> buscarClientePorID(Long Id) {
+		TypedQuery<Customer> query = entityManager.createQuery("SELECT u FROM Customer u WHERE u.id = :Id",
+				Customer.class);
+		query.setParameter("Id", Id);
+		return query.getResultList();
+	}
 }

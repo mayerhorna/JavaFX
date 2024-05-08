@@ -1,5 +1,6 @@
 package com.commerceapp.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.commerceapp.app.JPAControllerBa_user;
+import com.commerceapp.app.JPAControllerCustomer;
 import com.commerceapp.app.JPAControllerProduct;
 import com.commerceapp.app.JPAControllerTsSaleOrder;
 import com.commerceapp.app.JPAControllerTsSaleOrderLine;
@@ -15,13 +17,16 @@ import com.commerceapp.controller.BusquedaProductosController.VentaModelo;
 import com.commerceapp.domain.IdiomaC;
 import com.commerceapp.domain.MGeneral;
 import com.commerceapp.model.BaUser;
+import com.commerceapp.model.Customer;
 import com.commerceapp.model.Product;
 import com.commerceapp.model.TsSaleOrder;
 import com.commerceapp.model.TsSaleOrderLine;
+import com.commerceapp.reporting.instancia.ReportReciboData;
 import com.commerceapp.reporting.instancia.ReportingPreviewService;
 import com.commerceapp.util.Utilidades;
 import com.commerceapp.domain.IdiomaC.AyudaUtils;
 import com.commerceapp.domain.IdiomaC.EnumMensajes;
+import com.commerceapp.domain.legalizacion.kLegalizacion;
 
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -157,7 +162,11 @@ public class PedidoVentaController implements Initializable {
 
 	JPAControllerProduct objProduct;
 
-	public long idobjBauser;
+	JPAControllerCustomer objCustomer;
+
+	public long idobjCliente = 0;
+
+	public String nombreComercialCliente = "";
 
 	MenuPrincipalController mpc;
 
@@ -197,10 +206,12 @@ public class PedidoVentaController implements Initializable {
 		objTsSaleOrder = new JPAControllerTsSaleOrder();
 		objTsSaleOrderLine = new JPAControllerTsSaleOrderLine();
 		objProduct = new JPAControllerProduct();
+		objCustomer = new JPAControllerCustomer();
 		BaUser objbus = objBauser.leerUsuario(MGeneral.Configuracion.objBaUser.getBa_user_id());
 		idLabelUser.setText("Usuario: " + objbus.getName());
 		txtProducto.requestFocus();
 		iniciarValidaciones();
+		MGeneral.mlform.objDtosRecibo.objListaProduc.clear();
 
 	}
 
@@ -220,6 +231,16 @@ public class PedidoVentaController implements Initializable {
 	private void guardarDatosReciboVenta() {
 		MGeneral.mlform.objDtosRecibo.setNroventa(txtPedidoVenta.getText());
 		MGeneral.mlform.objDtosRecibo.setVendedor(idLabelUser.getText().replaceAll("Usuario:", ""));
+		MGeneral.mlform.objDtosRecibo.setNombreCliente(txtCliente.getText());
+		MGeneral.mlform.objDtosRecibo.setDocumentoCliente(nombreComercialCliente);
+		List<TsSaleOrderLine> valoresTabla = obtenerValoresTabla(Integer.parseInt(txtPedidoVenta.getText()));
+
+		for (int i = 0; i < valoresTabla.size(); i++) {
+			MGeneral.mlform.objDtosRecibo.objListaProduc.add(new ReportReciboData(valoresTabla.get(i).getName(),
+					String.valueOf(valoresTabla.get(i).getPrice_with_tax()), String.valueOf(i + 1),
+					valoresTabla.get(i).getQuantity().toString()));
+		}
+		MGeneral.mlform.objDtosRecibo.setTotalapagar(txtTotal.getText());
 	}
 
 	private void iniciarValidaciones() {
@@ -255,11 +276,11 @@ public class PedidoVentaController implements Initializable {
 	}
 
 	private void validarCamposConfirmacionPedido() {
-		// Verificar si ambos campos tienen información
+
 		if (!txtCliente.getText().isEmpty() && !tblVenta.getItems().isEmpty()) {
-			idConfirmarPedido.setDisable(false); // Habilitar el botón si ambos campos tienen información
+			idConfirmarPedido.setDisable(false);
 		} else {
-			idConfirmarPedido.setDisable(true); // Deshabilitar el botón si algún campo está vacío
+			idConfirmarPedido.setDisable(true);
 		}
 	}
 
@@ -268,18 +289,13 @@ public class PedidoVentaController implements Initializable {
 		for (BusquedaProductosController.VentaModelo item : tblVenta.getItems()) {
 			total += Double.parseDouble(item.getTotal());
 		}
-		txtTotal.setText(String.valueOf(total)); // Actualizar el label con el nuevo total
+		txtTotal.setText(String.valueOf(total));
 	}
 
 	private void scroolPane() {
 		idpruebascroll.setContent(idVOBXprueba);
 		idpruebascroll.setFitToWidth(true);
 		idpruebascroll.setFitToHeight(true);
-
-	}
-
-	public void setParentController(MenuPrincipalController menuPrincipalController) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -312,6 +328,34 @@ public class PedidoVentaController implements Initializable {
 	}
 
 	@FXML
+	public void buscarPedido(ActionEvent e) throws Exception {
+		try {
+
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BuscarPedido.fxml"));
+			Parent abrir = loader.load();
+			BuscarPedidoController objController = loader.getController();
+			objController.setPvc(this);
+			Stage stage = new Stage();
+			Scene scene = new Scene(abrir);
+
+			// quitando el maximizar y minimizar
+			stage.initModality(Modality.APPLICATION_MODAL);
+			// bloquea la interacción con otras ventanas de la aplicación
+			stage.initStyle(StageStyle.UTILITY);
+			// quitando iconos
+			stage.getIcons().clear();
+			stage.setScene(scene);
+			// MGeneral.Idioma.cargarIdiomaControles(stage, null);
+			// objAcerController.initialize(null, null);
+			stage.showAndWait();
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+
+		}
+	}
+
+	@FXML
 	public void eliminarPedido(ActionEvent e) throws Exception {
 		if (IdiomaC.MostrarMensaje(EnumMensajes.AvisoEliminarPedido, null, null, null)) {
 			int idOrder = objTsSaleOrder.obtenerIdOrdenVentaPorCodigo(txtPedidoVenta.getText());
@@ -329,6 +373,13 @@ public class PedidoVentaController implements Initializable {
 
 	@FXML
 	public void imprimirRecibo(ActionEvent e) throws Exception {
+		File directorioPDF = new File(MGeneral.Configuracion.getPathAuxiliar());
+		String nombrePDFAnterior = kLegalizacion.kNombreFicheroReciboVenta;
+		File pdfAnterior = new File(directorioPDF, nombrePDFAnterior);
+
+		if (pdfAnterior.exists()) {
+			pdfAnterior.delete();
+		}
 		ReportingPreviewService.generarReporteReciboVenta();
 
 	}
@@ -442,7 +493,7 @@ public class PedidoVentaController implements Initializable {
 			objts.setDate_order(new Date());
 			objts.setTotal_amount_with_tax(Double.parseDouble(txtTotal.getText()));
 			objts.setObservation(TxtObservaciones.getText());
-			objts.setBa_customer_id(idobjBauser);
+			objts.setBa_customer_id(idobjCliente);
 			String pedidoCode = objTsSaleOrder.crearOrdenVenta(objts);
 			List<TsSaleOrderLine> valoresTabla = obtenerValoresTabla(Integer.parseInt(pedidoCode));
 
@@ -453,6 +504,28 @@ public class PedidoVentaController implements Initializable {
 			txtPedidoVenta.setText(pedidoCode);
 		}
 
+	}
+
+	void ponerDetallePedido(int id) {
+		JPAControllerTsSaleOrderLine controller = new JPAControllerTsSaleOrderLine();
+		List<TsSaleOrderLine> detalles = controller.buscarDetallePorId(id);
+
+		List<VentaModelo> ventaViewModels = new ArrayList<>();
+
+		for (TsSaleOrderLine saleOrderLine : detalles) {
+			String IdProd = String.valueOf(saleOrderLine.getTbProductId());
+			VentaModelo ventaViewModel = new VentaModelo(String.valueOf(saleOrderLine.getTbProductId()), // id
+					objProduct.buscarProductoPorID(IdProd).getCode(), // codigo
+					saleOrderLine.getName(), // producto
+					String.valueOf(saleOrderLine.getQuantity()), // cantidad
+					String.valueOf(saleOrderLine.getPrice_with_tax()), // precio
+					String.valueOf(saleOrderLine.getTotal_price_with_tax()) // total
+			);
+			ventaViewModels.add(ventaViewModel);
+		}
+		// Crea una ObservableList de productos y añádela al TableView
+		ObservableList<VentaModelo> detallesList = FXCollections.observableArrayList(ventaViewModels);
+		tblVenta.setItems(detallesList);
 	}
 
 	private List<TsSaleOrderLine> obtenerValoresTabla(int idPedido) {

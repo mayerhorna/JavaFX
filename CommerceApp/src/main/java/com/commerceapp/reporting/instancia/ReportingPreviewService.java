@@ -43,10 +43,11 @@ public class ReportingPreviewService {
 
 	public static boolean generarReporteReciboVenta() {
 		try {
+
 			List<ReportReciboData> reportDataCollection = createReportReciboData();
 			ReportReciboParameter reportParameters = createReportReciboParameters();
 			Report report = new Report();
-			report.setTemplatePath("/jrxml/reciboVenta.jrxml");
+			report.setTemplatePath("/jrxml/facturaPedido.jrxml");
 			report.setOutDirectory(MGeneral.Configuracion.getPathAuxiliar());
 			report.setOutFileName(kLegalizacion.kNombreFicheroReciboVenta);
 			report.configure();
@@ -62,73 +63,22 @@ public class ReportingPreviewService {
 
 	}
 
-	private static List<ReportReciboData> createReportReciboData() {
-		return null;
-
-	}
-
 	private static ReportReciboParameter createReportReciboParameters() {
 		ReportReciboParameter reportParameters = new ReportReciboParameter();
 		reportParameters.setPedidoVenta(MGeneral.mlform.objDtosRecibo.getNroventa());
 		reportParameters.setVendedor(MGeneral.mlform.objDtosRecibo.getVendedor());
+		reportParameters.setNombreCliente(MGeneral.mlform.objDtosRecibo.getNombreCliente());
+		reportParameters.setDocumentoCliente(MGeneral.mlform.objDtosRecibo.getDocumentoCliente());
+		reportParameters.setTotalAPagar(MGeneral.mlform.objDtosRecibo.getTotalapagar());
+		reportParameters.setCaja("Caja 001");
+		reportParameters.setRutaImagen("src/main/resources/imagenes/LogoECommerce.png");
 		return reportParameters;
 	}
 
-	private static List<ReportInstanciaData> createReportData() {
-		List<ReportInstanciaData> reportDataCollection = new ArrayList<>();
-		ArrayList<cFicheroLibro> listaFicheros = new ArrayList<>();
-		ArrayList<String> tipos = new ArrayList<>();
-		try {
-			String[] indices = new String[MGeneral.mlform.Libros.size()];
-			String[] fechas = new String[MGeneral.mlform.Libros.size()];
-			int i = 0;
-			int j = 0;
-			for (cLibro libro : MGeneral.mlform.Libros) {
-				if (!Formato.ValorNulo(MGeneral.mlform.Libros.get(i).getFechaCierreUltimoLegalizado())) {
-					fechas[i] = MGeneral.mlform.Libros.get(i).getFechaCierreUltimoLegalizado();
-				} else {
-					fechas[i] = "";
-				}
-				int k = 0;
-				for (cFicheroLibro fichero : libro.Ficheros) {
-					listaFicheros.add(fichero);
-					int indice = kLegalizacion.dameIndiceDeTipoLibro(MGeneral.mlform.Libros.get(i).getTipoLibro());
-					tipos.add(kLegalizacion.Tiposlibros.get(indice).getDescripcion());
-					if (fechas[i] != null && k == 0) {
-						indices[i] = String.valueOf(j);
-					}
-					k++;
-					j++;
-				}
-				i++;
-			}
-		} catch (Exception ex) {
-			MGeneral.Idioma.MostrarMensaje(IdiomaC.EnumMensajes.Excepcion, ex.getMessage(), "", "");
-		}
-		for (cFicheroLibro oFicheroLibro : listaFicheros) {
-			ReportInstanciaData reportData = new ReportInstanciaData();
-			reportData.setSubparlblLibroDe(MGeneral.Idioma.obtenerValor(ObjetosIdioma.REPORTES,
-					Reportes.rptPresentacionDatos, ElementosIdiomaC.TEXT_CONTROLES, "lblLibroDe", ""));
-			reportData.setSubparFechaApertura(MGeneral.Idioma.obtenerValor(ObjetosIdioma.REPORTES,
-					Reportes.rptPresentacionDatos, ElementosIdiomaC.TEXT_CONTROLES, "lblFechaApertura", ""));
-			reportData.setSubparFechaCierre(MGeneral.Idioma.obtenerValor(ObjetosIdioma.REPORTES,
-					Reportes.rptPresentacionDatos, ElementosIdiomaC.TEXT_CONTROLES, "lblFechaCierre", ""));
-			reportData.setParlblTextoHuella(MGeneral.Idioma.obtenerValor(ObjetosIdioma.REPORTES,
-					Reportes.rptPresentacionDatos, ElementosIdiomaC.TEXT_CONTROLES, "lblTextoHuella", ""));
-			reportData.setSubparlblNumero(MGeneral.Idioma.obtenerValor(ObjetosIdioma.REPORTES,
-					Reportes.rptPresentacionDatos, ElementosIdiomaC.TEXT_CONTROLES, "lblNumero", ""));
-			reportData.setTipoLibro(oFicheroLibro.getTipoLibroSegunNombre().toString());
-			reportData.setNumero(String.valueOf(oFicheroLibro.getNumero()));
-			reportData.setFechaDeApertura(LegalizacionService.dameFecha(oFicheroLibro.getFechaApertura())
-					.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-			reportData.setFechaDeCierre(LegalizacionService.dameFecha(oFicheroLibro.getFechaCierre())
-					.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-			reportData.setHuellaDigital(oFicheroLibro.getHuella());
+	private static List<ReportReciboData> createReportReciboData() {
+		List<ReportReciboData> reportDataCollection = MGeneral.mlform.objDtosRecibo.objListaProduc;
 
-			reportDataCollection.add(reportData);
-		}
 		return reportDataCollection;
 	}
 
-	
 }

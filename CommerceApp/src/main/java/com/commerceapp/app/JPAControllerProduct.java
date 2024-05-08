@@ -40,6 +40,20 @@ public class JPAControllerProduct {
             return null;
         }
     }
+    
+    public Product buscarProductoPorID(String id) {
+        TypedQuery<Product> query = entityManager.createQuery("SELECT p FROM Product p WHERE p.tb_product_id = :id",
+                Product.class);
+        query.setParameter("id", id);
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null; // No se encontró ningún producto con ese código
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     // Método para leer un producto por su ID
     public Product leerProducto(Long id) {

@@ -124,7 +124,7 @@
                               </HBox>
                               <Button fx:id="idConfirmarPedido" disable="true" mnemonicParsing="false" onAction="#confirmarPedido" text="Confirma pedido" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6" />
                               <Label text="Observaciones:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <Button fx:id="btnClienteConfig" mnemonicParsing="false" text="Buscar Pedido" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                              <Button fx:id="btnClienteConfig" mnemonicParsing="false" onAction="#buscarPedido" text="Buscar Pedido" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                               <TextField visible="false" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                               <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                                  <children>

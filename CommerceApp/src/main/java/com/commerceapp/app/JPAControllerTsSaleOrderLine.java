@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 
+import com.commerceapp.model.Customer;
 import com.commerceapp.model.TsSaleOrderLine;
 
 public class JPAControllerTsSaleOrderLine {
@@ -85,6 +86,13 @@ public class JPAControllerTsSaleOrderLine {
     public List<TsSaleOrderLine> obtenerTodasLineasOrdenVenta() {
         TypedQuery<TsSaleOrderLine> query = entityManager.createQuery("SELECT l FROM TsSaleOrderLine l",
                 TsSaleOrderLine.class);
+        return query.getResultList();
+    }
+    
+    public List<TsSaleOrderLine> buscarDetallePorId(int Id) {
+        TypedQuery<TsSaleOrderLine> query = entityManager.createQuery("SELECT l FROM TsSaleOrderLine l WHERE l.tsSaleOrderId = :Id",
+                TsSaleOrderLine.class);   
+        query.setParameter("Id", Id);
         return query.getResultList();
     }
 

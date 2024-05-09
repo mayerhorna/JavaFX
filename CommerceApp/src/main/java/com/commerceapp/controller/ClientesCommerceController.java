@@ -43,10 +43,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class ClientesCommerceController implements Initializable,NavigableControllerHelper{
-	
+public class ClientesCommerceController implements Initializable, NavigableControllerHelper {
+
 	private MenuPrincipalController parentController;
-	
+
 	public void setParentController(MenuPrincipalController parentController) {
 		this.parentController = parentController;
 
@@ -55,123 +55,120 @@ public class ClientesCommerceController implements Initializable,NavigableContro
 	public MenuPrincipalController getParentController() {
 		return parentController;
 	}
-	
+
 	public double ancho;
 
 	public String campoPonerFoco = "";
 
 	private boolean pendienteGuardar = false;
-	
+
 	private void setPendienteGuardar(boolean value) {
 		pendienteGuardar = value;
 		idGuardarCliente.setDisable(!value);
 
 	}
-	
+
 	Tooltip tooltip = new Tooltip("Casilla obligatoria");
 
 	Utilidades objTimeline = new Utilidades();
 
-	private ArrayList<Customer> selectedCustomers= new ArrayList<>();
+	private ArrayList<Customer> selectedCustomers = new ArrayList<>();
 
 	public Control[] controlsInOrderToNavigate;
 
-	JPAControllerCustomer objJPAControllerCustomer ;
+	JPAControllerCustomer objJPAControllerCustomer;
 
 	private ChangeListener<String> textChangeListener;
 
-    @FXML
-    private GridPane EntidadEmpresarioGB;
+	@FXML
+	private GridPane EntidadEmpresarioGB;
 
-    @FXML
-    private GridPane PresentanteGB;
+	@FXML
+	private GridPane PresentanteGB;
 
-    @FXML
-    private AnchorPane anchorpaneEntradaDatos;
+	@FXML
+	private AnchorPane anchorpaneEntradaDatos;
 
-    @FXML
-    private TableColumn<Customer, String> columName;
+	@FXML
+	private TableColumn<Customer, String> columName;
 
-    @FXML
-    private TableColumn<Customer, String>columnCode;
+	@FXML
+	private TableColumn<Customer, String> columnCode;
 
-    @FXML
-    private TableColumn<Customer, String>columnDescuento;
+	@FXML
+	private TableColumn<Customer, String> columnDescuento;
 
-    @FXML
-    private TableColumn<Customer, String>columnId;
+	@FXML
+	private TableColumn<Customer, String> columnId;
 
-    @FXML
-    private TableColumn<Customer, String> columnNombreComercial;
+	@FXML
+	private TableColumn<Customer, String> columnNombreComercial;
 
-    @FXML
-    private HBox frmClientes;
+	@FXML
+	private HBox frmClientes;
 
-    @FXML
-    private Label gbxEntidadEmpresario;
+	@FXML
+	private Label gbxEntidadEmpresario;
 
-    @FXML
-    private Label gbxPresentante;
+	@FXML
+	private Label gbxPresentante;
 
-    @FXML
-    private Button idActualizarCliente;
+	@FXML
+	private Button idActualizarCliente;
 
-    @FXML
-    private TextField idBuscarCliente;
+	@FXML
+	private TextField idBuscarCliente;
 
-    @FXML
-    private TextField idCodigoCliente;
-    
-    @FXML
-    private TextField idNombreCliente;
+	@FXML
+	private TextField idCodigoCliente;
 
-    @FXML
-    private TextField idNombreComercialCliente;
-    
-    @FXML
-    private TextField idDescuentoCliente;
+	@FXML
+	private TextField idNombreCliente;
 
-    @FXML
-    private Button idCrearCliente;
+	@FXML
+	private TextField idNombreComercialCliente;
 
-  
+	@FXML
+	private TextField idDescuentoCliente;
 
-    @FXML
-    private Button idDeshacerCreacionCliente;
+	@FXML
+	private Button idCrearCliente;
 
-    @FXML
-    private Button idEliminarCliente;
+	@FXML
+	private Button idDeshacerCreacionCliente;
 
-    @FXML
-    private Button idGuardarCliente;
+	@FXML
+	private Button idEliminarCliente;
 
- 
-    @FXML
-    private TableView<Customer> idTableViewClientes;
+	@FXML
+	private Button idGuardarCliente;
 
-    @FXML
-    private VBox idVOBXprueba;
+	@FXML
+	private TableView<Customer> idTableViewClientes;
 
-    @FXML
-    private Button idaniadirCliente;
+	@FXML
+	private VBox idVOBXprueba;
 
-    @FXML
-    private ScrollPane idpruebascroll;
+	@FXML
+	private Button idaniadirCliente;
 
-    @FXML
-    private Label lblTitulo;
+	@FXML
+	private ScrollPane idpruebascroll;
 
-    @FXML
-    private ImageView logo;
+	@FXML
+	private Label lblTitulo;
 
-    @FXML
-    void actualizarCliente(ActionEvent event) {
-    	cargarClientes();
-    }
+	@FXML
+	private ImageView logo;
 
-    @FXML
-    void aniadirCliente(ActionEvent event) {
-    	try {
+	@FXML
+	void actualizarCliente(ActionEvent event) {
+		cargarClientes();
+	}
+
+	@FXML
+	void aniadirCliente(ActionEvent event) {
+		try {
 
 			if (!idCodigoCliente.getText().isEmpty()) {
 				if (!idNombreCliente.getText().isEmpty()) {
@@ -180,17 +177,19 @@ public class ClientesCommerceController implements Initializable,NavigableContro
 					objCliente.setCode(idCodigoCliente.getText());
 					objCliente.setName(idNombreCliente.getText());
 					objCliente.setCommercialName(idNombreComercialCliente.getText());
-					
-			       
-					objCliente.setFiscalNumber(idCodigoCliente.getText()+"-"+idNombreCliente.getText());
-			        
-					BigDecimal decimal = new BigDecimal(idDescuentoCliente.getText());
-					objCliente.setDiscountProduct(decimal);
-					
+
+					objCliente.setFiscalNumber(idCodigoCliente.getText() + "-" + idNombreCliente.getText());
+
+					if (!idDescuentoCliente.getText().isEmpty()) {
+
+						BigDecimal decimal = new BigDecimal(idDescuentoCliente.getText());
+						objCliente.setDiscountProduct(decimal);
+					} else {
+						objCliente.setDiscountProduct(new BigDecimal(0));
+					}
 					objCliente.setCreatedAt(LocalDateTime.now()); // Fecha y hora actual
-					objCliente.setUpdatedAt(LocalDateTime.now()); // 
-					
-					
+					objCliente.setUpdatedAt(LocalDateTime.now()); //
+
 					objJPAControllerCustomer.crearCliente(objCliente);
 					cargarClientes();
 					deshabilitarHabilitarBotonesCreacionCliente(false);
@@ -204,10 +203,10 @@ public class ClientesCommerceController implements Initializable,NavigableContro
 		} catch (Exception ex) {
 			IdiomaC.MostrarMensaje(EnumMensajes.Excepcion, ex.toString(), "", "");
 		}
-    }
+	}
 
-    private void validacionesTextfieldsObligatorias(boolean aux) {
-    	if (aux == true) {
+	private void validacionesTextfieldsObligatorias(boolean aux) {
+		if (aux == true) {
 			idCodigoCliente.setStyle("-fx-border-color: red; -fx-border-width: 1px;");
 			Tooltip.install(idCodigoCliente, tooltip);
 			idNombreCliente.setStyle("-fx-border-color: red; -fx-border-width: 1px;");
@@ -222,10 +221,10 @@ public class ClientesCommerceController implements Initializable,NavigableContro
 			removeListener(idCodigoCliente, tooltip);
 			removeListener(idNombreCliente, tooltip);
 		}
-		
+
 	}
-    
-    public void addListener(TextField tf, Tooltip tp) {
+
+	public void addListener(TextField tf, Tooltip tp) {
 		textChangeListener = (ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
 			if (newValue.isEmpty()) {
 				// Cambiar el borde a rojo y mostrar el tooltip
@@ -241,8 +240,8 @@ public class ClientesCommerceController implements Initializable,NavigableContro
 
 		tf.textProperty().addListener(textChangeListener);
 	}
-    
-    public void removeListener(TextField tf, Tooltip tp) {
+
+	public void removeListener(TextField tf, Tooltip tp) {
 		tf.textProperty().removeListener(textChangeListener);
 		Tooltip.uninstall(tf, tp);
 	}
@@ -273,26 +272,26 @@ public class ClientesCommerceController implements Initializable,NavigableContro
 		} else {
 			idTableViewClientes.requestFocus();
 		}
-		
+
 	}
 
 	@FXML
-    void crearCliente(ActionEvent event) {
+	void crearCliente(ActionEvent event) {
 		deshabilitarHabilitarBotonesCreacionCliente(true);
 
 		// Configurar un Tooltip para idCodigoUser
 		validacionesTextfieldsObligatorias(true);
-    }
+	}
 
-    @FXML
-    void deshacerCliente(ActionEvent event) {
-    	deshabilitarHabilitarBotonesCreacionCliente(false);
+	@FXML
+	void deshacerCliente(ActionEvent event) {
+		deshabilitarHabilitarBotonesCreacionCliente(false);
 		validacionesTextfieldsObligatorias(false);
-    }
+	}
 
-    @FXML
-    void eliminarCliente(ActionEvent event) {
-    	if (selectedCustomers.size() != 0) {
+	@FXML
+	void eliminarCliente(ActionEvent event) {
+		if (selectedCustomers.size() != 0) {
 			if (IdiomaC.MostrarMensaje(EnumMensajes.EliminarProducto, "", "", "")) {
 
 				objJPAControllerCustomer.eliminarCliente(selectedCustomers.get(0));
@@ -302,23 +301,23 @@ public class ClientesCommerceController implements Initializable,NavigableContro
 				idGuardarCliente.setDisable(true);
 			}
 		}
-    }
+	}
 
-    @FXML
-    void guardarCliente(ActionEvent event) {
-    	Customer objCliente = new Customer();
-    	objCliente.setId(selectedCustomers.get(0).getId());
-    	objCliente.setCode(idCodigoCliente.getText());
-    	objCliente.setName(idNombreCliente.getText());
-    	objCliente.setCommercialName(idNombreComercialCliente.getText());
-    	BigDecimal decimal=new BigDecimal(idDescuentoCliente.getText());
-    	objCliente.setDiscountProduct(decimal);
+	@FXML
+	void guardarCliente(ActionEvent event) {
+		Customer objCliente = new Customer();
+		objCliente.setId(selectedCustomers.get(0).getId());
+		objCliente.setCode(idCodigoCliente.getText());
+		objCliente.setName(idNombreCliente.getText());
+		objCliente.setCommercialName(idNombreComercialCliente.getText());
+		BigDecimal decimal = new BigDecimal(idDescuentoCliente.getText());
+		objCliente.setDiscountProduct(decimal);
 		objJPAControllerCustomer.actualizarCliente(objCliente);
 		cargarClientes();
 		idGuardarCliente.setDisable(true);
-    }
+	}
 
-    @Override
+	@Override
 	public void initializeControlsInOrderToNavigate() {
 		controlsInOrderToNavigate = new Control[] {}; // TODO Auto-generated method
 														// stub
@@ -341,7 +340,8 @@ public class ClientesCommerceController implements Initializable,NavigableContro
 		logo.setImage(image);
 		initializeControlsInOrderToNavigate();
 		registerKeyPressENTERInControlsToNavigate();
-		controlsInOrderToNavigate = new Control[] {idBuscarCliente,idCodigoCliente,idNombreCliente,idNombreComercialCliente};
+		controlsInOrderToNavigate = new Control[] { idBuscarCliente, idCodigoCliente, idNombreCliente,
+				idNombreComercialCliente };
 
 		columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		columnCode.setCellValueFactory(new PropertyValueFactory<>("code"));
@@ -371,35 +371,33 @@ public class ClientesCommerceController implements Initializable,NavigableContro
 
 		iniciarValidaciones();
 
-		
 		scroolPane();
 		idBuscarCliente.requestFocus();
-		
+
 	}
 
 	private void scroolPane() {
 		idpruebascroll.setContent(idVOBXprueba);
 		idpruebascroll.setFitToWidth(true);
 		idpruebascroll.setFitToHeight(true);
-		
+
 	}
 
-	
-
 	private void iniciarValidaciones() {
-		idTableViewClientes.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-			if (newSelection != null) {
+		idTableViewClientes.getSelectionModel().selectedItemProperty()
+				.addListener((obs, oldSelection, newSelection) -> {
+					if (newSelection != null) {
 
-				selectedCustomers.clear();
-				selectedCustomers.add(newSelection);
-				rellenarCampos();
-				validarTextChangesGuardar(true);
-			}
-		});
+						selectedCustomers.clear();
+						selectedCustomers.add(newSelection);
+						rellenarCampos();
+						validarTextChangesGuardar(true);
+					}
+				});
 		idBuscarCliente.textProperty().addListener((observable, oldValue, newValue) -> {
 			buscarClientes(newValue);
 		});
-		
+
 	}
 
 	private void buscarClientes(String searchText) {
@@ -408,7 +406,7 @@ public class ClientesCommerceController implements Initializable,NavigableContro
 
 		ObservableList<Customer> productList = FXCollections.observableArrayList(productos);
 		idTableViewClientes.setItems(productList);
-		
+
 	}
 
 	private void validarTextChangesGuardar(boolean aux) {
@@ -435,7 +433,7 @@ public class ClientesCommerceController implements Initializable,NavigableContro
 			// No se han realizado cambios, deshabilitar el botón de guardar
 			setPendienteGuardar(!aux);
 		}
-		
+
 	}
 
 	private void rellenarCampos() {
@@ -446,7 +444,7 @@ public class ClientesCommerceController implements Initializable,NavigableContro
 		idNombreComercialCliente.setText(selectedCustomers.get(0).getCommercialName());
 
 		idDescuentoCliente.setText(String.valueOf(selectedCustomers.get(0).getDiscountProduct()));
-		
+
 	}
 
 	private void cargarClientes() {
@@ -456,7 +454,7 @@ public class ClientesCommerceController implements Initializable,NavigableContro
 		// Crea una ObservableList de productos y añádela al TableView
 		ObservableList<Customer> usuarioso = FXCollections.observableArrayList(usuarios);
 		idTableViewClientes.setItems(usuarioso);
-		
+
 	}
 
 }

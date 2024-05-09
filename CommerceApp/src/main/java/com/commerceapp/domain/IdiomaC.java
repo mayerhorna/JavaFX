@@ -74,7 +74,7 @@ import javax.xml.xpath.XPathFactory;
 
 public class IdiomaC {
 	private static final Logger logger = Logger.getLogger(IdiomaC.class.getName());
-	public static final String kPrefijoFicheroAyuda = "Legalia2HLP";
+	public static final String kPrefijoFicheroAyuda = "AyudaCAPP";
 	public static final String kFormatoFicheroAyuda = ".pdf";
 
 	public enum EnumMensajes {

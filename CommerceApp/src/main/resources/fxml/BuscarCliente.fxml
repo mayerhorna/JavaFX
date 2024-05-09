@@ -9,7 +9,7 @@
 
 <VBox fx:id="frmBusquedaClientes" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.commerceapp.controller.BuscarClienteController">
    <children>
-      <TextField fx:id="txtBusquedaCliente" alignment="CENTER">
+      <TextField fx:id="txtBusquedaCliente" alignment="CENTER" promptText="Buscar por Nombre">
          <VBox.margin>
             <Insets left="20.0" right="100.0" top="20.0" />
          </VBox.margin>

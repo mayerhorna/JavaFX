@@ -1,108 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane fx:id="frmAcercaDe" onKeyPressed="#atajoVerUrlCentral" prefHeight="504.0" prefWidth="623.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.commerceapp.controller.AcercaDeController">
-	<children>
-		<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-			<children>
-				<HBox alignment="CENTER_LEFT" prefHeight="397.0" prefWidth="623.0" spacing="30.0">
-					<children>
-						<Button fx:id="btnColegio" mnemonicParsing="false" onAction="#pbxColegio_Click" prefHeight="206.0" prefWidth="262.0" style="-fx-background-color: trasnparent;">
-							<graphic>
-								<ImageView fitHeight="141.0" fitWidth="244.0" pickOnBounds="true" preserveRatio="true">
-									<image>
-										<Image url="@../imagenes/Logo_REG.jpg" />
-									</image>
-									<cursor>
-										<Cursor fx:constant="HAND" />
-									</cursor>
-								</ImageView>
-							</graphic>
-							<HBox.margin>
-								<Insets left="20.0" />
-							</HBox.margin>
-							<cursor>
-								<Cursor fx:constant="OPEN_HAND" />
-							</cursor>
-						</Button>
-						<TextArea fx:id="txtDescripcion" editable="false" prefHeight="235.0" prefWidth="299.0" wrapText="true">
-							<HBox.margin>
-								<Insets bottom="10.0" right="10.0" top="20.0" />
-							</HBox.margin>
-							<cursor>
-								<Cursor fx:constant="NONE" />
-							</cursor>
-						</TextArea>
-					</children>
-				</HBox>
-				<HBox>
-					<children>
-						<Pane prefHeight="370.0" prefWidth="623.0" style="-fx-background-color: orange;">
-							<children>
-								<Label fx:id="lblCopyright" layoutX="57.0" layoutY="155.0">
-									<font>
-										<Font name="System Bold" size="18.0" />
-									</font>
-								</Label>
-								<Label fx:id="lblVersion" layoutX="57.0" layoutY="191.0" text="lblVersion">
-									<font>
-										<Font name="System Bold" size="18.0" />
-									</font>
-								</Label>
-								<HBox prefHeight="172.0" prefWidth="600.0" spacing="50.0">
-									<children>
-										<Button fx:id="botonTrade" mnemonicParsing="false" onAction="#pbx3eTrade_Click" style="-fx-background-color: transparent;">
-											<graphic>
-												<ImageView fx:id="botonTrade" fitHeight="101.0" fitWidth="278.0" pickOnBounds="true" preserveRatio="true">
-													<image>
-														<Image url="@../imagenes/Logotipo3.jpg" />
-													</image>
-													<cursor>
-														<Cursor fx:constant="HAND" />
-													</cursor>
-												</ImageView>
-											</graphic>
-											<cursor>
-												<Cursor fx:constant="OPEN_HAND" />
-											</cursor>
-										</Button>
-										<Button fx:id="botonSIP" mnemonicParsing="false" onAction="#pbxSip_Click" style="-fx-background-color: transparent;">
-											<graphic>
-												<ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-													<image>
-														<Image url="@../imagenes/LogotipoSIPTecnologiasEmpresariales.jpg" />
-													</image>
-													<cursor>
-														<Cursor fx:constant="HAND" />
-													</cursor>
-												</ImageView>
-											</graphic>
-											<cursor>
-												<Cursor fx:constant="OPEN_HAND" />
-											</cursor>
-										</Button>
-									</children>
-									<padding>
-										<Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-									</padding>
-								</HBox>
-							</children>
-						</Pane>
-					</children>
-				</HBox>
-			</children>
-		</VBox>
-	</children>
+<AnchorPane fx:id="frmAcercaDe" onKeyPressed="#atajoVerUrlCentral" prefHeight="220.0" prefWidth="623.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.commerceapp.controller.AcercaDeController">
+   <children>
+      <GridPane layoutX="18.0" layoutY="12.0" prefHeight="224.0" prefWidth="623.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="304.0" minWidth="10.0" prefWidth="239.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="384.0" minWidth="10.0" prefWidth="384.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextArea fx:id="txtDescripcion" editable="false" wrapText="true" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </GridPane.margin>
+            </TextArea>
+            <ImageView fitHeight="166.0" fitWidth="244.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../imagenes/LogoECommerce.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
+            </ImageView>
+         </children>
+      </GridPane>
+   </children>
 </AnchorPane>

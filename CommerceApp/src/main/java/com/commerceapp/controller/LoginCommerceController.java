@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -58,6 +59,29 @@ public class LoginCommerceController implements Initializable {
 				}
 			});
 
+		});
+
+		frmLogin.setOnKeyPressed(event -> {
+			if (event.getCode() == KeyCode.ENTER) {
+				try {
+					MGeneral.Configuracion.objBaUser = objControllerBa_user
+							.buscarUsuarioPorCredenciales(loginCommerce.getText(), passCommerce.getText());
+					if (MGeneral.Configuracion.objBaUser != null) {
+
+						Stage stage = (Stage) frmLogin.getScene().getWindow(); // Me devuelve la ventana donde se
+																				// encuentra el elemento
+						stage.close();
+
+					} else {
+						MGeneral.Idioma.MostrarMensaje(EnumMensajes.UserPassIncorrectos, null, null, null);
+						loginCommerce.setText("");
+						passCommerce.setText("");
+						loginCommerce.requestFocus();
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		});
 	}
 

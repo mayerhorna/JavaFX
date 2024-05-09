@@ -132,7 +132,6 @@ public class CrearClientesController implements Initializable, NavigableControll
 
 	Utilidades objTimeline = new Utilidades();
 	// Utilizada en la función irACampoFoco
-	
 
 	private ArrayList<Customer> selectedClientes = new ArrayList<>();
 
@@ -140,54 +139,54 @@ public class CrearClientesController implements Initializable, NavigableControll
 
 	JPAControllerCustomer objJPAControllerCustomer;
 
-	 @FXML
-	    private GridPane PresentanteGB;
+	@FXML
+	private GridPane PresentanteGB;
 
-	    @FXML
-	    private AnchorPane anchorpaneEntradaDatos;
+	@FXML
+	private AnchorPane anchorpaneEntradaDatos;
 
-	    @FXML
-	    private Button btnBuscar;
+	@FXML
+	private Button btnBuscar;
 
-	    @FXML
-	    private Button btnNuevo;
+	@FXML
+	private Button btnNuevo;
 
-	    @FXML
-	    private HBox frmCrearClientes;
+	@FXML
+	private HBox frmCrearClientes;
 
-	    @FXML
-	    private Label gbxPresentante;
+	@FXML
+	private Label gbxPresentante;
 
-	    @FXML
-	    private TextField idCodigoCliente;
+	@FXML
+	private TextField idCodigoCliente;
 
-	    @FXML
-	    private TextField idDescuentoCliente;
+	@FXML
+	private TextField idDescuentoCliente;
 
-	    @FXML
-	    private Button idGuardarCliente;
+	@FXML
+	private Button idGuardarCliente;
 
-	    @FXML
-	    private TextField idNombreCliente;
+	@FXML
+	private TextField idNombreCliente;
 
-	    @FXML
-	    private TextField idNombreComercialCliente;
+	@FXML
+	private TextField idNombreComercialCliente;
 
-	    @FXML
-	    private VBox idVOBXprueba;
+	@FXML
+	private VBox idVOBXprueba;
 
-	    @FXML
-	    private ScrollPane idpruebascroll;
+	@FXML
+	private ScrollPane idpruebascroll;
 
-	    @FXML
-	    void buscarCliente(ActionEvent event) {
+	@FXML
+	void buscarCliente(ActionEvent event) {
 
-	    }
+	}
 
-	    @FXML
-	    void guardaCliente(ActionEvent event) {
+	@FXML
+	void guardaCliente(ActionEvent event) {
 
-	    }
+	}
 
 	public void setParentController(MenuPrincipalController parentController) {
 		this.parentController = parentController;
@@ -214,12 +213,8 @@ public class CrearClientesController implements Initializable, NavigableControll
 		objJPAControllerCustomer = new JPAControllerCustomer();
 		initializeControlsInOrderToNavigate();
 		registerKeyPressENTERInControlsToNavigate();
-		controlsInOrderToNavigate = new Control[] { };
+		controlsInOrderToNavigate = new Control[] {};
 
-		
-
-		
-	
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
@@ -227,25 +222,21 @@ public class CrearClientesController implements Initializable, NavigableControll
 				pendienteGuardar = false;
 				primeraVez = true;
 
-				/*getParentController().getStagePrincipal().getScene().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-					if (event.getCode() == KeyCode.TAB) {
-						event.consume(); // Consumir el evento de teclado para evitar la navegación por TAB en todo el
-											// form
-					}
-				});*/
+				/*
+				 * getParentController().getStagePrincipal().getScene().addEventFilter(KeyEvent.
+				 * KEY_PRESSED, event -> { if (event.getCode() == KeyCode.TAB) {
+				 * event.consume(); // Consumir el evento de teclado para evitar la navegación
+				 * por TAB en todo el // form } });
+				 */
 
-				
-						
 			}
 		});
-
-		
 
 	}
 
 	@FXML
-    void aniadirCliente(ActionEvent event) {
-    	try {
+	void aniadirCliente(ActionEvent event) {
+		try {
 
 			if (!idCodigoCliente.getText().isEmpty()) {
 				if (!idNombreCliente.getText().isEmpty()) {
@@ -254,26 +245,28 @@ public class CrearClientesController implements Initializable, NavigableControll
 					objCliente.setCode(idCodigoCliente.getText());
 					objCliente.setName(idNombreCliente.getText());
 					objCliente.setCommercialName(idNombreComercialCliente.getText());
-					
-			       
-					objCliente.setFiscalNumber(idCodigoCliente.getText()+"-"+idNombreCliente.getText());
-			        
-					BigDecimal decimal = new BigDecimal(idDescuentoCliente.getText());
-					objCliente.setDiscountProduct(decimal);
-					
+
+					objCliente.setFiscalNumber(idCodigoCliente.getText() + "-" + idNombreCliente.getText());
+
+					if (!idDescuentoCliente.getText().isEmpty()) {
+
+						BigDecimal decimal = new BigDecimal(idDescuentoCliente.getText());
+						objCliente.setDiscountProduct(decimal);
+					}else {
+						objCliente.setDiscountProduct(new BigDecimal(0));
+					}
 					objCliente.setCreatedAt(LocalDateTime.now()); // Fecha y hora actual
-					objCliente.setUpdatedAt(LocalDateTime.now()); // 
-					
-					
+					objCliente.setUpdatedAt(LocalDateTime.now()); //
+
 					objJPAControllerCustomer.crearCliente(objCliente);
-					
+
 					idCodigoCliente.setText("");
 					idNombreCliente.setText("");
 					idNombreComercialCliente.setText("");
 					idDescuentoCliente.setText("");
-					//cargarClientes();
-					//deshabilitarHabilitarBotonesCreacionCliente(false);
-					//validacionesTextfieldsObligatorias(false);
+					// cargarClientes();
+					// deshabilitarHabilitarBotonesCreacionCliente(false);
+					// validacionesTextfieldsObligatorias(false);
 				} else {
 					IdiomaC.MostrarMensaje(EnumMensajes.CampoObligatorio, "Nombre Usuario", "", "");
 				}
@@ -283,19 +276,11 @@ public class CrearClientesController implements Initializable, NavigableControll
 		} catch (Exception ex) {
 			IdiomaC.MostrarMensaje(EnumMensajes.Excepcion, ex.toString(), "", "");
 		}
-    }
-	
-
-	
-
-	private void rellenarCampos() {
-		
-
 	}
 
+	private void rellenarCampos() {
 
-
-	
+	}
 
 	public LocalDate convertirAFecha(String fechaString) {
 		List<DateTimeFormatter> formateadores = Arrays.asList(DateTimeFormatter.ofPattern("ddMMyyyy"),
@@ -358,7 +343,6 @@ public class CrearClientesController implements Initializable, NavigableControll
 		boolean guardado = true;
 
 		try {
-		
 
 			guardarDatosLegalizacion();
 
@@ -417,8 +401,6 @@ public class CrearClientesController implements Initializable, NavigableControll
 		}
 	}
 
-	
-
 	@Override
 	public void initializeControlsInOrderToNavigate() {
 		controlsInOrderToNavigate = new Control[] {}; // TODO Auto-generated method
@@ -434,7 +416,7 @@ public class CrearClientesController implements Initializable, NavigableControll
 
 	public void setPvc(PedidoVentaController pedidoVentaController) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

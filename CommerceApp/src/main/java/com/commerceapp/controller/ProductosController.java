@@ -199,8 +199,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 	@FXML
 	private Button idGuardarProductoButton;
-	
-
 
 	@FXML
 	private CustomCombobox<String> idFamiliaProducto;
@@ -361,194 +359,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 	}
 
-	public void activacionIconosBarra(EnumActivacionIconos activacion) {
-		switch (activacion) {
-
-		case HayLegalizacionCargada:
-
-			// Iconos no dependientes de que una legalizacion esté cargada
-			parentController.NuevoToolStrip.setDisable(false);
-			parentController.SubItemNuevo.setDisable(false);
-			parentController.OpenToolStripButton.setDisable(false);
-			parentController.SubItemAbrir.setDisable(false);
-			parentController.ImportarToolStripButton.setDisable(false);
-			parentController.SubItemImportar.setDisable(false);
-			parentController.EncriptarOtrosFicherosToolStripMenuItem.setDisable(false);
-			parentController.ConfiguracionToolStripMenuItem.setDisable(false);
-
-			try {
-				switch (MGeneral.mlform.getModo()) {
-
-				case Normal:
-
-					parentController.EspecificarLibrosToolStripButton.setDisable(false);
-					parentController.EspecificarLibrosToolStripMenuItem.setDisable(false);
-					parentController.SubItemCerrar.setDisable(false);
-					parentController.SubItemComprobarReglas.setDisable(false);
-					parentController.ComprobarReglasToolStrip.setDisable(false);
-					parentController.SubItemImprimir.setDisable(false);
-					parentController.ToolStripButtonImprimir.setDisable(false);
-					parentController.GenerarZipToolStrip.setDisable(false);
-					parentController.SubItemGenerarZip.setDisable(false);
-					parentController.EnviarToolStrip.setDisable(false);
-					parentController.SubItemEnviar.setDisable(false);
-
-					parentController.DatosLegalizacionStripMenuItem.setDisable(false);
-					parentController.VerHuellasDeLosLibrosToolStripMenuItem.setDisable(false);
-					// parentController.EncriptarTodosLosLibrosToolStripMenuItem.setDisable(false);
-					parentController.MenuPrincipal.setDisable(false);
-
-					/*
-					 * gbxEntidadEmpresario.setDisable(false); gbxPresentante.setDisable(false);
-					 * cboRegistroMercantil.setDisable(false);
-					 */
-					break;
-
-				case Recepcion:
-
-					parentController.EspecificarLibrosToolStripButton.setDisable(false);
-					parentController.EspecificarLibrosToolStripMenuItem.setDisable(false);
-					parentController.SubItemCerrar.setDisable(false);
-					parentController.SubItemComprobarReglas.setDisable(false);
-					parentController.ComprobarReglasToolStrip.setDisable(false);
-					parentController.SubItemImprimir.setDisable(true);
-					parentController.ToolStripButtonImprimir.setDisable(true);
-					parentController.GenerarZipToolStrip.setDisable(true);
-					parentController.SubItemGenerarZip.setDisable(true);
-					parentController.EnviarToolStrip.setDisable(true);
-					parentController.SubItemEnviar.setDisable(true);
-					parentController.DatosLegalizacionStripMenuItem.setDisable(true);
-					parentController.VerHuellasDeLosLibrosToolStripMenuItem.setDisable(true);
-					// EncriptarTodosLosLibrosToolStripMenuItem.setDisable(true);
-					parentController.MenuPrincipal.setDisable(false);
-
-					EntidadEmpresarioGB.setDisable(true);
-					PresentanteGB.setDisable(true);
-
-					gbxEntidadEmpresario.setDisable(true);
-					gbxPresentante.setDisable(true);
-
-					break;
-
-				case SoloLectura, SoloReenviar:
-
-					parentController.EspecificarLibrosToolStripButton.setDisable(false);
-					parentController.EspecificarLibrosToolStripMenuItem.setDisable(false);
-					parentController.SubItemCerrar.setDisable(false);
-					parentController.SubItemComprobarReglas.setDisable(false);
-					parentController.ComprobarReglasToolStrip.setDisable(false);
-					parentController.SubItemImprimir.setDisable(false);
-
-					parentController.ToolStripButtonImprimir.setDisable(false);
-					parentController.GenerarZipToolStrip.setDisable(true);
-					parentController.SubItemGenerarZip.setDisable(true);
-
-					switch (MGeneral.mlform.getModo()) {
-					case SoloLectura:
-						parentController.EnviarToolStrip.setDisable(true);
-						parentController.SubItemEnviar.setDisable(true);
-
-						break;
-					case SoloReenviar:
-						parentController.EnviarToolStrip.setDisable(false);
-						parentController.SubItemEnviar.setDisable(false);
-						break;
-					}
-
-					parentController.DatosLegalizacionStripMenuItem.setDisable(false);
-					parentController.VerHuellasDeLosLibrosToolStripMenuItem.setDisable(false);
-					// parentController.EncriptarTodosLosLibrosToolStripMenuItem.setDisable(true);
-					parentController.MenuPrincipal.setDisable(false);
-
-					EntidadEmpresarioGB.setDisable(true);
-					PresentanteGB.setDisable(true);
-					gbxEntidadEmpresario.setDisable(true);
-					gbxPresentante.setDisable(true);
-
-					break;
-
-				default:
-					break;
-				}
-				break;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		case NoHayLegalizacionCargada:
-
-			// Iconos dependientes de que una legalizacion o una recepcion esté cargada
-			parentController.EspecificarLibrosToolStripButton.setDisable(true);
-			parentController.EspecificarLibrosToolStripMenuItem.setDisable(true);
-			parentController.SubItemCerrar.setDisable(true);
-			parentController.SubItemComprobarReglas.setDisable(true);
-			parentController.ComprobarReglasToolStrip.setDisable(true);
-			parentController.SubItemImprimir.setDisable(true);
-			parentController.ToolStripButtonImprimir.setDisable(true);
-			parentController.GenerarZipToolStrip.setDisable(true);
-			parentController.SubItemGenerarZip.setDisable(true);
-			parentController.EnviarToolStrip.setDisable(true);
-
-			// Iconos no dependientes de que una legalizacion esté cargada
-			parentController.SubItemEnviar.setDisable(true);
-			parentController.DatosLegalizacionStripMenuItem.setDisable(true);
-
-			parentController.VerHuellasDeLosLibrosToolStripMenuItem.setDisable(true);
-			// EncriptarTodosLosLibrosToolStripMenuItem.setDisable(true);
-			parentController.NuevoToolStrip.setDisable(false);
-			parentController.SubItemNuevo.setDisable(false);
-
-			parentController.OpenToolStripButton.setDisable(false);
-			parentController.SubItemAbrir.setDisable(false);
-			parentController.ImportarToolStripButton.setDisable(false);
-			parentController.SubItemImportar.setDisable(false);
-			parentController.EncriptarOtrosFicherosToolStripMenuItem.setDisable(false);
-			parentController.ConfiguracionToolStripMenuItem.setDisable(false);
-			parentController.MenuPrincipal.setDisable(false);
-
-			/*
-			 * gbxEntidadEmpresario.setDisable(true); gbxPresentante.setDisable(true);
-			 * cboRegistroMercantil.setDisable(true);
-			 */
-
-			break;
-
-		case DesactivarTodo:
-
-			// Iconos dependientes de que una legalizacion esté cargada
-			parentController.EspecificarLibrosToolStripButton.setDisable(true);
-			parentController.EspecificarLibrosToolStripMenuItem.setDisable(true);
-			parentController.SubItemCerrar.setDisable(true);
-			parentController.SubItemComprobarReglas.setDisable(true);
-			parentController.ComprobarReglasToolStrip.setDisable(true);
-			parentController.SubItemImprimir.setDisable(true);
-			parentController.ToolStripButtonImprimir.setDisable(true);
-			parentController.GenerarZipToolStrip.setDisable(true);
-			parentController.SubItemGenerarZip.setDisable(true);
-			parentController.EnviarToolStrip.setDisable(true);
-
-			// Iconos no dependientes de que una legalizacion esté cargada
-			parentController.SubItemEnviar.setDisable(true);
-			parentController.DatosLegalizacionStripMenuItem.setDisable(true);
-			parentController.VerHuellasDeLosLibrosToolStripMenuItem.setDisable(true);
-			// EncriptarTodosLosLibrosToolStripMenuItem.setDisable(true);
-			parentController.NuevoToolStrip.setDisable(true);
-
-			parentController.SubItemNuevo.setDisable(true);
-			parentController.OpenToolStripButton.setDisable(true);
-			parentController.SubItemAbrir.setDisable(true);
-			parentController.ImportarToolStripButton.setDisable(true);
-			parentController.SubItemImportar.setDisable(true);
-			parentController.EncriptarOtrosFicherosToolStripMenuItem.setDisable(true);
-			parentController.ConfiguracionToolStripMenuItem.setDisable(true);
-			parentController.MenuPrincipal.setDisable(true);
-			/*
-			 * gbxEntidadEmpresario.setDisable(true); gbxPresentante.setDisable(true);
-			 * cboRegistroMercantil.setDisable(true);
-			 */
-			break;
-		}
-	}
-
 	public void validarTextChangesGuardar(boolean aux) {
 		// Crear un AtomicBoolean para rastrear si se han realizado cambios
 		AtomicBoolean cambiosRealizados = new AtomicBoolean(false);
@@ -578,6 +388,17 @@ public class ProductosController implements Initializable, NavigableControllerHe
 						}
 					});
 				}
+			} else if (controlsInOrderToNavigate[i] instanceof TextArea) {
+				TextArea controlfinal = (TextArea) controlsInOrderToNavigate[i];
+				String originalValue = selectedProducts.get(0).getCode(); // Guardar valor original
+				controlfinal.textProperty().addListener((observable, oldValue, newValue) -> {
+					// Verificar si hay un cambio en el campo
+					if (!newValue.equalsIgnoreCase(originalValue)) {
+						cambiosRealizados.set(true);
+						// Establecer el botón de guardar en consecuencia
+						setPendienteGuardar(aux);
+					}
+				});
 			}
 		}
 
@@ -909,112 +730,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 		return true;
 	}
 
-	public void operacion(EnumTipoOperacion tipoOperacion) {
-
-		try {
-			if (!guardar(true, true)) {
-
-				return;
-			}
-			Utilidades.cursorEspera(getParentController().getStagePrincipal(), true);
-			MGeneral.mlform.iniciarProgressBar(parentController.StatusProgressBar);
-
-			// Para el modo Recepción, solo se puede imprimir
-			if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.Recepcion) {
-
-				if (tipoOperacion == EnumTipoOperacion.Imprimir) {
-					// ReportePreviewService reportDiagnostico = new ReportePreviewService();
-					// reportDiagnostico.cargarReporteDiagnostico();
-				}
-
-				return;
-			}
-
-			if (!validarTodosLosControles(frmEntradaDatos, false, false)) {
-
-				return;
-			}
-
-			kLegalizacion.enumResultadoValidacion resul;
-			resul = MGeneral.mlform.valida();
-
-			if (resul == kLegalizacion.enumResultadoValidacion.NoValida) {
-				validar(false);
-
-				return;
-			}
-
-			if (resul == kLegalizacion.enumResultadoValidacion.ValidaConAvisos) {
-				if (!MGeneral.Idioma.MostrarMensaje(IdiomaC.EnumMensajes.ExistenErroresSecundarios, "", "", "")) {
-					validar(false);
-
-					return;
-				}
-
-			}
-
-			LegalizacionService.EnumResultadoZip resulZip = null;
-
-			switch (tipoOperacion) {
-			case GenerarZip:
-				// getParentController().StatusProgressBar;
-				if (MGeneral.mlform.getModo() == LegalizacionService.EnumModo.SoloLectura
-						|| MGeneral.mlform.getModo() == LegalizacionService.EnumModo.SoloReenviar) {
-
-					return;
-				}
-				File ficheroZip = new File(MGeneral.mlform.getPathFicheroZip());
-				if (!ficheroZip.isDirectory()) {
-					if (ficheroZip.exists()) {
-
-						IdiomaC.MostrarMensaje(EnumMensajes.ZIPYaExiste, "", "", "");
-
-						if (!IdiomaC.MostrarMensaje(EnumMensajes.FicheroZipYaGenerado, "", "", "")) {
-							return;
-						}
-
-					}
-				}
-
-				// Utilidades.cursorEsperaJavaFX(getParentController().getStagePrincipal(),
-				// true, Duration.INDEFINITE);
-
-				resulZip = MGeneral.mlform.generarZip("");
-
-				if (resulZip == LegalizacionService.EnumResultadoZip.Correcto) {
-					if (!MGeneral.mlform.generaInstancia()) {
-
-						return;
-					}
-
-				}
-				// Utilidades.cursorEsperaJavaFX(getParentController().getStagePrincipal(),
-				// false, Duration.ZERO);
-
-				// getParentController().StatusProgressBar;
-
-				activacionIconosBarra(EnumActivacionIconos.DesactivarTodo);
-
-				Ficheros.FicheroBorra(MGeneral.mlform.getPathFicheroInstancia());
-
-				break;
-
-			default:
-				break;
-			}
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			MGeneral.Idioma.MostrarMensaje(IdiomaC.EnumMensajes.Excepcion, ex.getMessage(), "", "");
-		} finally {
-			activacionIconosBarra(EnumActivacionIconos.HayLegalizacionCargada);
-			// MGeneral.mlform.getVProgreso().finaliza();
-			// estado("");
-			Utilidades.cursorEspera(getParentController().getStagePrincipal(), false);
-
-		}
-	}
-
 	public void validar(boolean msjValidar) {
 
 	}
@@ -1080,40 +795,6 @@ public class ProductosController implements Initializable, NavigableControllerHe
 
 	public void evSoloNumerosInterfaz(KeyEvent event) {
 		Utilidades.evSoloNumeros(null, event);
-	}
-
-	public void abrirRecepcion(String pathDatos, String identificadorEntrada) {
-		try {
-
-			pendienteGuardar = false;
-
-			activacionIconosBarra(EnumActivacionIconos.DesactivarTodo);
-
-			MGeneral.mlform = new LegalizacionService(true, LegalizacionService.EnumModo.Recepcion);
-
-			MGeneral.mlform.carga(pathDatos);
-
-			MGeneral.mlform.Datos.set_IdentificadorEntrada(identificadorEntrada);
-
-			MGeneral.mlform.Datos.setFormato(kLegalizacion.enumFormato.Legalia2);
-
-			if (!MGeneral.mlform.validarEstructura()) {
-				return;
-			}
-
-			// Cargar datos de presentación
-
-			pendienteGuardar = false;
-			// Establecer el título
-			getParentController().establecerTitulo();
-
-			activacionIconosBarra(EnumActivacionIconos.HayLegalizacionCargada);
-
-		} catch (Exception ex) {
-			// Mostrar mensaje de error
-			// MGeneral.Idioma.MostrarMensaje(IdiomaC.EnumMensajes.Excepcion,
-			// ex.getMessage(), "", "");
-		}
 	}
 
 	@Override

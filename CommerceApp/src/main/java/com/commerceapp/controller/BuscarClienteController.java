@@ -131,6 +131,22 @@ public class BuscarClienteController implements Initializable, NavigableControll
 		txtBusquedaCliente.textProperty().addListener((observable, oldValue, newValue) -> {
 			buscarClientes(newValue);
 		});
+		tblClientes.setOnKeyPressed(event -> {
+	        if (event.getCode() == KeyCode.ENTER) {
+	            Customer selectedItem = tblClientes.getSelectionModel().getSelectedItem();
+	            if (selectedItem != null) {
+	                try {
+	                    pvc.ponerClienteDesdeVentana(selectedItem.getName());
+	                    pvc.idobjCliente = selectedItem.getId();
+	                    pvc.nombreComercialCliente = selectedItem.getCommercialName();
+	                    Stage stage = (Stage) tblClientes.getScene().getWindow();
+	                    stage.close();
+	                } catch (Exception e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        }
+	    });
 
 	}
 

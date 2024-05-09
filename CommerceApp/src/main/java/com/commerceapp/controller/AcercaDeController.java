@@ -27,18 +27,10 @@ public class AcercaDeController implements Initializable {
 	@FXML
 	Pane frmAcercaDe;
 
-	@FXML
-	Label lblVersion;
-
-	@FXML
-	Label lblCopyright;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		lblVersion.setText(lblVersion.getText() + " " + MGeneral.Configuracion.getVersion());
-		String companyAttr = MGeneral.Configuracion.getAssemblycompanyattribute();
-		String copyrtAttr = MGeneral.Configuracion.getAssemblycopyrightattribute();
-		lblCopyright.setText(companyAttr + " " + copyrtAttr);
+
 
 	}
 

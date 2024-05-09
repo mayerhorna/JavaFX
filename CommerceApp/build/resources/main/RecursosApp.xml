@@ -201,6 +201,21 @@ Inclusión del saltos de línea en los textos
         </TextControles>
       </frmBusquedaProductos>
 
+      
+      <frmBusquedaPedidos>
+        <Text>Busqueda de pedidos</Text>
+        <TextControles>
+    <lblPedidos>Lista de Pedidos</lblPedidos>
+        </TextControles>
+      </frmBusquedaPedidos>
+
+        <frmCrearCliente>
+        <Text>Crear Cliente</Text>
+        <TextControles>
+    
+        </TextControles>
+      </frmCrearCliente>
+
        <frmBusquedaClientes>
         <Text>Busqueda de clientes</Text>
         <TextControles>
@@ -438,8 +453,8 @@ Inclusión del saltos de línea en los textos
      <frmAcercaDe>
        <Text>Acerca de CommerceApp</Text>                    
        <TextControles>
-         <lblVersion>Programa Legalia MP - Versión</lblVersion>
-         <txtDescripcion>Colegio de Registradores de la Propiedad y Mercantiles de España/crlf/crlfPrograma que facilita, a todas las empresas españolas, la correcta cumplimentación de los diferentes libros para su legalización en el Registro Mercantil correspondiente, en formato digital para una mayor comodidad y seguridad en la presentación.</txtDescripcion>
+         
+         <txtDescripcion>CommerceApp es una aplicacion demo de un punto de Venta desarrollado con MySql, Hibernate, JavaFX y Spring.</txtDescripcion>
        </TextControles>       
      </frmAcercaDe>
 

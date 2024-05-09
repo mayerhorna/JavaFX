@@ -33,6 +33,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,6 +52,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -150,6 +152,10 @@ public class PedidoVentaController implements Initializable {
 	private Label idLabelUser;
 	@FXML
 	private Button idConfirmarPedido;
+	@FXML
+	private GridPane GDPedidoDetalle;
+	@FXML
+	private GridPane GDPedido;
 
 	@FXML
 	HBox frmVenta;
@@ -349,7 +355,7 @@ public class PedidoVentaController implements Initializable {
 			// quitando iconos
 			stage.getIcons().clear();
 			stage.setScene(scene);
-			// MGeneral.Idioma.cargarIdiomaControles(stage, null);
+			MGeneral.Idioma.cargarIdiomaControles(stage, null);
 			// objAcerController.initialize(null, null);
 			stage.showAndWait();
 
@@ -384,7 +390,43 @@ public class PedidoVentaController implements Initializable {
 	@FXML
 	public void imprimirRecibo(ActionEvent e) throws Exception {
 
-		ReportingPreviewService.generarReporteReciboVenta();
+		Task<Boolean> taskImprimir = new Task<Boolean>() {
+			@Override
+			protected Boolean call() throws Exception {
+				try {
+					activacionIconosBarra(EnumActivacionIconos.DesactivarTodo);
+					return ReportingPreviewService.generarReporteReciboVenta();
+
+				} catch (Exception e) {
+					e.printStackTrace();
+					// En caso de excepción, devolvemos false
+					return false;
+				}
+			}
+		};
+
+		getMpc().StatusProgressBar.setVisible(true);
+		getMpc().StatusProgressBar.progressProperty().bind(taskImprimir.progressProperty());
+
+		taskImprimir.setOnSucceeded(ei -> {
+
+			if (taskImprimir.getValue() == true) {
+
+				try {
+
+					getMpc().StatusProgressBar.progressProperty().unbind();
+					getMpc().StatusProgressBar.setProgress(0.0);
+					getMpc().StatusProgressBar.setVisible(false);
+
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				} finally {
+					activacionIconosBarra(EnumActivacionIconos.HayUnpedidoCargado);
+				}
+			}
+
+		});
+		new Thread(taskImprimir).start();
 
 	}
 
@@ -458,7 +500,7 @@ public class PedidoVentaController implements Initializable {
 			// quitando iconos
 			stage.getIcons().clear();
 			stage.setScene(scene);
-			// MGeneral.Idioma.cargarIdiomaControles(stage, null);
+			MGeneral.Idioma.cargarIdiomaControles(stage, null);
 			// objAcerController.initialize(null, null);
 			stage.showAndWait();
 
@@ -567,6 +609,40 @@ public class PedidoVentaController implements Initializable {
 		}
 
 		return valoresTabla;
+	}
+
+	public enum EnumActivacionIconos {
+		HayUnpedidoCargado(1), NoHayUnpedidoCargado(2), DesactivarTodo(3);
+
+		private final int value;
+
+		EnumActivacionIconos(int value) {
+			this.value = value;
+		}
+
+		public int getValue() {
+			return value;
+		}
+	}
+
+	public void activacionIconosBarra(EnumActivacionIconos activacion) {
+		switch (activacion) {
+
+		case HayUnpedidoCargado:
+			GDPedido.setDisable(false);
+			GDPedidoDetalle.setDisable(false);
+			getMpc().MenuPrincipal.setDisable(false);
+			break;
+		case NoHayUnpedidoCargado:
+			GDPedido.setDisable(true);
+			GDPedidoDetalle.setDisable(true);
+			break;
+		case DesactivarTodo:
+			GDPedido.setDisable(true);
+			GDPedidoDetalle.setDisable(true);
+			getMpc().MenuPrincipal.setDisable(true);
+			break;
+		}
 	}
 
 }

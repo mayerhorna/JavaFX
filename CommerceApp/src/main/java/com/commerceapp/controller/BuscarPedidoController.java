@@ -106,7 +106,7 @@ public class BuscarPedidoController implements Initializable, NavigableControlle
 
 						TsSaleOrder objAuxtsSaleOrder = objTsSaleOrder.leerOrdenVenta(rowData.getTs_sale_order_id());
 						Customer objAuxCliente = objCustomer.leerCliente((int) objAuxtsSaleOrder.getBa_customer_id());
-						pvc.nombreComercialCliente=objAuxCliente.getCommercialName();
+						pvc.nombreComercialCliente = objAuxCliente.getCommercialName();
 						pvc.ponerDetallePedido(rowData.getTs_sale_order_id());
 
 						Node source = (Node) event.getSource();
@@ -154,18 +154,24 @@ public class BuscarPedidoController implements Initializable, NavigableControlle
 				}
 			}
 		});
-		txtBusquedaCliente.textProperty().addListener((observable, oldValue, newValue) -> {
-			buscarClientes(newValue);
+		tblClientes.setOnKeyPressed(event -> {
+			if (event.getCode() == KeyCode.ENTER) {
+				TsSaleOrder selectedItem = tblClientes.getSelectionModel().getSelectedItem();
+				if (selectedItem != null) {
+					try {
+						TsSaleOrder objAuxtsSaleOrder = objTsSaleOrder
+								.leerOrdenVenta(selectedItem.getTs_sale_order_id());
+						Customer objAuxCliente = objCustomer.leerCliente((int) objAuxtsSaleOrder.getBa_customer_id());
+						pvc.nombreComercialCliente = objAuxCliente.getCommercialName();
+						pvc.ponerDetallePedido(selectedItem.getTs_sale_order_id());
+						Stage stage = (Stage) tblClientes.getScene().getWindow();
+						stage.close();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
 		});
-
-	}
-
-	private void buscarClientes(String searchText) {
-		JPAControllerCustomer controller = new JPAControllerCustomer();
-		List<Customer> clientes = controller.buscarClientePorNombre(searchText);
-
-		ObservableList<Customer> clientesList = FXCollections.observableArrayList(clientes);
-		// tblClientes.setItems(clientesList);
 
 	}
 

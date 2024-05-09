@@ -28,6 +28,7 @@ import com.commerceapp.domain.IdiomaC.AyudaUtils;
 import com.commerceapp.domain.IdiomaC.EnumMensajes;
 import com.commerceapp.domain.legalizacion.kLegalizacion;
 
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -211,7 +212,6 @@ public class PedidoVentaController implements Initializable {
 		idLabelUser.setText("Usuario: " + objbus.getName());
 		txtProducto.requestFocus();
 		iniciarValidaciones();
-		MGeneral.mlform.objDtosRecibo.objListaProduc.clear();
 
 	}
 
@@ -234,13 +234,15 @@ public class PedidoVentaController implements Initializable {
 		MGeneral.mlform.objDtosRecibo.setNombreCliente(txtCliente.getText());
 		MGeneral.mlform.objDtosRecibo.setDocumentoCliente(nombreComercialCliente);
 		List<TsSaleOrderLine> valoresTabla = obtenerValoresTabla(Integer.parseInt(txtPedidoVenta.getText()));
-
+		double totalApagar = 0;
 		for (int i = 0; i < valoresTabla.size(); i++) {
 			MGeneral.mlform.objDtosRecibo.objListaProduc.add(new ReportReciboData(valoresTabla.get(i).getName(),
 					String.valueOf(valoresTabla.get(i).getPrice_with_tax()), String.valueOf(i + 1),
 					valoresTabla.get(i).getQuantity().toString()));
+			totalApagar += valoresTabla.get(i).getPrice_with_tax();
 		}
-		MGeneral.mlform.objDtosRecibo.setTotalapagar(txtTotal.getText());
+
+		MGeneral.mlform.objDtosRecibo.setTotalapagar(String.valueOf(totalApagar));
 	}
 
 	private void iniciarValidaciones() {
@@ -248,11 +250,13 @@ public class PedidoVentaController implements Initializable {
 			if (!newValue.isEmpty()) {
 				btnImprimir.setDisable(newValue.isEmpty());
 				idBotonEliminarPedido.setDisable(newValue.isEmpty());
+				MGeneral.mlform.objDtosRecibo.objListaProduc.clear();
+				guardarDatosReciboVenta();
 			} else {
 				btnImprimir.setDisable(!newValue.isEmpty());
 				idBotonEliminarPedido.setDisable(!newValue.isEmpty());
 			}
-			guardarDatosReciboVenta();
+
 		});
 		tblVenta.getItems()
 				.addListener((ListChangeListener.Change<? extends BusquedaProductosController.VentaModelo> c) -> {
@@ -357,11 +361,17 @@ public class PedidoVentaController implements Initializable {
 
 	@FXML
 	public void eliminarPedido(ActionEvent e) throws Exception {
+
 		if (IdiomaC.MostrarMensaje(EnumMensajes.AvisoEliminarPedido, null, null, null)) {
-			int idOrder = objTsSaleOrder.obtenerIdOrdenVentaPorCodigo(txtPedidoVenta.getText());
-			objTsSaleOrderLine.eliminarLineasOrdenVentaPorId(idOrder);
-			objTsSaleOrder.eliminarOrdenVentaPorCodigo(txtPedidoVenta.getText());
-			generarNuevoPedido();
+			if (!txtPedidoVenta.getText().isEmpty()) {
+				int idOrder = 0;
+				idOrder = objTsSaleOrder.obtenerIdOrdenVentaPorCodigo(txtPedidoVenta.getText());
+
+				objTsSaleOrderLine.eliminarLineasOrdenVentaPorId(idOrder);
+				objTsSaleOrder.eliminarOrdenVentaPorCodigo(txtPedidoVenta.getText());
+				generarNuevoPedido();
+
+			}
 		}
 	}
 
@@ -373,13 +383,7 @@ public class PedidoVentaController implements Initializable {
 
 	@FXML
 	public void imprimirRecibo(ActionEvent e) throws Exception {
-		File directorioPDF = new File(MGeneral.Configuracion.getPathAuxiliar());
-		String nombrePDFAnterior = kLegalizacion.kNombreFicheroReciboVenta;
-		File pdfAnterior = new File(directorioPDF, nombrePDFAnterior);
 
-		if (pdfAnterior.exists()) {
-			pdfAnterior.delete();
-		}
 		ReportingPreviewService.generarReporteReciboVenta();
 
 	}
@@ -502,6 +506,7 @@ public class PedidoVentaController implements Initializable {
 			}
 
 			txtPedidoVenta.setText(pedidoCode);
+			idConfirmarPedido.setDisable(true);
 		}
 
 	}
@@ -514,18 +519,31 @@ public class PedidoVentaController implements Initializable {
 
 		for (TsSaleOrderLine saleOrderLine : detalles) {
 			String IdProd = String.valueOf(saleOrderLine.getTbProductId());
-			VentaModelo ventaViewModel = new VentaModelo(String.valueOf(saleOrderLine.getTbProductId()), // id
-					objProduct.buscarProductoPorID(IdProd).getCode(), // codigo
-					saleOrderLine.getName(), // producto
-					String.valueOf(saleOrderLine.getQuantity()), // cantidad
-					String.valueOf(saleOrderLine.getPrice_with_tax()), // precio
-					String.valueOf(saleOrderLine.getTotal_price_with_tax()) // total
-			);
+			VentaModelo ventaViewModel = new VentaModelo(String.valueOf(saleOrderLine.getQuantity()),
+					objProduct.buscarProductoPorID(IdProd).getCode(), String.valueOf(saleOrderLine.getTbProductId()),
+					String.valueOf(saleOrderLine.getPrice_with_tax()), saleOrderLine.getName(),
+					String.valueOf(saleOrderLine.getTotal_price_with_tax()));
 			ventaViewModels.add(ventaViewModel);
 		}
-		// Crea una ObservableList de productos y añádela al TableView
+
 		ObservableList<VentaModelo> detallesList = FXCollections.observableArrayList(ventaViewModels);
 		tblVenta.setItems(detallesList);
+
+		TsSaleOrder objAuxtsSaleOrder = objTsSaleOrder.leerOrdenVenta(id);
+		Customer objAuxCliente = objCustomer.leerCliente((int) objAuxtsSaleOrder.getBa_customer_id());
+
+		txtCliente.setText(objAuxCliente.getName());
+		TxtObservaciones.setText(objAuxtsSaleOrder.getObservation());
+		if (objAuxtsSaleOrder.getCode() == null) {
+			JPAControllerTsSaleOrder aux = new JPAControllerTsSaleOrder();
+			txtPedidoVenta.setText(aux.obtenerCodigoOrdenVentaPorId(id));
+		} else {
+			txtPedidoVenta.setText(objAuxtsSaleOrder.getCode());
+		}
+		recalcularTotal();
+
+		idConfirmarPedido.setDisable(true);
+
 	}
 
 	private List<TsSaleOrderLine> obtenerValoresTabla(int idPedido) {

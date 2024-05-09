@@ -126,8 +126,6 @@ public class BusquedaProductosController implements Initializable {
 	@FXML
 	private void manejarTeclaPresionada(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
-			// Aquí puedes poner el código que deseas ejecutar cuando se presiona "Enter" en
-			// el TextField
 
 			getPvc().tblVenta.getItems()
 					.add(new VentaModelo(idCantidadtxt.getText(), selectedProducts.get(0).getCode().toString(),
@@ -164,7 +162,7 @@ public class BusquedaProductosController implements Initializable {
 			this.total = new SimpleStringProperty(total);
 		}
 
-		// Métodos getter y setter para cada propiedad
+		
 
 		public String getCantidad() {
 			return cantidad.get();
